@@ -1,0 +1,69 @@
+format 76
+
+classcanvas 128042 class_ref 128042 // Administrateur
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 64 278 2000
+end
+usecasecanvas 128170 usecase_ref 128042 // Configurer
+  xyzwh 189 252 3005 64 32 label_xy 195 284
+end
+usecasecanvas 128426 usecase_ref 128298 // Visualiser
+  xyzwh 312 92 3005 64 32 label_xy 320 124
+end
+classcanvas 128810 class_ref 128298 // Exploitant
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 173 77 2000
+end
+classcanvas 133802 class_ref 128426 // Caméra
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 606 11 3011
+end
+classcanvas 134314 class_ref 142762 // EON
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 614 208 2000
+end
+classcanvas 134570 class_ref 142890 // Lecteur
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 611 116 3011
+end
+usecasecanvas 135082 usecase_ref 135082 // Communiquer RFID
+  xyzwh 476 140 3005 64 32 label_xy 468 178
+end
+usecasecanvas 135338 usecase_ref 135210 // Authentifier
+  xyzwh 328 187 3005 64 32 label_xy 327 216
+end
+usecasecanvas 136490 usecase_ref 135338 // Communiquer EON
+  xyzwh 508 248 3005 64 32 label_xy 496 280
+end
+usecasecanvas 136874 usecase_ref 135466 // Communiquer WebCam
+  xyzwh 478 41 3011 64 32 label_xy 455 73
+end
+fragment 137258 "Front End"
+  xyzwh 299 5 2000 300 299
+end
+fragment 137386 "back End"
+  xyzwh 170 178 2000 235 162
+end
+line 129066 --->
+  from ref 128042 z 3006 to ref 128170
+line 129194 --->
+  from ref 128426 z 3006 to ref 128810
+simplerelationcanvas 135210 simplerelation_ref 128042
+  from ref 128426 z 3006 stereotype "<<include>>" xyz 395 130 3000 to ref 135082
+end
+simplerelationcanvas 135594 simplerelation_ref 128170
+  from ref 128426 z 3006 stereotype "<<include>>" xyz 320 154 3000 to ref 135338
+end
+simplerelationcanvas 135722 simplerelation_ref 128298
+  from ref 128170 z 3006 stereotype "<<include>>" xyz 259 232 3000 to ref 135338
+end
+line 136106 ----
+  from ref 135082 z 3012 to ref 134570
+line 136746 ----
+  from ref 136490 z 3006 to ref 134314
+line 137002 ----
+  from ref 136874 z 3012 to ref 133802
+simplerelationcanvas 137130 simplerelation_ref 128426
+  from ref 136874 z 3012 stereotype "<<extend>>" xyz 398 80 3000 to ref 128426
+end
+end

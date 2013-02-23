@@ -1,0 +1,15 @@
+window_sizes 1366 706 320 960 512 82
+diagrams
+  usecasediagram_ref 128042 // UCDUtilisateurs
+    828 440 100 4 0 0
+  usecasediagram_ref 134570 // UCDCapteurs
+    828 440 100 4 0 0
+  active  collaborationdiagram_ref 128005 // Processus
+    828 440 100 4 0 0
+end
+show_stereotypes
+selected collaborationdiagram_ref 128005 // Processus
+open
+  usecaseview_ref 128042 // Général
+end
+end

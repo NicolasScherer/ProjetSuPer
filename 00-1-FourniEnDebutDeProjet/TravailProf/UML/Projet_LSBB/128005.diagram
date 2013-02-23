@@ -1,0 +1,16 @@
+format 76
+
+classinstancecanvas 128005 classinstance_ref 128005 // Lecteur1
+  xyz 121 94 2000
+end
+classinstancecanvas 128133 classinstance_ref 128133 // Lecteur2
+  xyz 313 94 2000
+end
+classinstancecanvas 128645 classinstance_ref 128261 // File1
+  xyz 231 179 2000
+end
+classinstancecanvas 128773 classinstance_ref 128389 // Analyse
+  xyz 217 275 2000
+end
+no_msg
+end

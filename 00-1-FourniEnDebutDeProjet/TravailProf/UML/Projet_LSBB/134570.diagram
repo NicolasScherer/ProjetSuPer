@@ -1,0 +1,46 @@
+format 76
+
+note 128005 "Développement C++ sous Linux avec Qt"
+  xyzwh 92 216 2000 105 65
+usecasecanvas 128042 usecase_ref 128426 // Analyser Caméra
+  xyzwh 239 160 3005 64 32 label_xy 230 193
+end
+classcanvas 128170 class_ref 128426 // Caméra
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 373 178 2000
+end
+classcanvas 128298 class_ref 128170 // BDD
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 53 123 2000
+end
+usecasecanvas 128426 usecase_ref 128170 // Acquérir capteur
+  xyzwh 241 57 3005 64 32 label_xy 233 90
+end
+classcanvas 128554 class_ref 128810 // Caméras
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 387 195 2000
+end
+classcanvas 128682 class_ref 128682 // Capteurs
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 371 53 2005
+end
+classcanvas 128810 class_ref 128554 // Capteur
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 359 42 2000
+end
+usecasecanvas 128938 usecase_ref 128554 // Analyser
+  xyzwh 77 23 3005 64 32 label_xy 88 56
+end
+line 129066 ---> decenter_end 444
+  from ref 128426 z 3006 to ref 128298
+line 129194 --->
+  from ref 128042 z 3006 to ref 128298
+line 129322 --->
+  from ref 128938 z 3006 to ref 128298
+line 129450 --->
+  from ref 128810 z 3006 to ref 128426
+line 129578 --->
+  from ref 128938 z 3006 stereotype "<<include>>" xyz 161 54 3000 to ref 128426
+line 129706 --->
+  from ref 128170 z 3006 to ref 128042
+end
