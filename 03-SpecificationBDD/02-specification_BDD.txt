@@ -1,0 +1,70 @@
+SPECIFICATION DE LA BASE DE DONNEES
+
+_________________
+POUR LA REVUE 1 :
+_________________
+
+Lecteur :
+(primaire) int num_lecteur
+(etrangere) int num_lieu
+string ip
+bool estConnecte
+
+Lieu :
+int num_lieu   ( pri -
+string legende   maire )
+
+Vue :
+(primaire) int num_vue
+string legende
+
+RepresentationLieuSurVue :
+(etrangere) int num_vue  ( pri -
+(etrangere) int num_lieu   maire )
+int x
+int y
+
+
+______________
+POUR PLUS TARD
+______________
+
+Badge :
+int numero
+bool pileFaible
+int intervaleEmission
+int sensibiliteMouvement
+bool activé
+? tempsPasséActif
+
+Lecteur :
+int numero
+string ip
+bool estConnecte
+? localisation
+
+? int port
+? string ipServeur
+? détectionMax
+
+
+Personne :
+string nom
+string prenom
+string société
+date débutMission
+date finMission
+
+Administrateur :
+[etrangere] int idPersonne
+string pseudo
+string motDePasse
+
+
+HistoriqueConnexion :
+[etrangere] int idPersonne
+date dateHeureConnexion
+
+
+Badge-Personne ?? :
+[ IdBadge, IdPersonne ] Unique
