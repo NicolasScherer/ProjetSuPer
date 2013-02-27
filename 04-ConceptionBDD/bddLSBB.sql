@@ -8,10 +8,10 @@ DROP TABLE IF EXISTS lecteur;
 
 CREATE TABLE lecteur
 (
-   num_lecteur	UNSIGNED INT,
-   num_lieu 	UNSIGNED INT UNIQUE,
-   ip		VARCHAR (15),
-   estConnecte	UNSIGNED TINYINT,
+   num_lecteur 	INT UNSIGNED 		NOT NULL,
+   num_lieu 	INT UNSIGNED UNIQUE	NOT NULL,
+   ip 		VARCHAR (15) UNIQUE	NOT NULL,
+   estConnecte 	TINYINT UNSIGNED	NOT NULL,
    
    PRIMARY KEY (num_lecteur)
    
@@ -22,8 +22,8 @@ DROP TABLE IF EXISTS lieu;
 
 CREATE TABLE lieu
 (
-   num_lieu	UNSIGNED INT,
-   legende	VARCHAR(50),
+   num_lieu	INT UNSIGNED 	NOT NULL,
+   legende	VARCHAR(50) 	NOT NULL,
    
    PRIMARY KEY (num_lieu, legende)
    
@@ -34,8 +34,8 @@ DROP TABLE IF EXISTS vue;
 
 CREATE TABLE vue
 (
-   num_vue	UNSIGNED INT,
-   legende	VARCHAR(50),
+   num_vue	INT UNSIGNED	NOT NULL,
+   legende	VARCHAR(50)	NOT NULL,
    
    PRIMARY KEY (num_vue)
    
@@ -46,10 +46,10 @@ DROP TABLE IF EXISTS representationLieuSurVue;
 
 CREATE TABLE representationLieuSurVue
 (
-   num_vue	UNSIGNED INT,
-   num_lieu	VARCHAR(50),
-   x		INT,
-   y		INT,
+   num_vue	INT UNSIGNED 	NOT NULL,
+   num_lieu	VARCHAR(50) 	NOT NULL,
+   x		INT		NOT NULL,
+   y		INT		NOT NULL,
    
    PRIMARY KEY (num_vue, num_lieu)
    
