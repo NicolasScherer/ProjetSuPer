@@ -1,10 +1,12 @@
 -- DROP DATABASE IF EXISTS bdd_super;
 
-CREATE DATABASE IF NOT EXISTS bdd_super CHARACTER SET 'utf8';
+-- CREATE DATABASE IF NOT EXISTS bdd_super CHARACTER SET 'utf8';
 
 USE bdd_super;
 
-CREATE TABLE Lecteur
+DROP TABLE IF EXISTS lecteur;
+
+CREATE TABLE lecteur
 (
    num_lecteur	UNSIGNED INT,
    num_lieu 	UNSIGNED INT UNIQUE,
@@ -15,7 +17,10 @@ CREATE TABLE Lecteur
    
 )ENGINE=INNODB;
 
-CREATE TABLE Lieu
+
+DROP TABLE IF EXISTS lieu;
+
+CREATE TABLE lieu
 (
    num_lieu	UNSIGNED INT,
    legende	VARCHAR(50),
@@ -24,7 +29,10 @@ CREATE TABLE Lieu
    
 )ENGINE=INNODB;
 
-CREATE TABLE Vue
+
+DROP TABLE IF EXISTS vue;
+
+CREATE TABLE vue
 (
    num_vue	UNSIGNED INT,
    legende	VARCHAR(50),
@@ -33,7 +41,10 @@ CREATE TABLE Vue
    
 )ENGINE=INNODB;
 
-CREATE TABLE RepresentationLieuSurVue
+
+DROP TABLE IF EXISTS representationLieuSurVue;
+
+CREATE TABLE representationLieuSurVue
 (
    num_vue	UNSIGNED INT,
    num_lieu	VARCHAR(50),
@@ -43,3 +54,4 @@ CREATE TABLE RepresentationLieuSurVue
    PRIMARY KEY (num_vue, num_lieu)
    
 )ENGINE=INNODB;
+
