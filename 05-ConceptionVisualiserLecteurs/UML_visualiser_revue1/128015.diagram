@@ -1,0 +1,38 @@
+format 76
+
+subject 128399 "Front End (partie publique)"
+  xyzwh 109 26 2000 315 377
+classcanvas 128527 class_ref 128015 // Vigile_Exploitant
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 2 127 2000
+end
+usecasecanvas 128655 usecase_ref 128015 // Visualisation des lecteurs
+  xyzwh 288 75 3005 64 32 label_xy 258 107
+end
+usecasecanvas 128783 usecase_ref 128143 // Visualisation synoptique souterrain
+  xyzwh 291 167 3005 64 32 label_xy 239 199
+end
+usecasecanvas 128911 usecase_ref 128271 // Visualiser
+  xyzwh 129 144 3005 64 32 label_xy 137 176
+end
+usecasecanvas 129039 usecase_ref 128399 // Gestion des lecteurs RFID
+  xyzwh 228 302 3005 64 32 label_xy 198 334
+end
+classcanvas 129167 class_ref 128143 // Lecteur_RFID
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 450 286 2000
+end
+subject 130703 "tâche SCHERER Nicolas"
+  color verylightorange  xyzwh 120 58 2005 293 167
+line 129295 ----
+  from ref 129039 z 3006 to ref 129167
+line 129423 --->
+  from ref 128911 z 3006 to ref 128527
+simplerelationcanvas 129935 simplerelation_ref 128399
+  from ref 128911 z 3006 stereotype "<<include>>" xyz 180 238 3000 to ref 129039
+end
+line 130447 --->
+  from ref 128655 z 3006 to ref 128911
+line 130575 --->
+  from ref 128783 z 3006 to ref 128911
+end
