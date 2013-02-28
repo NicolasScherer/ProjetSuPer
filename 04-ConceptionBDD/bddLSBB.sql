@@ -40,8 +40,8 @@ DROP TABLE IF EXISTS vue;
 CREATE TABLE vue
 (
    num_vue	INT UNSIGNED	NOT NULL,
-   legende	VARCHAR(50)	NOT NULL,
-   
+   legende	VARCHAR(100)	NOT NULL,
+
    PRIMARY KEY (num_vue)
    
 )ENGINE=INNODB;
