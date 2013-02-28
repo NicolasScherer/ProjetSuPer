@@ -51,8 +51,8 @@ DROP TABLE IF EXISTS representationLieuSurVue;
 
 CREATE TABLE representationLieuSurVue
 (
-   num_vue	INT UNSIGNED 	NOT NULL,
-   num_lieu	VARCHAR(50) 	NOT NULL,
+   num_vue	INT UNSIGNED	NOT NULL,
+   num_lieu	INT UNSIGNED	NOT NULL,
    x		INT		NOT NULL,
    y		INT		NOT NULL,
    
