@@ -60,3 +60,42 @@ CREATE TABLE representationLieuSurVue
    
 )ENGINE=INNODB;
 
+-- Interdiction de supprimer un lieu auquel un lecteur est lié
+-- Un lieu modifié est aussi modifié dans lecteur
+alter table lecteur add constraint fk_lecteur_num_lieu foreign key (num_lieu)
+      references lieu (num_lieu) on delete restrict on update cascade;
+
+-- La suppression d'une vue supprime toutes les lignes concernant cette vue
+alter table representationLieuSurVue add constraint fk_representationLieuSurVue_num_vue foreign key (num_vue)
+      references vue (num_vue) on delete cascade on update cascade;
+
+-- La suppression d'un lieu entraine la perte d'un lieu dans une vue qui l'affichait
+alter table representationLieuSurVue add constraint fk_representationLieuSurVue_num_lieu foreign key (num_lieu)
+      references lieu (num_lieu) on delete cascade on update cascade;
+
+
+INSERT INTO lieu (num_lieu, legende) VALUE
+  (1, "Entrée tunnel zone 1"),
+  (2, "Angle tunnel zone 2"),
+  (3, "Dans tunnel zone 3, en face des dépendances");
+
+
+INSERT INTO lecteur (num_lecteur, num_lieu, ip, estConnecte) VALUE
+  (1, 1, '192.168.0.1', 0),
+  (2, 2, '192.168.0.2', 0),
+  (3, 3, '192.168.0.3', 0);
+
+
+INSERT INTO vue (num_vue, legende) VALUE
+  (1, "Vue globale du site représentant tous les lieux"),
+  (2, "Vue zoomant sur les secteurs 1, 2 et 3, de l'entrée aux dépendances.");
+
+
+INSERT INTO representationLieuSurVue (num_vue, num_lieu, x, y) VALUE
+  (1, 1, 0, 0),
+  (1, 2, 0, 0),
+  (1, 3, 0, 0),
+  (2, 1, 0, 0),
+  (2, 2, 0, 0),
+  (2, 3, 0, 0);
+
