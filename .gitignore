@@ -1,0 +1,3 @@
+# Ignorer les fichiers inutiles de bouml
+*.session
+*.lock
