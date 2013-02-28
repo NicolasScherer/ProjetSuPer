@@ -2,6 +2,9 @@
 # https://help.github.com/articles/dealing-with-line-endings#platform-all
 
 # Denote all files that are truly binary and should not be modified.
+# Images
 *.png binary
 *.jpg binary
+# Fichiers générés par Microsoft Visio
+*.svg binary 
 
