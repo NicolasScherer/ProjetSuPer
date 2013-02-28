@@ -1,0 +1,38 @@
+format 76
+
+classinstance 128012 class_ref 128012 // Serveur
+  name ""   xyz 15 4 2000 life_line_z 2000
+classinstance 128268 class_ref 128268 // Client
+  name ""   xyz 175 4 2000 life_line_z 2000
+classinstance 130188 class_ref 128524 // ClassLecteur
+  name ""   xyz 269 4 2000 life_line_z 2000
+durationcanvas 128396 classinstance_ref 128268 // :Client
+  xyzwh 186 105 2010 11 74
+  overlappingdurationcanvas 129036
+    xyzwh 192 136 2020 11 25
+  end
+end
+durationcanvas 128524 classinstance_ref 128012 // :Serveur
+  xyzwh 32 51 2010 11 196
+  overlappingdurationcanvas 129292
+    xyzwh 38 173 2020 11 25
+  end
+end
+msg 128652 asynchronous
+  from durationcanvas_ref 128396
+  to durationcanvas_ref 128524
+  yz 105 2015 explicitmsg "connexion"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 89 91
+msg 129164 synchronous
+  from durationcanvas_ref 128524
+  to durationcanvas_ref 129036
+  yz 136 2025 explicitmsg "obtenir ip"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 95 122
+reflexivemsg 129420 synchronous
+  to durationcanvas_ref 129292
+  yz 173 2025 explicitmsg "ip represente un lecteur ?"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 47 156
+end

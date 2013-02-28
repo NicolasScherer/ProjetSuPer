@@ -1,0 +1,71 @@
+format 76
+
+classcanvas 128012 class_ref 128012 // Serveur
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 11 21 2000
+end
+classcanvas 128140 class_ref 128140 // Lecteur
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 389 310 2000
+end
+usecasecanvas 128268 usecase_ref 128012 // communiquer
+  xyzwh 182 311 3005 127 59 label_xy 215 336
+end
+usecasecanvas 128652 usecase_ref 128140 // connecter / deconnecter
+  xyzwh 150 34 3005 139 53 label_xy 159 50
+end
+classcanvas 128780 class_ref 128268 // Client
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 376 29 2005
+end
+usecasecanvas 129292 usecase_ref 128268 // informer
+  xyzwh 201 453 3005 123 45 label_xy 238 467
+end
+classcanvas 129420 class_ref 128396 // InterfaceGraphique
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 385 437 2000
+end
+usecasecanvas 130572 usecase_ref 128396 // identifier
+  xyzwh 161 147 3005 139 57 label_xy 210 169
+end
+line 128396 ---- decenter_end 541
+  from ref 128012 z 3006 to point 83 340
+  line 131596 z 3006 to ref 128268
+line 128908 ----
+  from ref 128652 z 3006 to ref 128780
+line 129036 ---- decenter_end 360
+  from ref 128012 z 3006 to ref 128652
+relationcanvas 129164 relation_ref 128012 // <generalisation>
+  decenter_begin 488
+  decenter_end 536
+  from ref 128140 z 2006 to ref 128780
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+line 129548 ---- decenter_end 570
+  from ref 129292 z 3006 to ref 129420
+line 129676 ---- decenter_end 488
+  from ref 128012 z 3006 to point 61 472
+  line 131980 z 3006 to ref 129292
+simplerelationcanvas 130444 simplerelation_ref 128396
+  from ref 129292 z 3006 stereotype "<<include>>" xyz 264 409 3000 to ref 128268
+end
+simplerelationcanvas 131084 simplerelation_ref 128524
+  from ref 130572 z 3006 stereotype "<<include>>" xyz 227.5 103 3000 to ref 128652
+end
+line 131340 ---- decenter_begin 856 decenter_end 560
+  from ref 128012 z 3006 to point 99 176
+  line 131724 z 3006 to ref 130572
+simplerelationcanvas 132108 simplerelation_ref 128652
+  from ref 128268 z 3006 stereotype "<<include>>" xyz 247 250 3000 to ref 130572
+end
+simplerelationcanvas 132236 simplerelation_ref 128780
+  from ref 129292 z 3006 stereotype "<<include>>" xyz 95 413.5 3000 to point 78 427
+  line 132492 z 3006 to ref 130572
+end
+line 132620 ----
+  from ref 128268 z 3006 to ref 128140
+line 132748 ----
+  from ref 130572 z 3006 to point 346 172
+  line 132876 z 3006 to ref 128780
+end

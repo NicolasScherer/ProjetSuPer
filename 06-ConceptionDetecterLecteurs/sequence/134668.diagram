@@ -1,0 +1,7 @@
+format 76
+
+classinstance 128012 class_ref 128012 // Serveur
+  name ""   xyz 20 4 2000 life_line_z 2000
+classinstance 128652 class_ref 128268 // Bdd
+  name ""   xyz 282 4 2000 life_line_z 2000
+end

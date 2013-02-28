@@ -1,0 +1,45 @@
+format 76
+
+classinstance 128012 class_ref 128012 // Serveur
+  name ""   xyz 24 4 2000 life_line_z 2000
+classinstance 128140 class_ref 128524 // Client
+  name ""   xyz 213 5 2000 life_line_z 2000
+note 131468 "Traitements. Voir diagramme detecter lecteur"
+  xyzwh 65 210 2000 121 63
+durationcanvas 129036 classinstance_ref 128012 // :Serveur
+  xyzwh 45 72 2010 11 81
+  overlappingdurationcanvas 130316
+    xyzwh 51 106 2020 11 25
+  end
+end
+durationcanvas 130572 classinstance_ref 128140 // :Client
+  xyzwh 224 157 2010 11 40
+end
+durationcanvas 130700 classinstance_ref 128012 // :Serveur
+  xyzwh 45 158 2010 11 143
+  overlappingdurationcanvas 130956
+    xyzwh 51 190 2020 11 90
+  end
+end
+reflexivemsg 129164 synchronous
+  to durationcanvas_ref 129036
+  yz 72 2015 explicitmsg "connecter"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 57 52
+reflexivemsg 130444 synchronous
+  to durationcanvas_ref 130316
+  yz 106 2025 explicitmsg "listen"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 59 92
+msg 130828 asynchronous
+  from durationcanvas_ref 130572
+  to durationcanvas_ref 130700
+  yz 158 2015 explicitmsg "nouvelle connexion"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 104 144
+reflexivemsg 131084 synchronous
+  to durationcanvas_ref 130956
+  yz 190 2025 explicitmsg "newConnexion()"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 63 175
+end
