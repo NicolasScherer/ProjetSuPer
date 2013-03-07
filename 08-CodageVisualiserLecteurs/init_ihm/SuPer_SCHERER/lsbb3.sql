@@ -39,6 +39,7 @@ CREATE TABLE vue
 (
    num_vue	INT UNSIGNED	NOT NULL,
    legende	VARCHAR(100)	NOT NULL,
+   image	VARCHAR(100)	NOT NULL,
    
    PRIMARY KEY (num_vue)
    

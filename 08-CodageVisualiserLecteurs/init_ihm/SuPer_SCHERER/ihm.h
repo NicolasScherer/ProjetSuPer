@@ -18,7 +18,7 @@ public:
 
 private:
     Ui::Ihm *ui;
-    void ajoutOnglet(int num_vue, QString legende);
+    void ajoutOnglet(int num_vue, QString legende, QString image);
     int getVueMax();
 
 

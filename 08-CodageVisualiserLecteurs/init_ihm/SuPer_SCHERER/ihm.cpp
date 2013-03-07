@@ -4,7 +4,7 @@
 #include <QString>
 #include <QtDebug>
 #include <QMessageBox>
-
+#include <QLabel>
 
 
 Ihm::Ihm(QWidget *parent) :
@@ -38,9 +38,10 @@ Ihm::Ihm(QWidget *parent) :
     while(query->next()){
         int num_vue = query->value(0).toInt();
         QString legende = query->value(1).toString();
+        QString image = query->value(2).toString();
 
         if(num_vue <= vueMax){
-            ajoutOnglet(num_vue, legende);
+            ajoutOnglet(num_vue, legende, image);
         }
     }
 
@@ -56,7 +57,7 @@ Ihm::~Ihm()
     delete ui;
 }
 
-void Ihm::ajoutOnglet(int num_vue, QString legende)
+void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
     QWidget *ajout = new QTabWidget(this);
     //char* legende;
@@ -64,6 +65,12 @@ void Ihm::ajoutOnglet(int num_vue, QString legende)
     //ui->tabWidget->addTab(ajout,legende);
     ui->tabWidget->insertTab(num_vue, ajout, legende);
 
+    QLabel label;
+
+    label.setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/init_ihm/ressources/cr.jpg"));
+
+    QObject::connect(&label, SIGNAL(clicked()), ajout, SLOT(quit()));
+    label.show();
 
 }
 int Ihm::getVueMax()
