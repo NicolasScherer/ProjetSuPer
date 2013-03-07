@@ -23,7 +23,7 @@ private:
 
 
     QSqlQuery * query;
-    QSqlDatabase * database;
+    QSqlDatabase  database;
 };
 
 #endif // IHM_H

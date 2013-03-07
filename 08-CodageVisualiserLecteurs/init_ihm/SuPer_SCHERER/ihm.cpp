@@ -16,20 +16,21 @@ Ihm::Ihm(QWidget *parent) :
 
 
     //accès BDD
-    database->addDatabase("QMYSQL");
-    database->setHostName("localhost");
-    database->setDatabaseName("bdd_super");
-    database->setUserName("user_super");
-    database->setPassword("mdp_super");
-    bool ok = database->open();
+    database = QSqlDatabase::addDatabase("QMYSQL");
+    database.setHostName("localhost");
+    database.setDatabaseName("bdd_super");
+    database.setUserName("user_super");
+    database.setPassword("mdp_super");
+    bool ok = database.open();
     if (!ok)
-        qDebug() << database->lastError();
+        qDebug() << database.lastError();
 
     query = new QSqlQuery;
 
+    int vueMax = getVueMax();
     //requête nombre de vue
     if(!query->exec("SELECT * FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl << database->lastError() << endl;
+        qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
         //test si problème lors de l'envoi de la requete
     }
 
@@ -38,26 +39,14 @@ Ihm::Ihm(QWidget *parent) :
         int num_vue = query->value(0).toInt();
         QString legende = query->value(1).toString();
 
-        int vueMax = getVueMax();
-
-        while(num_vue > vueMax){
+        if(num_vue <= vueMax){
             ajoutOnglet(num_vue, legende);
-/*
-            //requête légende pour la vue
-             if(!query.exec("SELECT legende FROM vue WHERE num_vue = 'id_rubrique'")){
-                qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
-                //test si problème lors de l'envoi de la requete
-             }
-
-                QString libelle_rubrique = query.value(0).toString();
-              // legendeOnglet();
-*/
         }
     }
 
     //supprimer les deux onglets de base
     ui->tabWidget->removeTab(0);
-    ui->tabWidget->removeTab(0);
+    ui->tabWidget->removeTab(vueMax);
 
 }
 
@@ -79,8 +68,8 @@ void Ihm::ajoutOnglet(int num_vue, QString legende)
 }
 int Ihm::getVueMax()
 {
-    if(!query->exec("SELECT COUNT (*) FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl << database->lastError() << endl;
+    if(!query->exec("SELECT COUNT(*) FROM vue")){
+        qDebug() << "Erreur requete SQL" << endl; //<< database->lastError() << endl;
         //test si problème lors de l'envoi de la requete
     }
 

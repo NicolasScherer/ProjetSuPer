@@ -2,7 +2,7 @@
 ** Form generated from reading UI file 'ihm.ui'
 **
 ** Created
-**      by: Qt User Interface Compiler version 4.6.3
+**      by: Qt User Interface Compiler version 4.8.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -39,13 +39,13 @@ public:
     {
         if (Ihm->objectName().isEmpty())
             Ihm->setObjectName(QString::fromUtf8("Ihm"));
-        Ihm->resize(400, 300);
+        Ihm->resize(621, 381);
         centralWidget = new QWidget(Ihm);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(10, 20, 371, 221));
+        tabWidget->setGeometry(QRect(10, 20, 601, 221));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         tabWidget->addTab(tab, QString());
@@ -55,7 +55,7 @@ public:
         Ihm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Ihm);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 400, 20));
+        menuBar->setGeometry(QRect(0, 0, 621, 20));
         Ihm->setMenuBar(menuBar);
         mainToolBar = new QToolBar(Ihm);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
