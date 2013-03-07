@@ -15,11 +15,15 @@ class Ihm : public QMainWindow
 public:
     explicit Ihm(QWidget *parent = 0);
     ~Ihm();
-    
+
 private:
     Ui::Ihm *ui;
-    void ajoutOnglet(int id_rubrique);
-    void legendeOnglet();
+    void ajoutOnglet(int num_vue, QString legende);
+    int getVueMax();
+
+
+    QSqlQuery * query;
+    QSqlDatabase * database;
 };
 
 #endif // IHM_H

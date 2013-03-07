@@ -16,29 +16,32 @@ Ihm::Ihm(QWidget *parent) :
 
 
     //accès BDD
-    QSqlDatabase database = QSqlDatabase::addDatabase("QMYSQL");
-    database.setHostName("localhost");
-    database.setDatabaseName("bdd_super");
-    database.setUserName("user_super");
-    database.setPassword("mdp_super");
-    bool ok = database.open();
+    database->addDatabase("QMYSQL");
+    database->setHostName("localhost");
+    database->setDatabaseName("bdd_super");
+    database->setUserName("user_super");
+    database->setPassword("mdp_super");
+    bool ok = database->open();
     if (!ok)
-        qDebug() << database.lastError();
+        qDebug() << database->lastError();
 
-    QSqlQuery query;
+    query = new QSqlQuery;
 
     //requête nombre de vue
-    if(!query.exec("SELECT COUNT( * ) FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
+    if(!query->exec("SELECT * FROM vue")){
+        qDebug() << "Erreur requete SQL" << endl << database->lastError() << endl;
         //test si problème lors de l'envoi de la requete
     }
 
     //ajout autant d'onglet que de vue
-    while(query.next()){
-        int id_rubrique = query.value(0).toInt();
+    while(query->next()){
+        int num_vue = query->value(0).toInt();
+        QString legende = query->value(1).toString();
 
-        while(id_rubrique > 0){
-            ajoutOnglet(id_rubrique);
+        int vueMax = getVueMax();
+
+        while(num_vue > vueMax){
+            ajoutOnglet(num_vue, legende);
 /*
             //requête légende pour la vue
              if(!query.exec("SELECT legende FROM vue WHERE num_vue = 'id_rubrique'")){
@@ -49,7 +52,6 @@ Ihm::Ihm(QWidget *parent) :
                 QString libelle_rubrique = query.value(0).toString();
               // legendeOnglet();
 */
-            id_rubrique--;
         }
     }
 
@@ -61,21 +63,31 @@ Ihm::Ihm(QWidget *parent) :
 
 Ihm::~Ihm()
 {
+    delete query;
     delete ui;
 }
 
-void Ihm::ajoutOnglet(int id_rubrique)
+void Ihm::ajoutOnglet(int num_vue, QString legende)
 {
     QWidget *ajout = new QTabWidget(this);
-    char* legende;
-    sprintf(legende, "%d", id_rubrique);
-    ui->tabWidget->addTab(ajout,legende);
-
+    //char* legende;
+    //sprintf(legende, "%d", id_rubrique);
+    //ui->tabWidget->addTab(ajout,legende);
+    ui->tabWidget->insertTab(num_vue, ajout, legende);
 
 
 }
-void Ihm::legendeOnglet()
+int Ihm::getVueMax()
 {
+    if(!query->exec("SELECT COUNT (*) FROM vue")){
+        qDebug() << "Erreur requete SQL" << endl << database->lastError() << endl;
+        //test si problème lors de l'envoi de la requete
+    }
 
+    int vueMax;
+    while(query->next()){
+        vueMax = query->value(0).toInt();
+    }
+    return vueMax;
 }
 
