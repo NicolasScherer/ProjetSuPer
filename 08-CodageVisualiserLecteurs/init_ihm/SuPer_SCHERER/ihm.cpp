@@ -5,6 +5,7 @@
 #include <QtDebug>
 #include <QMessageBox>
 #include <QLabel>
+#include <QVBoxLayout>
 
 
 Ihm::Ihm(QWidget *parent) :
@@ -59,20 +60,23 @@ Ihm::~Ihm()
 
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
+    //nouveau onglet dynamique avec légende
     QWidget *ajout = new QTabWidget(this);
-    //char* legende;
-    //sprintf(legende, "%d", id_rubrique);
-    //ui->tabWidget->addTab(ajout,legende);
     ui->tabWidget->insertTab(num_vue, ajout, legende);
 
-    QLabel label;
+    //nouveau label dynamique pour mettre l'image correspondant
+    QLabel *label = new QLabel;
+    label->setPixmap(QPixmap(image));
 
-    label.setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/init_ihm/ressources/cr.jpg"));
+    //lier le label au layout dynamique
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(label);
 
-    QObject::connect(&label, SIGNAL(clicked()), ajout, SLOT(quit()));
-    label.show();
-
+    //ajouter le layout au widget (l'onglet)
+    ajout->setLayout(layout);
 }
+
+
 int Ihm::getVueMax()
 {
     if(!query->exec("SELECT COUNT(*) FROM vue")){
