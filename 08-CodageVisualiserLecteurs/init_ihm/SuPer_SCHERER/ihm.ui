@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>621</width>
-    <height>381</height>
+    <height>473</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
+      <y>110</y>
       <width>601</width>
       <height>311</height>
      </rect>
@@ -38,6 +38,32 @@
      <attribute name="title">
       <string>Tab 2</string>
      </attribute>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>-1</y>
+      <width>371</width>
+      <height>101</height>
+     </rect>
+    </property>
+    <property name="contextMenuPolicy">
+     <enum>Qt::DefaultContextMenu</enum>
+    </property>
+    <property name="title">
+     <string>Alarmes</string>
+    </property>
+    <widget class="QTextEdit" name="textEdit">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>351</width>
+       <height>81</height>
+      </rect>
+     </property>
     </widget>
    </widget>
   </widget>

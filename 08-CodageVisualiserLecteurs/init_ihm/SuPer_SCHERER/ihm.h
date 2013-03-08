@@ -18,12 +18,19 @@ public:
 
 private:
     Ui::Ihm *ui;
+
+    //onglet dynamique
     void ajoutOnglet(int num_vue, QString legende, QString image);
-    int getVueMax();
+    int getVueMax();    //lié à BDD
 
-
+    //BDD
     QSqlQuery * query;
     QSqlDatabase  database;
+
+    //activitée lecteur
+    void lecteurActif(int num_lecteur);
+    void lecteurInactif(int num_lecteur);
+    void lecteurInconnu();
 };
 
 #endif // IHM_H

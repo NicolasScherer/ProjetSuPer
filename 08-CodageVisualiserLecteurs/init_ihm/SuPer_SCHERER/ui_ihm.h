@@ -14,11 +14,13 @@
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QGroupBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
+#include <QtGui/QTextEdit>
 #include <QtGui/QToolBar>
 #include <QtGui/QWidget>
 
@@ -31,6 +33,8 @@ public:
     QTabWidget *tabWidget;
     QWidget *tab;
     QWidget *tab_2;
+    QGroupBox *groupBox;
+    QTextEdit *textEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -39,19 +43,26 @@ public:
     {
         if (Ihm->objectName().isEmpty())
             Ihm->setObjectName(QString::fromUtf8("Ihm"));
-        Ihm->resize(621, 381);
+        Ihm->resize(621, 473);
         centralWidget = new QWidget(Ihm);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(10, 20, 601, 311));
+        tabWidget->setGeometry(QRect(10, 110, 601, 311));
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
         tabWidget->addTab(tab_2, QString());
+        groupBox = new QGroupBox(centralWidget);
+        groupBox->setObjectName(QString::fromUtf8("groupBox"));
+        groupBox->setGeometry(QRect(10, -1, 371, 101));
+        groupBox->setContextMenuPolicy(Qt::DefaultContextMenu);
+        textEdit = new QTextEdit(groupBox);
+        textEdit->setObjectName(QString::fromUtf8("textEdit"));
+        textEdit->setGeometry(QRect(10, 20, 351, 81));
         Ihm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Ihm);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -77,6 +88,7 @@ public:
         Ihm->setWindowTitle(QApplication::translate("Ihm", "Ihm", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Ihm", "Tab 1", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Ihm", "Tab 2", 0, QApplication::UnicodeUTF8));
+        groupBox->setTitle(QApplication::translate("Ihm", "Alarmes", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

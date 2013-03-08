@@ -15,7 +15,6 @@ Ihm::Ihm(QWidget *parent) :
 
     ui->setupUi(this);
 
-
     //accès BDD
     database = QSqlDatabase::addDatabase("QMYSQL");
     database.setHostName("localhost");
@@ -29,7 +28,7 @@ Ihm::Ihm(QWidget *parent) :
     query = new QSqlQuery;
 
     int vueMax = getVueMax();
-    //requête nombre de vue
+    //requête
     if(!query->exec("SELECT * FROM vue")){
         qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
         //test si problème lors de l'envoi de la requete
@@ -91,3 +90,14 @@ int Ihm::getVueMax()
     return vueMax;
 }
 
+void Ihm::lecteurActif(int num_lecteur){
+
+}
+
+void Ihm::lecteurInactif(int num_lecteur){
+
+}
+
+void Ihm::lecteurInconnu(){
+
+}
