@@ -18,6 +18,7 @@
 #include <QtGui/QHeaderView>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
+#include <QtGui/QPushButton>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextEdit>
@@ -35,6 +36,7 @@ public:
     QWidget *tab_2;
     QGroupBox *groupBox;
     QTextEdit *textEdit;
+    QPushButton *btNewLecteur;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -63,6 +65,9 @@ public:
         textEdit = new QTextEdit(groupBox);
         textEdit->setObjectName(QString::fromUtf8("textEdit"));
         textEdit->setGeometry(QRect(10, 20, 351, 81));
+        btNewLecteur = new QPushButton(centralWidget);
+        btNewLecteur->setObjectName(QString::fromUtf8("btNewLecteur"));
+        btNewLecteur->setGeometry(QRect(400, 10, 141, 31));
         Ihm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Ihm);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -89,6 +94,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Ihm", "Tab 1", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Ihm", "Tab 2", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Ihm", "Alarmes", 0, QApplication::UnicodeUTF8));
+        btNewLecteur->setText(QApplication::translate("Ihm", "Nouveau lecteur 1", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

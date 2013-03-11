@@ -66,6 +66,19 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="btNewLecteur">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>10</y>
+      <width>141</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nouveau lecteur 1</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

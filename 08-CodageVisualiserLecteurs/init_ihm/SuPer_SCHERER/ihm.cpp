@@ -7,12 +7,13 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+    Lecteur *pLecteur = new Lecteur;
+
 
 Ihm::Ihm(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Ihm)
 {
-
     ui->setupUi(this);
 
     //accès BDD
@@ -49,12 +50,26 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
 
+    // Bouton btNewLecteur
+   // connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(tpNewLecteur()));
+
+
+    //connect
+    connect(this, SIGNAL(signalNewLecteur(pLecteur)), this, SLOT(lecteurActif(pLecteur)));
+    //émission signal
+    emit signalNewLecteur(pLecteur);
 }
 
 Ihm::~Ihm()
 {
+    delete pLecteur;
     delete query;
     delete ui;
+}
+
+void Ihm::lecteurActif(Lecteur *pLecteur){
+    //ui->textEdit->setText("Nouveau lecteur");
+
 }
 
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
@@ -88,16 +103,4 @@ int Ihm::getVueMax()
         vueMax = query->value(0).toInt();
     }
     return vueMax;
-}
-
-void Ihm::lecteurActif(int num_lecteur){
-
-}
-
-void Ihm::lecteurInactif(int num_lecteur){
-
-}
-
-void Ihm::lecteurInconnu(){
-
 }

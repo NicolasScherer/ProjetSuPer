@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include "lecteur.h"
 
 namespace Ui {
 class Ihm;
@@ -27,10 +28,12 @@ private:
     QSqlQuery * query;
     QSqlDatabase  database;
 
-    //activitée lecteur
-    void lecteurActif(int num_lecteur);
-    void lecteurInactif(int num_lecteur);
-    void lecteurInconnu();
+public slots:
+    void lecteurActif(Lecteur *pLecteur);
+
+
+signals:
+    void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
 };
 
 #endif // IHM_H
