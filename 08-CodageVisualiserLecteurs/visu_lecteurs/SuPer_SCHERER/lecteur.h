@@ -8,7 +8,15 @@ class Lecteur : public QObject
     Q_OBJECT
 public:
     explicit Lecteur(QObject *parent = 0);
-    
+
+    int getnum_lecteur();
+
+private:
+    int num_lecteur;
+    int num_lieu;
+    QString ip;
+    bool estConnecte;
+
 signals:
     
 public slots:

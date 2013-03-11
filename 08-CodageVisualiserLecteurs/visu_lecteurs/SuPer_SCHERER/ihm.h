@@ -24,6 +24,9 @@ private:
     void ajoutOnglet(int num_vue, QString legende, QString image);
     int getVueMax();    //lié à BDD
 
+    int getNumLieu();
+    void ajoutLecteur(int num_vue, int x, int y);
+
     //BDD
     QSqlQuery * query;
     QSqlDatabase  database;

@@ -9,7 +9,7 @@
 
     Lecteur *pLecteur = new Lecteur;
 
-
+/*** CONSTRUCTEUR ***/
 Ihm::Ihm(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Ihm)
@@ -60,6 +60,7 @@ Ihm::Ihm(QWidget *parent) :
     emit signalNewLecteur(pLecteur);
 }
 
+/*** DESTRUCTEUR ***/
 Ihm::~Ihm()
 {
     delete pLecteur;
@@ -67,11 +68,52 @@ Ihm::~Ihm()
     delete ui;
 }
 
+/*** SLOT LECTEUR ACTIF ***/
 void Ihm::lecteurActif(Lecteur *pLecteur){
-    //ui->textEdit->setText("Nouveau lecteur");
+
+    //obtenir le numéro de lecteur grâce à la classe Lecteur
+    int num_lecteur = pLecteur->getnum_lecteur();
+
+    //avec le numéro obtenu, obtenir la vue et la position (x, y)
+//****ATTENTION le num_lecteur est égal à 1 dans la requete SQL (à modifier)
+    if(!query->exec("SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y FROM lecteur A1, representationLieuSurVue A2 WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur =1")){
+        qDebug() << "Erreur requete SQL getNumLieu" << endl;
+    }
+
+    int num_vue;
+    int x;
+    int y;
+    while(query->next()){
+        num_vue = query->value(1).toInt();
+        x = query->value(2).toInt();
+        y = query->value(3).toInt();
+
+        //ajout d'un lecteur (en dynamique)
+        ajoutLecteur(num_vue, x, y);
+    }
 
 }
 
+/*** méthode AJOUT LECTEUR ***/
+void Ihm::ajoutLecteur(int num_vue, int x, int y){
+    //onglet dynamique sur la bonne vue
+    QWidget *onglet = new QTabWidget(this);
+    ui->tabWidget->setCurrentIndex(num_vue);
+
+    //nouveau label dynamique pour mettre l'image correspondant
+    QLabel *label = new QLabel;
+    label->setPixmap(QPixmap(/*image antenne à mettre*/));
+    label->setGeometry(x, y, 50, 50); //50 50 largeur hauteur à définir
+
+    //lier le label au layout dynamique
+    QVBoxLayout *layout = new QVBoxLayout;
+    layout->addWidget(label);
+
+    //ajouter le layout au widget (l'onglet)
+    onglet->setLayout(layout);
+}
+
+/*** méthode AJOUT ONGLET ***/
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
     //nouveau onglet dynamique avec légende
@@ -90,7 +132,7 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
     ajout->setLayout(layout);
 }
 
-
+/*** méthode obtenir VUE MAX **/
 int Ihm::getVueMax()
 {
     if(!query->exec("SELECT COUNT(*) FROM vue")){
