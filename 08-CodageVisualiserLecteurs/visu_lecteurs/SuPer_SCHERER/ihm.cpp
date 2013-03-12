@@ -7,7 +7,6 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-    Lecteur *pLecteur = new Lecteur;
 
 /*** CONSTRUCTEUR ***/
 Ihm::Ihm(QWidget *parent) :
@@ -15,6 +14,17 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
+    pLecteur = new Lecteur;
+
+//*** signaux
+    // Bouton btNewLecteur
+    //connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
+
+    //connect
+    connect(this, SIGNAL(signalNewLecteur(Lecteur *pLecteur)), this, SLOT(lecteurActif(pLecteur)));
+  //  connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
+    //émission signal
+  //  emit signalNewLecteur(pLecteur);
 
     //accès BDD
     database = QSqlDatabase::addDatabase("QMYSQL");
@@ -50,14 +60,7 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
 
-    // Bouton btNewLecteur
-   // connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(tpNewLecteur()));
 
-
-    //connect
-    connect(this, SIGNAL(signalNewLecteur(pLecteur)), this, SLOT(lecteurActif(pLecteur)));
-    //émission signal
-    emit signalNewLecteur(pLecteur);
 }
 
 /*** DESTRUCTEUR ***/
@@ -72,13 +75,23 @@ Ihm::~Ihm()
 void Ihm::lecteurActif(Lecteur *pLecteur){
 
     //obtenir le numéro de lecteur grâce à la classe Lecteur
-    int num_lecteur = pLecteur->getnum_lecteur();
+  //  int numLecteur = pLecteur->getnum_lecteur();
+    int numLecteur = 1;
 
     //avec le numéro obtenu, obtenir la vue et la position (x, y)
-//****ATTENTION le num_lecteur est égal à 1 dans la requete SQL (à modifier)
-    if(!query->exec("SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y FROM lecteur A1, representationLieuSurVue A2 WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur =1")){
-        qDebug() << "Erreur requete SQL getNumLieu" << endl;
+//****ATTENTION le num_lecteur dans la requete SQL (à modifier)
+    QString req;
+    req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
+    req += "FROM lecteur A1, representationLieuSurVue A2 ";
+    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+
+    query->prepare(req);
+    query->bindValue(":numLecteur", numLecteur);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
     }
+  //  if(!query->exec("SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y FROM lecteur A1, representationLieuSurVue A2 WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur='numLecteur'")){
+    //}
 
     int num_vue;
     int x;
@@ -102,8 +115,8 @@ void Ihm::ajoutLecteur(int num_vue, int x, int y){
 
     //nouveau label dynamique pour mettre l'image correspondant
     QLabel *label = new QLabel;
-    label->setPixmap(QPixmap(/*image antenne à mettre*/));
-    label->setGeometry(x, y, 50, 50); //50 50 largeur hauteur à définir
+    label->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
+    label->setGeometry(x, y, 300, 100); // largeur hauteur à définir
 
     //lier le label au layout dynamique
     QVBoxLayout *layout = new QVBoxLayout;

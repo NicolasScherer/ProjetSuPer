@@ -17,8 +17,10 @@ public:
     explicit Ihm(QWidget *parent = 0);
     ~Ihm();
 
+
 private:
     Ui::Ihm *ui;
+    Lecteur *pLecteur;
 
     //onglet dynamique
     void ajoutOnglet(int num_vue, QString legende, QString image);
@@ -30,13 +32,14 @@ private:
     //BDD
     QSqlQuery * query;
     QSqlDatabase  database;
+signals:
+    void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
 
 public slots:
     void lecteurActif(Lecteur *pLecteur);
 
 
-signals:
-    void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
+
 };
 
 #endif // IHM_H
