@@ -102,25 +102,32 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
         y = query->value(3).toInt();
 
         //ajout d'un lecteur (en dynamique)
-        ajoutLecteur(num_vue, x, y);
+        ajoutLecteur(numLecteur, num_vue, x, y);
     }
 
 }
 
 /*** méthode AJOUT LECTEUR ***/
-void Ihm::ajoutLecteur(int num_vue, int x, int y){
+void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
+    //Pour sauvegarde liste label lecteur
+    T_labelLecteur *tll = new T_labelLecteur();
+    //sauvegarde du numéro de lecteur
+    tll->num_lecteur = numLecteur;
+
     //onglet dynamique sur la bonne vue
     QWidget *onglet = new QTabWidget(this);
     ui->tabWidget->setCurrentIndex(num_vue);
 
     //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *label = new QLabel;
-    label->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
-    label->setGeometry(x, y, 300, 100); // largeur hauteur à définir
+    QLabel *labelL = new QLabel;
+    labelL->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
+    labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
 
+    //sauvegarde du pointeur label lecteur
+    tll->label = labelL;
     //lier le label au layout dynamique
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(label);
+    layout->addWidget(labelL);
 
     //ajouter le layout au widget (l'onglet)
     onglet->setLayout(layout);

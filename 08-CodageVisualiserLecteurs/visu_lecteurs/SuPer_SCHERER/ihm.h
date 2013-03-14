@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QtSql>
 #include "lecteur.h"
+#include "commun.h"
 
 namespace Ui {
 class Ihm;
@@ -27,7 +28,7 @@ private:
     int getVueMax();    //lié à BDD
 
     int getNumLieu();
-    void ajoutLecteur(int num_vue, int x, int y);
+    void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
 
     //BDD
     QSqlQuery * query;

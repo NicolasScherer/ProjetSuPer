@@ -17,6 +17,7 @@ SOURCES += main.cpp\
     lecteur.cpp
 
 HEADERS  += ihm.h \
-    lecteur.h
+    lecteur.h \
+    commun.h
 
 FORMS    += ihm.ui
