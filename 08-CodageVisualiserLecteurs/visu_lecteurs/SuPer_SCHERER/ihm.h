@@ -37,7 +37,7 @@ signals:
     void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
 
 public slots:
-    void lecteurActif(Lecteur *pLecteur);
+   void lecteurActif(Lecteur *pLecteur);
 
 
 

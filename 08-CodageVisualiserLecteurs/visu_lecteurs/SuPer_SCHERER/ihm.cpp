@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-
+//////////////////////
 /*** CONSTRUCTEUR ***/
 Ihm::Ihm(QWidget *parent) :
     QMainWindow(parent),
@@ -21,10 +21,10 @@ Ihm::Ihm(QWidget *parent) :
     //connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
 
     //connect
-    connect(this, SIGNAL(signalNewLecteur(Lecteur *pLecteur)), this, SLOT(lecteurActif(pLecteur)));
+ //   connect(this, SIGNAL(signalNewLecteur(const Lecteur &)), this, SLOT(lecteurActif(const Lecteur &)));
   //  connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
     //émission signal
-  //  emit signalNewLecteur(pLecteur);
+  // emit signalNewLecteur(pLecteur);
 
     //accès BDD
     database = QSqlDatabase::addDatabase("QMYSQL");
@@ -60,9 +60,10 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
 
+    lecteurActif(pLecteur);
 
 }
-
+/////////////////////
 /*** DESTRUCTEUR ***/
 Ihm::~Ihm()
 {
@@ -70,7 +71,7 @@ Ihm::~Ihm()
     delete query;
     delete ui;
 }
-
+////////////////////////////
 /*** SLOT LECTEUR ACTIF ***/
 void Ihm::lecteurActif(Lecteur *pLecteur){
 
@@ -106,17 +107,24 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
     }
 
 }
-
+///////////////////////////////
 /*** méthode AJOUT LECTEUR ***/
 void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
     //Pour sauvegarde liste label lecteur
-    T_labelLecteur *tll = new T_labelLecteur();
+//    T_labelLecteur *tll = new T_labelLecteur();
     //sauvegarde du numéro de lecteur
-    tll->num_lecteur = numLecteur;
+ //   tll->num_lecteur = numLecteur;
+
+    //////////////////////////////
+
+    //liste onglet
+    T_Onglet *to = new T_Onglet();
+    to->num_vue == num_vue;
 
     //onglet dynamique sur la bonne vue
     QWidget *onglet = new QTabWidget(this);
-    ui->tabWidget->setCurrentIndex(num_vue);
+    int vueCourant = num_vue-1;
+    ui->tabWidget->setCurrentIndex(vueCourant);
 
     //nouveau label dynamique pour mettre l'image correspondant
     QLabel *labelL = new QLabel;
@@ -124,7 +132,7 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
     labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
 
     //sauvegarde du pointeur label lecteur
-    tll->label = labelL;
+//    tll->label = labelL;
     //lier le label au layout dynamique
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelL);
@@ -132,26 +140,35 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
     //ajouter le layout au widget (l'onglet)
     onglet->setLayout(layout);
 }
-
+//////////////////////////////
 /*** méthode AJOUT ONGLET ***/
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
+    //Pour sauvegarder liste onglet
+    T_Onglet *to = new T_Onglet();
+    //sauvegarde du numéro de l'onglet (donc de la vue)
+    to->num_vue = num_vue;
+
     //nouveau onglet dynamique avec légende
-    QWidget *ajout = new QTabWidget(this);
-    ui->tabWidget->insertTab(num_vue, ajout, legende);
+    QWidget *onglet = new QTabWidget(this);
+    ui->tabWidget->insertTab(num_vue, onglet, legende);
+    //sauvegarde du pointeur onglet
+    to->onglet = onglet;
 
     //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *label = new QLabel;
-    label->setPixmap(QPixmap(image));
+    QLabel *labelO = new QLabel;
+    labelO->setPixmap(QPixmap(image));
 
     //lier le label au layout dynamique
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(label);
+    layout->addWidget(labelO);
+    //sauvegarde du pointeur layout
+    to->layout = layout;
 
     //ajouter le layout au widget (l'onglet)
-    ajout->setLayout(layout);
+    onglet->setLayout(layout);
 }
-
+////////////////////////////////
 /*** méthode obtenir VUE MAX **/
 int Ihm::getVueMax()
 {
