@@ -74,9 +74,9 @@ alter table representationLieuSurVue add constraint fk_representationLieuSurVue_
 
 
 INSERT INTO lieu (num_lieu, legende) VALUE
-  (1, "Entrée tunnel zone 1"),
+  (1, "Entree tunnel zone 1"),
   (2, "Angle tunnel zone 2"),
-  (3, "Dans tunnel zone 3, en face des dépendances");
+  (3, "Dans tunnel zone 3, en face des dependances");
 
 
 INSERT INTO lecteur (num_lecteur, num_lieu, ip, estConnecte) VALUE
@@ -86,8 +86,8 @@ INSERT INTO lecteur (num_lecteur, num_lieu, ip, estConnecte) VALUE
 
 
 INSERT INTO vue (num_vue, legende) VALUE
-  (1, "Vue globale du site représentant tous les lieux"),
-  (2, "Vue zoomant sur les secteurs 1, 2 et 3, de l'entrée aux dépendances.");
+  (1, "Vue zoomant de l'entree aux dependances"),
+  (2, "Vue globale");
 
 
 INSERT INTO representationLieuSurVue (num_vue, num_lieu, x, y) VALUE

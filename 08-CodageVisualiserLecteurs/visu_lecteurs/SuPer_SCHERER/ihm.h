@@ -41,6 +41,8 @@ public slots:
 
 
 
+private slots:
+   void on_btQuitter_clicked();
 };
 
 #endif // IHM_H

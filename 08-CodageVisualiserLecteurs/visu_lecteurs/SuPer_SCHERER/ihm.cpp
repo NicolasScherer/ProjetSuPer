@@ -14,6 +14,7 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
+    setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
     pLecteur = new Lecteur;
 
 //*** signaux
@@ -182,4 +183,10 @@ int Ihm::getVueMax()
         vueMax = query->value(0).toInt();
     }
     return vueMax;
+}
+/////////////////////////////
+/*** SLOT bouton Quitter ***/
+void Ihm::on_btQuitter_clicked()
+{
+    this->~Ihm();
 }
