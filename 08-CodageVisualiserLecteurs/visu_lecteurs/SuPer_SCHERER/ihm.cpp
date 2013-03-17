@@ -1,4 +1,5 @@
 #include "ihm.h"
+#include "onglet.h"
 #include "ui_ihm.h"
 #include <QtSql>
 #include <QString>
@@ -14,8 +15,9 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
-    setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
+   // setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
     pLecteur = new Lecteur;
+    pOnglet = new Onglet;
 
 //*** signaux
     // Bouton btNewLecteur
@@ -81,23 +83,18 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
     int numLecteur = 1;
 
     //avec le numéro obtenu, obtenir la vue et la position (x, y)
-//****ATTENTION le num_lecteur dans la requete SQL (à modifier)
     QString req;
     req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
     req += "FROM lecteur A1, representationLieuSurVue A2 ";
     req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-
     query->prepare(req);
     query->bindValue(":numLecteur", numLecteur);
     if(!query->exec()){
          qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
     }
-  //  if(!query->exec("SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y FROM lecteur A1, representationLieuSurVue A2 WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur='numLecteur'")){
-    //}
 
-    int num_vue;
-    int x;
-    int y;
+    int num_vue, x, y;
+
     while(query->next()){
         num_vue = query->value(1).toInt();
         x = query->value(2).toInt();
@@ -119,10 +116,26 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
     //////////////////////////////
 
     //liste onglet
-    T_Onglet *to = new T_Onglet();
-    to->num_vue == num_vue;
+    if( pOnglet->num_vue[num_vue] == num_vue ){
+        QWidget *onglet = new QTabWidget(this);
+        onglet = pOnglet->onglet[num_vue];
 
-    //onglet dynamique sur la bonne vue
+        //nouveau label dynamique pour mettre l'image correspondant
+        QLabel *labelL = new QLabel;
+        labelL->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
+        labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
+
+        QVBoxLayout *layout = new QVBoxLayout;
+        layout = pOnglet->layout[num_vue];
+
+        //lier le label au layout dynamique
+        layout->addWidget(labelL);
+
+        //ajouter le layout au widget (l'onglet)
+        onglet->setLayout(layout);
+    }
+
+/*    //onglet dynamique sur la bonne vue
     QWidget *onglet = new QTabWidget(this);
     int vueCourant = num_vue-1;
     ui->tabWidget->setCurrentIndex(vueCourant);
@@ -140,21 +153,24 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 
     //ajouter le layout au widget (l'onglet)
     onglet->setLayout(layout);
+*/
 }
 //////////////////////////////
 /*** méthode AJOUT ONGLET ***/
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
-    //Pour sauvegarder liste onglet
-    T_Onglet *to = new T_Onglet();
+
     //sauvegarde du numéro de l'onglet (donc de la vue)
-    to->num_vue = num_vue;
+    pOnglet->num_vue[num_vue] = num_vue;
+
+    //to->num_vue = num_vue;
 
     //nouveau onglet dynamique avec légende
     QWidget *onglet = new QTabWidget(this);
     ui->tabWidget->insertTab(num_vue, onglet, legende);
     //sauvegarde du pointeur onglet
-    to->onglet = onglet;
+    pOnglet->onglet[num_vue] = onglet;
+    //to->onglet = onglet;
 
     //nouveau label dynamique pour mettre l'image correspondant
     QLabel *labelO = new QLabel;
@@ -164,7 +180,8 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(labelO);
     //sauvegarde du pointeur layout
-    to->layout = layout;
+    pOnglet->layout[num_vue] =layout;
+    //to->layout = layout;
 
     //ajouter le layout au widget (l'onglet)
     onglet->setLayout(layout);

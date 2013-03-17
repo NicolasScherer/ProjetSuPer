@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         ihm.cpp \
-    lecteur.cpp
+    lecteur.cpp \
+    onglet.cpp
 
 HEADERS  += ihm.h \
     lecteur.h \
-    commun.h
+    commun.h \
+    onglet.h
 
 FORMS    += ihm.ui

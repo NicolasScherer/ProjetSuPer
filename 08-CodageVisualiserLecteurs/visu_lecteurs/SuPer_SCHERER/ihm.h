@@ -5,6 +5,7 @@
 #include <QtSql>
 #include "lecteur.h"
 #include "commun.h"
+#include "onglet.h"
 
 namespace Ui {
 class Ihm;
@@ -29,6 +30,9 @@ private:
 
     int getNumLieu();
     void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
+
+    //pointeurs sur la classe onglet
+    Onglet *pOnglet;
 
     //BDD
     QSqlQuery * query;

@@ -4,11 +4,12 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
-//structure liste label lecteur
+/*//structure liste label lecteur
 typedef struct s_labelLecteur{
     QLabel *label;
     int num_lecteur;
 } T_labelLecteur;
+*/
 
 //structure liste onglet
 typedef struct s_Onglet{
