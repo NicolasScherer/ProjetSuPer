@@ -3,6 +3,10 @@
 
 #include <QMainWindow>
 #include <QtSql>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QtGui>
+
 #include "lecteur.h"
 #include "commun.h"
 #include "onglet.h"

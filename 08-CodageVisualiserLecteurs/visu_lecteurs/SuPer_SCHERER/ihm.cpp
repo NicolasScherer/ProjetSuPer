@@ -15,7 +15,6 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
-   // setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
     pLecteur = new Lecteur;
     pOnglet = new Onglet;
 
@@ -65,6 +64,8 @@ Ihm::Ihm(QWidget *parent) :
 
     lecteurActif(pLecteur);
 
+     // setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
+
 }
 /////////////////////
 /*** DESTRUCTEUR ***/
@@ -108,31 +109,25 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
 ///////////////////////////////
 /*** méthode AJOUT LECTEUR ***/
 void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
-    //Pour sauvegarde liste label lecteur
-//    T_labelLecteur *tll = new T_labelLecteur();
-    //sauvegarde du numéro de lecteur
- //   tll->num_lecteur = numLecteur;
 
-    //////////////////////////////
-
-    //liste onglet
+    //liste onglet récupération du pointeur onglet
     if( pOnglet->num_vue[num_vue] == num_vue ){
         QWidget *onglet = new QTabWidget(this);
         onglet = pOnglet->onglet[num_vue];
 
         //nouveau label dynamique pour mettre l'image correspondant
-        QLabel *labelL = new QLabel;
-        labelL->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
+        QLabel *labelL = new QLabel(onglet);
+        labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
         labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
 
-        QVBoxLayout *layout = new QVBoxLayout;
-        layout = pOnglet->layout[num_vue];
+    //    QVBoxLayout *layout = new QVBoxLayout;
+      //  layout = pOnglet->layout[num_vue];
 
         //lier le label au layout dynamique
-        layout->addWidget(labelL);
+        //layout->addWidget(labelL);
 
         //ajouter le layout au widget (l'onglet)
-        onglet->setLayout(layout);
+        //onglet->setLayout(layout);
     }
 
 /*    //onglet dynamique sur la bonne vue
@@ -159,32 +154,20 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 /*** méthode AJOUT ONGLET ***/
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
-
     //sauvegarde du numéro de l'onglet (donc de la vue)
     pOnglet->num_vue[num_vue] = num_vue;
-
-    //to->num_vue = num_vue;
 
     //nouveau onglet dynamique avec légende
     QWidget *onglet = new QTabWidget(this);
     ui->tabWidget->insertTab(num_vue, onglet, legende);
+
     //sauvegarde du pointeur onglet
     pOnglet->onglet[num_vue] = onglet;
-    //to->onglet = onglet;
 
     //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *labelO = new QLabel;
+    QLabel *labelO = new QLabel(onglet);    //parent:l'onglet
     labelO->setPixmap(QPixmap(image));
 
-    //lier le label au layout dynamique
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(labelO);
-    //sauvegarde du pointeur layout
-    pOnglet->layout[num_vue] =layout;
-    //to->layout = layout;
-
-    //ajouter le layout au widget (l'onglet)
-    onglet->setLayout(layout);
 }
 ////////////////////////////////
 /*** méthode obtenir VUE MAX **/

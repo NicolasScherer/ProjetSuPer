@@ -79,7 +79,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../../SUPER/Qt/ressources/ButtonConfigure.png</normaloff>../../../../../SUPER/Qt/ressources/ButtonConfigure.png</iconset>
+      <normaloff>../ressources/ButtonConfigure.png</normaloff>../ressources/ButtonConfigure.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="btQuitter">
@@ -96,7 +96,7 @@
     </property>
     <property name="icon">
      <iconset>
-      <normaloff>../../../../../SUPER/Qt/ressources/ButtonClose.png</normaloff>../../../../../SUPER/Qt/ressources/ButtonClose.png</iconset>
+      <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
     </property>
    </widget>
    <widget class="QPushButton" name="btHelp">
