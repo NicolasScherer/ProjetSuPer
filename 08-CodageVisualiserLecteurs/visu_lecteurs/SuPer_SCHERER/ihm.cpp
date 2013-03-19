@@ -1,6 +1,7 @@
 #include "ihm.h"
 #include "onglet.h"
 #include "ui_ihm.h"
+#include "contenuonglet.h"
 #include <QtSql>
 #include <QString>
 #include <QtDebug>
@@ -73,6 +74,9 @@ Ihm::~Ihm()
 {
     delete pLecteur;
     delete query;
+
+    // PENSER A DETRUIRE LES ONGLETS
+
     delete ui;
 }
 ////////////////////////////
@@ -112,13 +116,29 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 
     //liste onglet récupération du pointeur onglet
     if( pOnglet->num_vue[num_vue] == num_vue ){
-        QWidget *onglet = new QTabWidget(this);
+
+        QWidget *onglet;
         onglet = pOnglet->onglet[num_vue];
 
+        qDebug() << "valeur pointeur onglet" << onglet << endl;
+
+        //QWidget *onglet;
+
+
+       // QLabel *labelL = new QLabel(onglet);
+       // labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+       // labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
+
+        //QTabWidget *onglet;
+        //onglet = pOnglet->onglet[num_vue];
+       // qDebug() << "valeur dans l onglet" << onglet << endl;
+        // QWidget *onglet = new QTabWidget(this);
+      //  onglet = pOnglet->onglet[num_vue];
+
         //nouveau label dynamique pour mettre l'image correspondant
-        QLabel *labelL = new QLabel(onglet);
-        labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-        labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
+   //     QLabel *labelL = new QLabel(onglet);
+     //   labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+       // labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
 
     //    QVBoxLayout *layout = new QVBoxLayout;
       //  layout = pOnglet->layout[num_vue];
@@ -158,15 +178,12 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
     pOnglet->num_vue[num_vue] = num_vue;
 
     //nouveau onglet dynamique avec légende
-    QWidget *onglet = new QTabWidget(this);
-    ui->tabWidget->insertTab(num_vue, onglet, legende);
+    ContenuOnglet *pContenuOnglet = new ContenuOnglet(0, image);
+    ui->tabWidget->insertTab(num_vue, pContenuOnglet, legende);
 
     //sauvegarde du pointeur onglet
-    pOnglet->onglet[num_vue] = onglet;
-
-    //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *labelO = new QLabel(onglet);    //parent:l'onglet
-    labelO->setPixmap(QPixmap(image));
+    pOnglet->onglet[num_vue] = pContenuOnglet;
+    qDebug() << "valeur dans la classe" << pOnglet->onglet[num_vue] << endl;
 
 }
 ////////////////////////////////

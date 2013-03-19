@@ -4,14 +4,17 @@
 #include <QObject>
 #include <QLabel>
 #include <QVBoxLayout>
+#include <QTabWidget>
+
+#define MAXONGLETS 20
 
 class Onglet : public QObject
 {
     Q_OBJECT
 public:
     explicit Onglet(QObject *parent = 0);
-    QWidget *onglet[];
-    QVBoxLayout *layout[];
+    QWidget *onglet[MAXONGLETS];
+   // QVBoxLayout *layout[];
     int num_vue[];
     
 signals:

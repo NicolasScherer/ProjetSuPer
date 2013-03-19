@@ -12,10 +12,10 @@ typedef struct s_labelLecteur{
 */
 
 //structure liste onglet
-typedef struct s_Onglet{
+/*typedef struct s_Onglet{
     QWidget *onglet;
     QVBoxLayout *layout;
     int num_vue;
 } T_Onglet;
-
+*/
 #endif // COMMUN_H

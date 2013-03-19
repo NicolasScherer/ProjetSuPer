@@ -35,8 +35,9 @@ private:
     int getNumLieu();
     void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
 
-    //pointeurs sur la classe onglet
+    //pointeur sur la classe onglet
     Onglet *pOnglet;
+    QWidget *onglet;
 
     //BDD
     QSqlQuery * query;
