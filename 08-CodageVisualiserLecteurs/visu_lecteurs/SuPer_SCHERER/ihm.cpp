@@ -63,9 +63,10 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
 
-    lecteurActif(pLecteur);
+    lecteurActif(pLecteur);     // à enlever à l'intégration
 
-     // setWindowFlags(Qt::FramelessWindowHint);    //fenêtre sans bordure
+    //fenêtre sans bordure
+    setWindowFlags(Qt::FramelessWindowHint);
 
 }
 /////////////////////
@@ -136,9 +137,14 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
       //  onglet = pOnglet->onglet[num_vue];
 
         //nouveau label dynamique pour mettre l'image correspondant
-   //     QLabel *labelL = new QLabel(onglet);
-     //   labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-       // labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
+        QLabel *labelL = new QLabel(onglet);
+        //différente taille d'images utilisées
+        if(num_vue == 1){
+            labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+        }else{
+            labelL->setPixmap(QPixmap("../ressources/lecteur_actif.jpg"));
+        }
+        labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
 
     //    QVBoxLayout *layout = new QVBoxLayout;
       //  layout = pOnglet->layout[num_vue];
