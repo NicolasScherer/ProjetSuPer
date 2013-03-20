@@ -131,7 +131,7 @@
     <property name="title">
      <string>Alarmes</string>
     </property>
-    <widget class="QTextEdit" name="textEdit">
+    <widget class="QTextEdit" name="txtAlarme">
      <property name="geometry">
       <rect>
        <x>10</x>

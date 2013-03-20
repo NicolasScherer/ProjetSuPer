@@ -1,5 +1,4 @@
 #include "ihm.h"
-#include "onglet.h"
 #include "ui_ihm.h"
 #include "contenuonglet.h"
 #include <QtSql>
@@ -17,7 +16,7 @@ Ihm::Ihm(QWidget *parent) :
 {
     ui->setupUi(this);
     pLecteur = new Lecteur;
-    pOnglet = new Onglet;
+    pDynamique = new Dynamique;
 
 //*** signaux
     // Bouton btNewLecteur
@@ -64,6 +63,7 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->removeTab(vueMax);
 
     lecteurActif(pLecteur);     // à enlever à l'intégration
+    lecteurInactif(pLecteur);   // à enlever à l'intégration
 
     //fenêtre sans bordure
     setWindowFlags(Qt::FramelessWindowHint);
@@ -79,6 +79,58 @@ Ihm::~Ihm()
     // PENSER A DETRUIRE LES ONGLETS
 
     delete ui;
+}
+//////////////////////////////
+/*** SLOT LECTEUR INACTIF ***/
+void Ihm::lecteurInactif(Lecteur *pLecteur){
+    //obtenir le numéro de lecteur grâce à la classe Lecteur
+    //int numLecteur = pLecteur->getnum_lecteur();
+    int numLecteur = 1; //doit disparaitre à l'intégration
+
+    //avec le numéro obtenu, obtenir la vue et la position (x, y)
+    QString req;
+    req = "SELECT A1.num_lieu, A2.num_vue ";
+    req += "FROM lecteur A1, representationLieuSurVue A2 ";
+    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+    query->prepare(req);
+    query->bindValue(":numLecteur", numLecteur);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
+    }
+
+    int num_vue;
+
+    while(query->next()){
+        num_vue = query->value(1).toInt();
+
+        //suppresion d'un lecteur (en dynamique)
+        suppLecteur(numLecteur, num_vue);
+    }
+
+}
+/////////////////////////////////////
+/*** méthode SUPPRESSION LECTEUR ***/
+void Ihm::suppLecteur(int numLecteur, int num_vue){
+
+    //se placer sur le bon onglet
+    QWidget *onglet;
+    onglet = pDynamique->onglet[num_vue];
+    //test valeur
+    qDebug() << "valeur pointeur onglet" << onglet << endl;
+
+    //se placer sur le bon label du lecteur
+    QLabel *labelL;
+    labelL = pDynamique->labelL[num_vue][numLecteur];
+
+    //supprimer le label
+    labelL->clear();
+
+    //message d'avertissement (Alarmes)
+    QString numLecteurS = QString::number(numLecteur);
+    QString supLecteur = "<Lecteur ";
+    supLecteur += numLecteurS;
+    supLecteur += "> vient de se deconnecter";
+    ui->txtAlarme->setText(supLecteur);
 }
 ////////////////////////////
 /*** SLOT LECTEUR ACTIF ***/
@@ -115,81 +167,36 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
 /*** méthode AJOUT LECTEUR ***/
 void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 
-    //liste onglet récupération du pointeur onglet
-    if( pOnglet->num_vue[num_vue] == num_vue ){
-
-        QWidget *onglet;
-        onglet = pOnglet->onglet[num_vue];
-
-        qDebug() << "valeur pointeur onglet" << onglet << endl;
-
-        //QWidget *onglet;
-
-
-       // QLabel *labelL = new QLabel(onglet);
-       // labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-       // labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
-
-        //QTabWidget *onglet;
-        //onglet = pOnglet->onglet[num_vue];
-       // qDebug() << "valeur dans l onglet" << onglet << endl;
-        // QWidget *onglet = new QTabWidget(this);
-      //  onglet = pOnglet->onglet[num_vue];
-
-        //nouveau label dynamique pour mettre l'image correspondant
-        QLabel *labelL = new QLabel(onglet);
-        //différente taille d'images utilisées
-        if(num_vue == 1){
-            labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-        }else{
-            labelL->setPixmap(QPixmap("../ressources/lecteur_actif.jpg"));
-        }
-        labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
-
-    //    QVBoxLayout *layout = new QVBoxLayout;
-      //  layout = pOnglet->layout[num_vue];
-
-        //lier le label au layout dynamique
-        //layout->addWidget(labelL);
-
-        //ajouter le layout au widget (l'onglet)
-        //onglet->setLayout(layout);
-    }
-
-/*    //onglet dynamique sur la bonne vue
-    QWidget *onglet = new QTabWidget(this);
-    int vueCourant = num_vue-1;
-    ui->tabWidget->setCurrentIndex(vueCourant);
+    //se placer sur le bon onglet
+    QWidget *onglet;
+    onglet = pDynamique->onglet[num_vue];
+    //test valeur
+    qDebug() << "valeur pointeur onglet" << onglet << endl;
 
     //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *labelL = new QLabel;
-    labelL->setPixmap(QPixmap("/home/scherer/Projet/08-CodageVisualiserLecteurs/visu_lecteurs/ressources/cv.jpg"));
-    labelL->setGeometry(x, y, 300, 100); // largeur hauteur à définir
+    QLabel *labelL = new QLabel(onglet);
+    //différente taille d'images utilisées
+    if(num_vue == 1){
+        labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+    }else{
+        labelL->setPixmap(QPixmap("../ressources/lecteur_actif.jpg"));
+        }
+    labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
 
-    //sauvegarde du pointeur label lecteur
-//    tll->label = labelL;
-    //lier le label au layout dynamique
-    QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(labelL);
-
-    //ajouter le layout au widget (l'onglet)
-    onglet->setLayout(layout);
-*/
+    //sauvegarde du pointeur du label du lecteur
+    pDynamique->labelL[num_vue][numLecteur] = labelL;
 }
 //////////////////////////////
 /*** méthode AJOUT ONGLET ***/
 void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 {
-    //sauvegarde du numéro de l'onglet (donc de la vue)
-    pOnglet->num_vue[num_vue] = num_vue;
-
     //nouveau onglet dynamique avec légende
     ContenuOnglet *pContenuOnglet = new ContenuOnglet(0, image);
     ui->tabWidget->insertTab(num_vue, pContenuOnglet, legende);
 
     //sauvegarde du pointeur onglet
-    pOnglet->onglet[num_vue] = pContenuOnglet;
-    qDebug() << "valeur dans la classe" << pOnglet->onglet[num_vue] << endl;
+    pDynamique->onglet[num_vue] = pContenuOnglet;
+    qDebug() << "valeur dans la classe" << pDynamique->onglet[num_vue] << endl;
 
 }
 ////////////////////////////////

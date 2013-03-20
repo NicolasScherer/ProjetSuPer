@@ -8,8 +8,7 @@
 #include <QtGui>
 
 #include "lecteur.h"
-#include "commun.h"
-#include "onglet.h"
+#include "dynamique.h"
 
 namespace Ui {
 class Ihm;
@@ -34,9 +33,12 @@ private:
 
     int getNumLieu();
     void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
+    void suppLecteur(int numLecteur, int num_vue);
 
+    //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
+    Dynamique *pDynamique;
     //pointeur sur la classe onglet
-    Onglet *pOnglet;
+    //Onglet *pOnglet;
     QWidget *onglet;
 
     //BDD
@@ -47,6 +49,7 @@ signals:
 
 public slots:
    void lecteurActif(Lecteur *pLecteur);
+   void lecteurInactif(Lecteur *pLecteur);
 
 
 
