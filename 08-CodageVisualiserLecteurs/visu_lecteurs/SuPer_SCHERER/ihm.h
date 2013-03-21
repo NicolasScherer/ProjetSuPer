@@ -9,6 +9,7 @@
 
 #include "lecteur.h"
 #include "dynamique.h"
+#include "bdd.h"
 
 namespace Ui {
 class Ihm;
@@ -37,20 +38,18 @@ private:
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
-    //pointeur sur la classe onglet
-    //Onglet *pOnglet;
-    QWidget *onglet;
+    //pointeur sur la classe BDD
+    Bdd *pBdd;
 
-    //BDD
-    QSqlQuery * query;
-    QSqlDatabase  database;
+
+
 signals:
     void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
 
 public slots:
-   void lecteurActif(Lecteur *pLecteur);
-   void lecteurInactif(Lecteur *pLecteur);
-
+    void lecteurActif(Lecteur *pLecteur);
+    void lecteurInactif(Lecteur *pLecteur);
+    void lecteurInconnu();
 
 
 private slots:
