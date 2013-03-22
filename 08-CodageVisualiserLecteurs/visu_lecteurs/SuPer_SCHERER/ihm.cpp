@@ -19,35 +19,44 @@ Ihm::Ihm(QWidget *parent) :
     pDynamique = new Dynamique;
     pBdd = new Bdd;
 
-//*** signaux
-    // Bouton btNewLecteur
-    //connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
+/* //signaux
+     Bouton btNewLecteur
+    connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
 
     //connect
- //   connect(this, SIGNAL(signalNewLecteur(const Lecteur &)), this, SLOT(lecteurActif(const Lecteur &)));
-  //  connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
+    connect(this, SIGNAL(signalNewLecteur(const Lecteur &)), this, SLOT(lecteurActif(const Lecteur &)));
+    connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
     //émission signal
-  // emit signalNewLecteur(pLecteur);
+   emit signalNewLecteur(pLecteur);
+*/
+
 
     //obtention du nombre de vue max
     int vueMax = pBdd->getVueMax();
 
+    //déclaration QList
+    QList<T_TupleOnglet> listeTupleO;
+
     //récupération des infos sur les onglets
-    T_Tuple *TtupleIhm = pBdd->getVue();
+    pBdd->getVue(&listeTupleO);
 
-
-    if(num_vue <= vueMax){
-        ajoutOnglet(num_vue, legende, image);
+    if(!listeTupleO.empty()){
+        for(int i = 0; i < listeTupleO.count() && i < vueMax; i++) {
+            int num_vue = listeTupleO.at(i).num_vue;
+            QString legende = listeTupleO.at(i).legende;
+            QString image = listeTupleO.at(i).image;
+            //ajout de l'onglet
+            this->ajoutOnglet(num_vue, legende, image);
+        }
     }
-
 
     //supprimer les deux onglets de base
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
 
-    //lecteurActif(pLecteur);     // à enlever à l'intégration
-    //lecteurInactif(pLecteur);   // à enlever à l'intégration
-    //lecteurInconnu();           // à enlever à l'intégration
+    lecteurActif(pLecteur);     // à enlever à l'intégration
+    lecteurInactif(pLecteur);   // à enlever à l'intégration
+    lecteurInconnu();           // à enlever à l'intégration
 
     //fenêtre sans bordure
     setWindowFlags(Qt::FramelessWindowHint);
@@ -77,7 +86,20 @@ void Ihm::lecteurInactif(Lecteur *pLecteur){
     //int numLecteur = pLecteur->getnum_lecteur();
     int numLecteur = 1; //doit disparaitre à l'intégration
 
-    pBdd->getVueFctLect(numLecteur);
+    //déclaration QList
+    QList<T_TupleLecteurS> listeTupleL;
+
+    pBdd->getVueFctLect(numLecteur, &listeTupleL);
+
+    //récupération des infos dans la liste
+    if(!listeTupleL.empty()){
+        for(int i = 0; i < listeTupleL.count(); i++) {
+            int num_vue = listeTupleL.at(i).num_vue;
+            //suppression d'un lecteur (en dynamique)
+            this->suppLecteur(numLecteur, num_vue);
+            //listeTupleL.removeAt(i);    //A VERIFIER
+        }
+    }
 
 }
 /////////////////////////////////////
@@ -110,32 +132,27 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
 ////////////////////////////
 /*** SLOT LECTEUR ACTIF ***/
 void Ihm::lecteurActif(Lecteur *pLecteur){
-
     //obtenir le numéro de lecteur grâce à la classe Lecteur
-  //  int numLecteur = pLecteur->getnum_lecteur();
-    int numLecteur = 1;
+    //int numLecteur = pLecteur->getnum_lecteur();
+    int numLecteur = 1; //doit disparaitre à l'intégration
 
-  /*  //avec le numéro obtenu, obtenir la vue et la position (x, y)
-    QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
-    req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-    query->prepare(req);
-    query->bindValue(":numLecteur", numLecteur);
-    if(!query->exec()){
-         qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
+    //déclaration QList
+    QList<T_TupleLecteurE> listeTupleLA;
+
+    pBdd->getVuePosFctLect(numLecteur, &listeTupleLA);
+
+    //récupération des infos dans la liste
+    if(!listeTupleLA.empty()){
+        for(int i = 0; i < listeTupleLA.count(); i++) {
+            int num_vue = listeTupleLA.at(i).num_vue;
+            int x = listeTupleLA.at(i).x;
+            int y = listeTupleLA.at(i).y;
+
+            //ajout d'un lecteur (en dynamique)
+            this->ajoutLecteur(numLecteur, num_vue, x, y);
+        }
     }
 
-    int num_vue, x, y;
-
-    while(query->next()){
-        num_vue = query->value(1).toInt();
-        x = query->value(2).toInt();
-        y = query->value(3).toInt();
-
-        //ajout d'un lecteur (en dynamique)
-        ajoutLecteur(numLecteur, num_vue, x, y);
-    }*/
 
 }
 ///////////////////////////////

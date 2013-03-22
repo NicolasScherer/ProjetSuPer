@@ -17,8 +17,7 @@ SOURCES += main.cpp\
     lecteur.cpp \
     contenuonglet.cpp \
     dynamique.cpp \
-    bdd.cpp \
-    tuple.cpp
+    bdd.cpp
 
 HEADERS  += ihm.h \
     lecteur.h \
