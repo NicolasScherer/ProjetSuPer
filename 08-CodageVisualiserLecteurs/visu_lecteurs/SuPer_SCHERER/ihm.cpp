@@ -17,44 +17,36 @@ Ihm::Ihm(QWidget *parent) :
     ui->setupUi(this);
     pLecteur = new Lecteur;
     pDynamique = new Dynamique;
+    pBdd = new Bdd;
 
-//*** signaux
-    // Bouton btNewLecteur
-    //connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
+/* //signaux
+     Bouton btNewLecteur
+    connect(ui->btNewLecteur, SIGNAL(clicked()), this, SLOT(lecteurActif(pLecteur)));
 
     //connect
- //   connect(this, SIGNAL(signalNewLecteur(const Lecteur &)), this, SLOT(lecteurActif(const Lecteur &)));
-  //  connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
+    connect(this, SIGNAL(signalNewLecteur(const Lecteur &)), this, SLOT(lecteurActif(const Lecteur &)));
+    connect(this, SIGNAL(signalDelLecteur(pLecteur)), this, SLOT(lecteurInactif(pLecteur)));
     //émission signal
-  // emit signalNewLecteur(pLecteur);
+   emit signalNewLecteur(pLecteur);
+*/
 
-    //accès BDD
-    database = QSqlDatabase::addDatabase("QMYSQL");
-    database.setHostName("localhost");
-    database.setDatabaseName("bdd_super");
-    database.setUserName("user_super");
-    database.setPassword("mdp_super");
-    bool ok = database.open();
-    if (!ok)
-        qDebug() << database.lastError();
 
-    query = new QSqlQuery;
+    //obtention du nombre de vue max
+    int vueMax = pBdd->getVueMax();
 
-    int vueMax = getVueMax();
-    //requête
-    if(!query->exec("SELECT * FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
-        //test si problème lors de l'envoi de la requete
-    }
+    //déclaration QList
+    QList<T_TupleOnglet> listeTupleO;
 
-    //ajout autant d'onglet que de vue
-    while(query->next()){
-        int num_vue = query->value(0).toInt();
-        QString legende = query->value(1).toString();
-        QString image = query->value(2).toString();
+    //récupération des infos sur les onglets
+    pBdd->getVue(&listeTupleO);
 
-        if(num_vue <= vueMax){
-            ajoutOnglet(num_vue, legende, image);
+    if(!listeTupleO.empty()){
+        for(int i = 0; i < listeTupleO.count() && i < vueMax; i++) {
+            int num_vue = listeTupleO.at(i).num_vue;
+            QString legende = listeTupleO.at(i).legende;
+            QString image = listeTupleO.at(i).image;
+            //ajout de l'onglet
+            this->ajoutOnglet(num_vue, legende, image);
         }
     }
 
@@ -64,6 +56,7 @@ Ihm::Ihm(QWidget *parent) :
 
     lecteurActif(pLecteur);     // à enlever à l'intégration
     lecteurInactif(pLecteur);   // à enlever à l'intégration
+    lecteurInconnu();           // à enlever à l'intégration
 
     //fenêtre sans bordure
     setWindowFlags(Qt::FramelessWindowHint);
@@ -74,11 +67,17 @@ Ihm::Ihm(QWidget *parent) :
 Ihm::~Ihm()
 {
     delete pLecteur;
-    delete query;
+
 
     // PENSER A DETRUIRE LES ONGLETS
 
     delete ui;
+}
+//////////////////////////////
+/*** SLOT LECTEUR INCONNU ***/
+void Ihm::lecteurInconnu(){
+    //ajout texte Ihm
+    ui->txtAlarme->textCursor().insertText("<Erreur> quelque chose a tenter de se connecter\n");
 }
 //////////////////////////////
 /*** SLOT LECTEUR INACTIF ***/
@@ -87,24 +86,19 @@ void Ihm::lecteurInactif(Lecteur *pLecteur){
     //int numLecteur = pLecteur->getnum_lecteur();
     int numLecteur = 1; //doit disparaitre à l'intégration
 
-    //avec le numéro obtenu, obtenir la vue et la position (x, y)
-    QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue ";
-    req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-    query->prepare(req);
-    query->bindValue(":numLecteur", numLecteur);
-    if(!query->exec()){
-         qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
-    }
+    //déclaration QList
+    QList<T_TupleLecteurS> listeTupleL;
 
-    int num_vue;
+    pBdd->getVueFctLect(numLecteur, &listeTupleL);
 
-    while(query->next()){
-        num_vue = query->value(1).toInt();
-
-        //suppresion d'un lecteur (en dynamique)
-        suppLecteur(numLecteur, num_vue);
+    //récupération des infos dans la liste
+    if(!listeTupleL.empty()){
+        for(int i = 0; i < listeTupleL.count(); i++) {
+            int num_vue = listeTupleL.at(i).num_vue;
+            //suppression d'un lecteur (en dynamique)
+            this->suppLecteur(numLecteur, num_vue);
+            //listeTupleL.removeAt(i);    //A VERIFIER
+        }
     }
 
 }
@@ -127,40 +121,38 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
 
     //message d'avertissement (Alarmes)
     QString numLecteurS = QString::number(numLecteur);
+    QString numVueS = QString::number(num_vue);
     QString supLecteur = "<Lecteur ";
     supLecteur += numLecteurS;
+    supLecteur += "><Vue ";
+    supLecteur += numVueS;
     supLecteur += "> vient de se deconnecter";
-    ui->txtAlarme->setText(supLecteur);
+    ui->txtAlarme->textCursor().insertText(supLecteur + "\n");
 }
 ////////////////////////////
 /*** SLOT LECTEUR ACTIF ***/
 void Ihm::lecteurActif(Lecteur *pLecteur){
-
     //obtenir le numéro de lecteur grâce à la classe Lecteur
-  //  int numLecteur = pLecteur->getnum_lecteur();
-    int numLecteur = 1;
+    //int numLecteur = pLecteur->getnum_lecteur();
+    int numLecteur = 1; //doit disparaitre à l'intégration
 
-    //avec le numéro obtenu, obtenir la vue et la position (x, y)
-    QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
-    req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-    query->prepare(req);
-    query->bindValue(":numLecteur", numLecteur);
-    if(!query->exec()){
-         qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
+    //déclaration QList
+    QList<T_TupleLecteurE> listeTupleLA;
+
+    pBdd->getVuePosFctLect(numLecteur, &listeTupleLA);
+
+    //récupération des infos dans la liste
+    if(!listeTupleLA.empty()){
+        for(int i = 0; i < listeTupleLA.count(); i++) {
+            int num_vue = listeTupleLA.at(i).num_vue;
+            int x = listeTupleLA.at(i).x;
+            int y = listeTupleLA.at(i).y;
+
+            //ajout d'un lecteur (en dynamique)
+            this->ajoutLecteur(numLecteur, num_vue, x, y);
+        }
     }
 
-    int num_vue, x, y;
-
-    while(query->next()){
-        num_vue = query->value(1).toInt();
-        x = query->value(2).toInt();
-        y = query->value(3).toInt();
-
-        //ajout d'un lecteur (en dynamique)
-        ajoutLecteur(numLecteur, num_vue, x, y);
-    }
 
 }
 ///////////////////////////////
@@ -199,21 +191,7 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
     qDebug() << "valeur dans la classe" << pDynamique->onglet[num_vue] << endl;
 
 }
-////////////////////////////////
-/*** méthode obtenir VUE MAX **/
-int Ihm::getVueMax()
-{
-    if(!query->exec("SELECT COUNT(*) FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl; //<< database->lastError() << endl;
-        //test si problème lors de l'envoi de la requete
-    }
 
-    int vueMax;
-    while(query->next()){
-        vueMax = query->value(0).toInt();
-    }
-    return vueMax;
-}
 /////////////////////////////
 /*** SLOT bouton Quitter ***/
 void Ihm::on_btQuitter_clicked()
