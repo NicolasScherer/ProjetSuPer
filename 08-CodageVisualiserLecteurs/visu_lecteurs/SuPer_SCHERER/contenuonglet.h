@@ -5,6 +5,8 @@
 #include <QString>
 #include <QLabel>
 
+///////////////////////////////////////////////////////////////////////////
+/*** CLASSE pour afficher dynamiquement un onglet (contenu d'un onglet)***/
 class ContenuOnglet : public QWidget
 {
     Q_OBJECT

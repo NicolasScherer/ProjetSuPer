@@ -2,10 +2,6 @@
 #define IHM_H
 
 #include <QMainWindow>
-#include <QtSql>
-#include <QGraphicsView>
-#include <QGraphicsScene>
-#include <QtGui>
 
 #include "lecteur.h"
 #include "dynamique.h"
@@ -28,11 +24,8 @@ private:
     Ui::Ihm *ui;
     Lecteur *pLecteur;
 
-    //onglet dynamique
+    //Ihm dynamique (initialisation)
     void ajoutOnglet(int num_vue, QString legende, QString image);
-    int getVueMax();    //lié à BDD
-
-    int getNumLieu();
     void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
     void suppLecteur(int numLecteur, int num_vue);
 
@@ -41,19 +34,19 @@ private:
     //pointeur sur la classe BDD
     Bdd *pBdd;
 
-
-
 signals:
     void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
 
 public slots:
+    //lié à la connexion/déconnexion des lecteurs
     void lecteurActif(Lecteur *pLecteur);
     void lecteurInactif(Lecteur *pLecteur);
     void lecteurInconnu();
 
 
 private slots:
-   void on_btQuitter_clicked();
+    //bouton sur l'ihm pour quitter
+    void on_btQuitter_clicked();
 };
 
 #endif // IHM_H

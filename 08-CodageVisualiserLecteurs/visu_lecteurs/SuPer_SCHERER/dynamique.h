@@ -4,9 +4,11 @@
 #include <QObject>
 #include <QLabel>
 
-#define MAXONGLETS 20
-#define MAXLECTEURS 40
+#define MAXONGLETS 20   //maximum d'onglets possible
+#define MAXLECTEURS 40  //maximum de lecteurs possible
 
+//////////////////////////////////////////////////////////////
+/*** CLASSE pour sauvegarder les objets créé dynamiquement***/
 class Dynamique : public QObject
 {
     Q_OBJECT

@@ -12,14 +12,23 @@ Bdd::Bdd(QObject *parent) :
     database.setUserName("user_super");
     database.setPassword("mdp_super");
     bool ok = database.open();
-    if (!ok)
+    if (!ok){
         qDebug() << database.lastError();
+        QMessageBox::critical(0, tr("Impossible d'ouvrir la BDD."),
+                 tr("Impossible d'etablir une connexion avec la Base de Donnees.\n"),
+                          QMessageBox::Cancel);
+    }
 
     query = new QSqlQuery;
 }
+/////////////////////
+/*** DESTRUCTEUR ***/
+Bdd::~Bdd(){
+   delete query;
+}
 
-////////////////////////////////
-/*** méthode obtenir VUE MAX **/
+//////////////////////////////////////
+/*** METHODE pour OBTENIR VUE MAX ***/
 int Bdd::getVueMax(){
 
     //requête
@@ -35,46 +44,8 @@ int Bdd::getVueMax(){
     }
     return vueMax;
 }
-/////////////////////////////////////////
-/*** méthode obtenir toutes les vues ***/
-bool Bdd::getVue(QList<T_TupleOnglet> *listeOnglet){
-
-    // requête
-    if(!query->exec("SELECT * FROM vue")){
-        qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
-        //test si problème lors de l'envoi de la requete
-    }
-
-    //allocation pointeur
-    this->pTupleOnglet = new T_TupleOnglet;
-
-    //réponse requete
-    while(query->next()){
-        int num_vue = query->value(0).toInt();
-        QString legende = query->value(1).toString();
-        QString image = query->value(2).toString();
-
-        //ajout liste
-        this->pTupleOnglet->num_vue = num_vue;
-        this->pTupleOnglet->legende = legende;
-        this->pTupleOnglet->image = image;
-        listeOnglet->append(*pTupleOnglet);
-
-    }
-
-    delete this->pTupleOnglet;
-
-    return true;
-}
-
-/////////////////////
-/*** DESTRUCTEUR ***/
-Bdd::~Bdd(){
-   delete query;
-}
-
-////////////////////////////////////////////////////
-/*** méthode obtenir vue en fonction du lecteur ***/
+/////////////////////////////////////////////////////////
+/*** METHODE pour OBTENIR VUE en FONCTION du n° LECTEUR ***/
 bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue
@@ -139,3 +110,35 @@ bool Bdd::getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *listeLecteur)
 
     return true;
 }
+/////////////////////////////////////////
+/*** METHODE OBTENIR TOUTES LES VUES ***/
+bool Bdd::getVue(QList<T_TupleOnglet> *listeOnglet){
+
+    // requête
+    if(!query->exec("SELECT * FROM vue")){
+        qDebug() << "Erreur requete SQL" << endl << database.lastError() << endl;
+        //test si problème lors de l'envoi de la requete
+    }
+
+    //allocation pointeur
+    this->pTupleOnglet = new T_TupleOnglet;
+
+    //réponse requete
+    while(query->next()){
+        int num_vue = query->value(0).toInt();
+        QString legende = query->value(1).toString();
+        QString image = query->value(2).toString();
+
+        //ajout liste
+        this->pTupleOnglet->num_vue = num_vue;
+        this->pTupleOnglet->legende = legende;
+        this->pTupleOnglet->image = image;
+        listeOnglet->append(*pTupleOnglet);
+
+    }
+
+    delete this->pTupleOnglet;
+
+    return true;
+}
+

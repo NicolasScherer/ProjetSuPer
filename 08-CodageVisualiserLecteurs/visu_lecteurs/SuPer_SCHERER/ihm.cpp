@@ -6,7 +6,7 @@
 #include <QtDebug>
 #include <QMessageBox>
 #include <QLabel>
-#include <QVBoxLayout>
+
 
 //////////////////////
 /*** CONSTRUCTEUR ***/
@@ -67,10 +67,8 @@ Ihm::Ihm(QWidget *parent) :
 Ihm::~Ihm()
 {
     delete pLecteur;
-
-
-    // PENSER A DETRUIRE LES ONGLETS
-
+    delete pDynamique;
+    delete pBdd;
     delete ui;
 }
 //////////////////////////////
@@ -118,6 +116,7 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
 
     //supprimer le label
     labelL->clear();
+    delete labelL;
 
     //message d'avertissement (Alarmes)
     QString numLecteurS = QString::number(numLecteur);
@@ -177,6 +176,7 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 
     //sauvegarde du pointeur du label du lecteur
     pDynamique->labelL[num_vue][numLecteur] = labelL;
+
 }
 //////////////////////////////
 /*** méthode AJOUT ONGLET ***/
