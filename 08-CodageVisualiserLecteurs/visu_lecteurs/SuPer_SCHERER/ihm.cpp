@@ -53,6 +53,8 @@ Ihm::Ihm(QWidget *parent) :
     //supprimer les deux onglets de base
     ui->tabWidget->removeTab(0);
     ui->tabWidget->removeTab(vueMax);
+    //mettre l'onglet de base dans la vue
+    ui->tabWidget->setCurrentIndex(0);
 
     lecteurActif(pLecteur);     // à enlever à l'intégration
     lecteurInactif(pLecteur);   // à enlever à l'intégration
@@ -151,7 +153,6 @@ void Ihm::lecteurActif(Lecteur *pLecteur){
             this->ajoutLecteur(numLecteur, num_vue, x, y);
         }
     }
-
 
 }
 ///////////////////////////////
