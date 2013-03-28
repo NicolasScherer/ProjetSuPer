@@ -40,6 +40,7 @@ public:
     bool getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *); //obtenir la vue en fonction du lecteur
     bool getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *);   //obtenir la vue et la position (x,y) en fonction du lecteur
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
+    bool badgeExiste(QString &num_badge);
 
 private:
     //pointeurs sur structure
@@ -49,6 +50,7 @@ private:
 
     QSqlQuery * query;
     QSqlDatabase  database;
+    QString requete;  // requête parfois utilisé
     
 signals:
     

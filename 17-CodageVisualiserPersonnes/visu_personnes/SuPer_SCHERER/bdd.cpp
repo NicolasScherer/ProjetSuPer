@@ -49,11 +49,10 @@ int Bdd::getVueMax(){
 bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue
-    QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue ";
-    req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-    query->prepare(req);
+    requete = "SELECT A1.num_lieu, A2.num_vue ";
+    requete += "FROM lecteur A1, representationLieuSurVue A2 ";
+    requete += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+    query->prepare(requete);
     query->bindValue(":numLecteur", numLecteur);
     if(!query->exec()){
          qDebug() << "Erreur requete SQL vue lecteur" << endl;
@@ -80,11 +79,10 @@ bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 bool Bdd::getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue et la position (x,y)
-    QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
-    req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
-    query->prepare(req);
+    requete = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
+    requete += "FROM lecteur A1, representationLieuSurVue A2 ";
+    requete += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+    query->prepare(requete);
     query->bindValue(":numLecteur", numLecteur);
     if(!query->exec()){
          qDebug() << "Erreur requete SQL vue/position lecteur" << endl;
@@ -141,4 +139,31 @@ bool Bdd::getVue(QList<T_TupleOnglet> *listeOnglet){
 
     return true;
 }
+////////////////////////////////////////////
+/*** METHODE est-ce qu'un badge existe ?***/
+bool Bdd::badgeExiste(QString &num_badge){
 
+    //requête
+    requete = "SELECT * FROM badge WHERE num_badge=:numBadge LIMIT 1";
+    query->prepare(requete);
+    query->bindValue(":numBadge", num_badge);
+
+    if (!query->exec()){
+        qDebug("Erreur MySQL badgeExiste");
+        return false;
+    }
+
+    //réponse requête
+    //astuce : connaitre son nombre de ligne renvoyé permet de savoir si la requête est fructueuse
+    //puisqu'on a demandé LIMIT 1
+    int nbLigne = query->size();
+
+    //le badge existe
+    if(nbLigne == 1){
+        query->next();
+        return true;
+    }
+
+    //le badge n'existe pas
+    return false;
+}
