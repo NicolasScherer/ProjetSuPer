@@ -56,9 +56,9 @@ Ihm::Ihm(QWidget *parent) :
     //mettre l'onglet de base dans la vue
     ui->tabWidget->setCurrentIndex(0);
 
-    lecteurActif(pLecteur);     // à enlever à l'intégration
-    lecteurInactif(pLecteur);   // à enlever à l'intégration
-    lecteurInconnu();           // à enlever à l'intégration
+   // lecteurActif(pLecteur);     // à enlever à l'intégration
+   // lecteurInactif(pLecteur);   // à enlever à l'intégration
+   // lecteurInconnu();           // à enlever à l'intégration
 
     //fenêtre sans bordure
     setWindowFlags(Qt::FramelessWindowHint);
@@ -198,4 +198,54 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 void Ihm::on_btQuitter_clicked()
 {
     this->~Ihm();
+}
+
+/*-------------------------------*
+ * Slot traitement de la trame   *
+ *-------------------------------*/
+bool Ihm::traitementTrame(QString &trame){
+
+    //décodage trame
+    QString num_badge, sens, mouvement, num_lecteur;
+    //int nbB;
+    bool existe = false;
+    //T_ListeLabel *tll;
+
+//nbT++; // compteur de trames
+
+    //séparation des parties de la trame
+    num_badge = trame.mid(3,3); //numéro de badge
+
+    //suppression mauvais badge
+    if(num_badge == "000") {
+        qDebug("Mauvais badge.");
+        ui->txtAlarme->textCursor().insertText("<Erreur> Mauvais badge num=000\n");
+        return false;
+    }
+
+    sens = trame.mid(1,2); //niveau de réception du tag
+    mouvement = trame.mid(6,3); //niveau de mouvement mesuré
+    num_lecteur = trame.mid(9,2);   //numéro du lecteur
+
+    //conversion des valeurs en int à partir de ASCII hexa et mise à l'échelle
+    int num_badge_i = num_badge.toInt(0,16);
+    int sens_i = sens.toInt(0,16);
+    int num_lecteur_i = num_lecteur.toInt(0,16);
+
+    //test si le badge existe dans la BDD
+    if(!pBdd->badgeExiste(num_badge)){
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non référencé dans la Base de données\n");
+        return false;
+    }
+
+ /*   //test si le badge est représenté sur l'ihm
+    nbB = listeLabel.size();
+    for (int i=0 ; i<nbB ; i++) {
+        tll = listeLabel.at(i);
+        if (inoB == tll->noBadge) {
+            existe=true;
+            break;
+        } // if trouvé
+    } // for*/
+
 }

@@ -40,7 +40,6 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
-    QPushButton *btNewLecteur;
     QPushButton *btConfigurer;
     QPushButton *btQuitter;
     QPushButton *btHelp;
@@ -96,9 +95,6 @@ public:
         label_6->setObjectName(QString::fromUtf8("label_6"));
         label_6->setGeometry(QRect(90, 190, 511, 20));
         tabWidget->addTab(tab_2, QString());
-        btNewLecteur = new QPushButton(centralWidget);
-        btNewLecteur->setObjectName(QString::fromUtf8("btNewLecteur"));
-        btNewLecteur->setGeometry(QRect(310, 10, 61, 31));
         btConfigurer = new QPushButton(centralWidget);
         btConfigurer->setObjectName(QString::fromUtf8("btConfigurer"));
         btConfigurer->setGeometry(QRect(570, 10, 100, 30));
@@ -172,7 +168,6 @@ public:
         label_5->setText(QApplication::translate("Ihm", "Il est vivement conseill\303\251 de regarder attentivement l'aide fournit avec le logiciel.", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("Ihm", "Si le probl\303\250me persiste, contacter la section BTS IRIS qui a d\303\251velopp\303\251 SuPer.", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Ihm", "Erreur", 0, QApplication::UnicodeUTF8));
-        btNewLecteur->setText(QApplication::translate("Ihm", "Nouveau lecteur 1", 0, QApplication::UnicodeUTF8));
         btConfigurer->setText(QApplication::translate("Ihm", "Configurer", 0, QApplication::UnicodeUTF8));
         btQuitter->setText(QApplication::translate("Ihm", "Quitter", 0, QApplication::UnicodeUTF8));
         btHelp->setText(QApplication::translate("Ihm", "Aides", 0, QApplication::UnicodeUTF8));
