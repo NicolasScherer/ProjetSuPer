@@ -15,7 +15,7 @@ Ihm::Ihm(QWidget *parent) :
     ui(new Ui::Ihm)
 {
     ui->setupUi(this);
-    pLecteur = new Lecteur;
+    pLecteur = new Lecteur; //à enlever à l'intégration
     pDynamique = new Dynamique;
     pBdd = new Bdd;
 
@@ -56,13 +56,145 @@ Ihm::Ihm(QWidget *parent) :
     //mettre l'onglet de base dans la vue
     ui->tabWidget->setCurrentIndex(0);
 
-   // lecteurActif(pLecteur);     // à enlever à l'intégration
+    lecteurActif(pLecteur);     // à enlever à l'intégration
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
+
+    traitementTrame("960021A701");  //à enlever à l'intégration
+    //trame type : AD D01 6A7 01
+    //AD niveau de reception
+    //DO1 n° de badge
+    //6A7 mouvement
+    //01 n° lecteur
 
     //fenêtre sans bordure
     setWindowFlags(Qt::FramelessWindowHint);
 
+}
+/*-------------------------------*
+ * Slot traitement de la trame   *
+ *-------------------------------*/
+bool Ihm::traitementTrame(QString trame){
+
+    //décodage trame
+    QString num_badge, sens, mouvement, num_lecteur;
+    bool existe = false;
+    //T_ListeLabel *tll;
+
+//nbT++; // compteur de trames
+
+    //séparation des parties de la trame
+    num_badge = trame.mid(2,3); //numéro de badge
+
+    //suppression mauvais badge
+    if(num_badge == "000") {
+        qDebug("Mauvais badge.");
+        ui->txtAlarme->textCursor().insertText("<Erreur> Mauvais badge num=000\n");
+        return false;
+    }
+
+    sens = trame.mid(0,2); //niveau de réception du tag
+    mouvement = trame.mid(5,3); //niveau de mouvement mesuré
+    num_lecteur = trame.mid(8,2);   //numéro du lecteur
+
+    //conversion des valeurs en int à partir de ASCII hexa et mise à l'échelle
+    //c'est-à-dire conversion de l'hexadécimal en décimal
+    int num_badge_i = num_badge.toInt(0,16);
+    int sens_i = sens.toInt(0,16);
+    int num_lecteur_i = num_lecteur.toInt(0,16);
+
+    //test si le badge existe dans la BDD
+    if(!pBdd->badgeExiste(num_badge)){
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non reference dans la Base de donnees\n");
+        return false;
+    }
+
+    //test si le badge existe sur l'ihm
+   /* int nbLigneBadge = listeLabel.size();
+    for(int i=0 ; i<nbLigneBadge ; i++){
+        tll = listeLabel.at(i);
+        if (num_badge_i == tll->noBadge) {
+            existe=true;
+            break;
+        } // if trouvé
+    } // for
+*/
+    //n'existe pas sur l'ihm
+    //combien de vue ?
+    int vueMax = pBdd->getVueMax();
+    //se placer sur les différentes vues
+    for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
+        //se placer sur un onglet
+        QWidget *onglet;
+        onglet = pDynamique->onglet[num_vue];
+
+        //nouveau label dynamique pour un badge
+        QLabel *labelB = new QLabel(onglet);
+
+        //sauvegarde du pointeur du label pour un badge
+        pDynamique->labelB[num_vue][num_badge_i];
+
+    }
+    //ajouter label défaut vert
+    //sauvegarde label
+
+    /*
+
+    //nouveau label dynamique pour mettre l'image correspondant
+    QLabel *labelL = new QLabel(onglet);
+    //différente taille d'images utilisées
+    if(num_vue == 1){
+        labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+    }else{
+        labelL->setPixmap(QPixmap("../ressources/lecteur_actif.jpg"));
+        }
+    labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
+
+    //sauvegarde du pointeur du label du lecteur
+    pDynamique->labelL[num_vue][numLecteur] = labelL;
+    */
+
+
+
+ /*   //creation label si existe pas
+    if(!existe){
+        tll = new T_ListeLabel();
+        nbB++;
+        for(int i=0 ; i<config.maxLect ; i++)   // init à 100
+            for(int j=0 ; j<config.maxVal ; j++)
+                tll->moySens[i][j]=100;
+        for(int i=0 ; i<config.maxLect ; i++)
+        {
+            tll->sdp[i]=0;
+            tll->memSdp[i]=0;
+        } // for
+        memset(tll->indMoy, 0, sizeof(tll->indMoy));   // init à 0
+        tll->l = new QLabel(ui->centralWidget);
+        tll->noBadge = inoB;
+        tll->noLect = inoLect;
+        tll->etat = 0; // aller
+        // réglage du timer associé au mouvement
+        tll->wdm = new QTimer(this);
+        connect(tll->wdm, SIGNAL(timeout()), this, SLOT(onTimerMouv()));
+        tll->wdm->setSingleShot(true);
+        tll->wdm->start(config.tempoM); // secondes
+        // réglage du timer associé à la réception
+        tll->wdr[inoLect] = new QTimer(this);
+        connect(tll->wdr[inoLect], SIGNAL(timeout()), this, SLOT(onTimerRec()));
+        tll->wdr[inoLect]->setSingleShot(true);
+        tll->wdr[inoLect]->start(config.tempoR); // secondes
+        // ajout à la liste mémoire et affichage
+        listeLabel.append(tll);
+        nbB = listeLabel.size();
+        ui->lNbB->setText(QString("%1").arg(nbB)); // affiche nb de badge actuel
+        // réglage par défaut du nouveau label
+        tll->l->setEnabled(true);
+        tll->l->setGeometry(QRect(590, 620, 20, 20));
+        tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertehaut.jpg")));
+        tll->l->setScaledContents(true);
+        tll->l->show();
+    } // if !existe
+    */
 }
 /////////////////////
 /*** DESTRUCTEUR ***/
@@ -200,52 +332,4 @@ void Ihm::on_btQuitter_clicked()
     this->~Ihm();
 }
 
-/*-------------------------------*
- * Slot traitement de la trame   *
- *-------------------------------*/
-bool Ihm::traitementTrame(QString &trame){
 
-    //décodage trame
-    QString num_badge, sens, mouvement, num_lecteur;
-    //int nbB;
-    bool existe = false;
-    //T_ListeLabel *tll;
-
-//nbT++; // compteur de trames
-
-    //séparation des parties de la trame
-    num_badge = trame.mid(3,3); //numéro de badge
-
-    //suppression mauvais badge
-    if(num_badge == "000") {
-        qDebug("Mauvais badge.");
-        ui->txtAlarme->textCursor().insertText("<Erreur> Mauvais badge num=000\n");
-        return false;
-    }
-
-    sens = trame.mid(1,2); //niveau de réception du tag
-    mouvement = trame.mid(6,3); //niveau de mouvement mesuré
-    num_lecteur = trame.mid(9,2);   //numéro du lecteur
-
-    //conversion des valeurs en int à partir de ASCII hexa et mise à l'échelle
-    int num_badge_i = num_badge.toInt(0,16);
-    int sens_i = sens.toInt(0,16);
-    int num_lecteur_i = num_lecteur.toInt(0,16);
-
-    //test si le badge existe dans la BDD
-    if(!pBdd->badgeExiste(num_badge)){
-        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non référencé dans la Base de données\n");
-        return false;
-    }
-
- /*   //test si le badge est représenté sur l'ihm
-    nbB = listeLabel.size();
-    for (int i=0 ; i<nbB ; i++) {
-        tll = listeLabel.at(i);
-        if (inoB == tll->noBadge) {
-            existe=true;
-            break;
-        } // if trouvé
-    } // for*/
-
-}
