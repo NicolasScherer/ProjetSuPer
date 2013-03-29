@@ -108,19 +108,20 @@ bool Ihm::traitementTrame(QString trame){
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non reference dans la Base de donnees\n");
         return false;
     }
-
+/*
     //test si le badge existe sur l'ihm
-   /* int nbLigneBadge = listeLabel.size();
+    int nbLigneBadge = listeLabel.size();
     for(int i=0 ; i<nbLigneBadge ; i++){
         tll = listeLabel.at(i);
         if (num_badge_i == tll->noBadge) {
             existe=true;
             break;
         } // if trouvé
-    } // for
+
+
 */
     //n'existe pas sur l'ihm
-    //combien de vue ?
+    //combien de vue sur l'ihm ?
     int vueMax = pBdd->getVueMax();
     //se placer sur les différentes vues
     for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
@@ -135,26 +136,6 @@ bool Ihm::traitementTrame(QString trame){
         pDynamique->labelB[num_vue][num_badge_i];
 
     }
-    //ajouter label défaut vert
-    //sauvegarde label
-
-    /*
-
-    //nouveau label dynamique pour mettre l'image correspondant
-    QLabel *labelL = new QLabel(onglet);
-    //différente taille d'images utilisées
-    if(num_vue == 1){
-        labelL->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-    }else{
-        labelL->setPixmap(QPixmap("../ressources/lecteur_actif.jpg"));
-        }
-    labelL->setGeometry(x, y, 15, 42); // largeur hauteur à définir
-
-    //sauvegarde du pointeur du label du lecteur
-    pDynamique->labelL[num_vue][numLecteur] = labelL;
-    */
-
-
 
  /*   //creation label si existe pas
     if(!existe){
@@ -195,6 +176,17 @@ bool Ihm::traitementTrame(QString trame){
         tll->l->show();
     } // if !existe
     */
+/*
+     // recherche identité
+    if (bdd->aQuiAppartientCeBadge(noBadge) != -1) {
+       tll->pers.nom = bdd->query->value(1).toString();
+       tll->pers.pnom = bdd->query->value(2).toString();
+       tll->pers.societe = bdd->query->value(3).toString();
+       tll->pers.noPers = bdd->query->value(6).toInt();
+    } else {  // a personne !
+        tll->pers.noPers = -1;
+    } // else
+*/
 }
 /////////////////////
 /*** DESTRUCTEUR ***/
