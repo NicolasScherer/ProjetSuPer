@@ -1,0 +1,55 @@
+format 76
+
+classinstance 128015 class_ref 128271 // Gestion_Lecteur
+  name ""   xyz 25 21 2000 life_line_z 2000
+classinstance 128143 class_ref 134799 // IHM
+  name ""   xyz 431 24 2000 life_line_z 2000
+classinstance 128271 class_ref 134927 // Gestion_Evenement
+  name ""   xyz 203 26 2000 life_line_z 2000
+note 129679 "Initialisation de l'IHM :
+- vue du synoptique
+- lecteurs inactifs"
+  color verylightorange  xyzwh 459 74 2000 127 59
+durationcanvas 128399 classinstance_ref 128015 // :Gestion_Lecteur
+  xyzwh 63 90 2010 11 40
+end
+durationcanvas 128527 classinstance_ref 128271 // :Gestion_Evenement
+  xyzwh 253 91 2010 11 190
+  overlappingdurationcanvas 128783
+    xyzwh 259 105 2020 11 25
+  end
+  overlappingdurationcanvas 129039
+    xyzwh 259 163 2020 11 66
+  end
+end
+durationcanvas 129295 classinstance_ref 128143 // :IHM
+  xyzwh 450 187 2010 11 70
+end
+msg 128655 asynchronous
+  from durationcanvas_ref 128399
+  to durationcanvas_ref 128527
+  yz 91 2015 explicitmsg "envoi d'un signal (nouveau lecteur)"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 79 77
+reflexivemsg 128911 asynchronous
+  to durationcanvas_ref 128783
+  yz 106 2025 explicitmsg "Capter l'événement"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 269 91
+reflexivemsg 129167 asynchronous
+  to durationcanvas_ref 129039
+  yz 164 2025 explicitmsg "Accéder aux données du lecteur"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 266 149
+msg 129423 asynchronous
+  from durationcanvas_ref 129039
+  to durationcanvas_ref 129295
+  yz 196 2025 explicitmsg "Mettre à jour l'IHM"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 321 182
+msg 129551 return
+  from durationcanvas_ref 129295
+  to durationcanvas_ref 128527
+  yz 246 2015 unspecifiedmsg
+  show_full_operations_definition default drawing_language default show_context_mode default
+end

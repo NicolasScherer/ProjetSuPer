@@ -1,0 +1,39 @@
+format 76
+
+subject 128050 "Front End (partie publique)"
+  xyzwh 261.5 82.5 2000 323 384
+subject 128178 "tâche SCHERER Nicolas"
+  color verylightorange  xyzwh 278.5 120.5 2005 288 227
+usecasecanvas 128306 usecase_ref 128271 // Visualiser
+  xyzwh 304.5 257 3005 64 32 label_xy 312.5 289
+end
+usecasecanvas 128818 usecase_ref 128050 // Visualiser des personnes
+  xyzwh 337 180 3005 64 32 label_xy 307 212
+end
+usecasecanvas 128946 usecase_ref 128178 // identité personne
+  xyzwh 494 141 3005 64 32 label_xy 481 172
+end
+usecasecanvas 129586 usecase_ref 128306 // Gestion des badges RFID
+  xyzwh 402 376 3005 64 32 label_xy 373 408
+end
+classcanvas 129842 class_ref 128050 // Badge_RFID
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 628 360 2000
+end
+classcanvas 130098 class_ref 128015 // Vigile_Exploitant
+  class_drawing_mode default show_context_mode default show_stereotype_properties default
+  xyz 151 240 2005
+end
+line 129074 --->
+  from ref 128818 z 3006 to ref 128306
+simplerelationcanvas 129202 simplerelation_ref 128050
+  from ref 128818 z 3006 stereotype "<<extend>>" xyz 418 173.5 3000 to ref 128946
+end
+simplerelationcanvas 129714 simplerelation_ref 128178
+  from ref 128306 z 3006 stereotype "<<include>>" xyz 355 331 3000 to ref 129586
+end
+line 129970 ----
+  from ref 129586 z 3006 to ref 129842
+line 130226 --->
+  from ref 128306 z 3006 to ref 130098
+end

@@ -69,6 +69,7 @@ CREATE TABLE personne
    dateDebut	DATE		NOT NULL,
    dateFin	DATE		NOT NULL,
    num_pers	INT UNSIGNED 	NOT NULL,
+   photo	VARCHAR(100)	NOT NULL,
    
    PRIMARY KEY (num_pers)
    
@@ -85,7 +86,7 @@ CREATE TABLE badge
    estActif	TINYINT UNSIGNED	NOT NULL,
    constraint estActif_is_bool	check(estActif BETWEEN 0 and 1),
    
-   PRIMARY KEY (num_badge)
+   PRIMARY KEY (num_badge, num_pers)
    
 )ENGINE=INNODB;
 
@@ -127,7 +128,7 @@ INSERT INTO vue (num_vue, legende, image) VALUE
 
 
 INSERT INTO representationLieuSurVue (num_vue, num_lieu, x, y) VALUE
-  (1, 1, 58, 472),
+  (1, 1, 580, 472),
   (1, 2, 540, 442),
   (1, 3, 520, 432),
   (2, 1, 580, 488),
