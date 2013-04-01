@@ -1,0 +1,127 @@
+format 76
+
+classinstance 128178 class_ref 134799 // IHM
+  name ""   xyz 237 81 2000 life_line_z 2000
+classinstance 128306 class_ref 134578 // Bdd
+  name ""   xyz 437 81 2000 life_line_z 2000
+classinstance 128562 class_ref 134834 // Dynamique
+  name ""   xyz 505 80 2000 life_line_z 2000
+classinstance 128690 class_ref 134962 // Gesttion_Badge
+  name ""   xyz 34 77 2000 life_line_z 2000
+textcanvas 129202 "( un badge envoi des données )"
+  xyzwh 91 149 2020 170 23
+note 134578 "La classe Ihm permet d'avoir accès directement à l'interface."
+  xyzwh 85 15 2000 173 57
+note 134706 "La classe Bdd permet de faire les requêtes à la base de données"
+  color green  xyzwh 297 13 2000 127 71
+note 134834 "La classe Dynamique permet de sauvegarder tout ce qui est fait dynamiquement (images...)"
+  color lightred  xyzwh 441 10 2000 181 63
+durationcanvas 128818 classinstance_ref 128690 // :Gesttion_Badge
+  xyzwh 70 141 2010 11 40
+end
+durationcanvas 128946 classinstance_ref 128178 // :IHM
+  xyzwh 256 142 2010 11 413
+  overlappingdurationcanvas 129330
+    xyzwh 262 150 2020 11 28
+  end
+  overlappingdurationcanvas 131890
+    xyzwh 262 388 2020 11 25
+  end
+  overlappingdurationcanvas 132146
+    xyzwh 262 427 2020 11 25
+  end
+  overlappingdurationcanvas 132402
+    xyzwh 262 469 2020 11 25
+  end
+  overlappingdurationcanvas 132658
+    xyzwh 262 512 2020 11 29
+  end
+  overlappingdurationcanvas 132914
+    xyzwh 262 203 2020 11 164
+  end
+end
+durationcanvas 133170 classinstance_ref 128306 // :Bdd
+  xyzwh 456 224 2010 11 32
+end
+durationcanvas 133554 classinstance_ref 128306 // :Bdd
+  xyzwh 456 272 2010 11 42
+end
+durationcanvas 134194 classinstance_ref 128562 // :Dynamique
+  xyzwh 533 330 2010 11 37
+end
+msg 129074 asynchronous
+  from durationcanvas_ref 128818
+  to durationcanvas_ref 128946
+  yz 142 2015 explicitmsg "envoi d'un signal"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 127 130
+reflexivemsg 129458 asynchronous
+  to durationcanvas_ref 129330
+  yz 151 2025 explicitmsg "Capter l'événement"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 270 136
+reflexivemsg 132018 synchronous
+  to durationcanvas_ref 131890
+  yz 388 2025 explicitmsg "Gestion du mouvement"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 270 372
+reflexivemsg 132274 synchronous
+  to durationcanvas_ref 132146
+  yz 427 2025 explicitmsg "Gestion de la réception"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 273 412
+reflexivemsg 132530 asynchronous
+  to durationcanvas_ref 132402
+  yz 470 2025 explicitmsg "Chercher position pour affichage"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 271 455
+reflexivemsg 132786 asynchronous
+  to durationcanvas_ref 132658
+  yz 515 2025 explicitmsg "Sauvegarder historique dans \"log\""
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 272 500
+reflexivemsg 133042 asynchronous
+  to durationcanvas_ref 132914
+  yz 204 2025 explicitmsg "Décoder la trame"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 270 190
+msg 133298 asynchronous
+  from durationcanvas_ref 132914
+  to durationcanvas_ref 133170
+  yz 227 2025 explicitmsg "Test si le badge existe dans la BDD"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 279 213
+msg 133426 return
+  from durationcanvas_ref 133170
+  to durationcanvas_ref 132914
+  yz 245 2030 unspecifiedmsg
+  show_full_operations_definition default drawing_language default show_context_mode default
+msg 133682 asynchronous
+  from durationcanvas_ref 132914
+  to durationcanvas_ref 133554
+  yz 275 2025 explicitmsg "Rechercher identité de la personne"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 280 261
+msg 133810 return
+  from durationcanvas_ref 133554
+  to durationcanvas_ref 132914
+  yz 303 2025 unspecifiedmsg
+  show_full_operations_definition default drawing_language default show_context_mode default
+msg 134322 asynchronous
+  from durationcanvas_ref 132914
+  to durationcanvas_ref 134194
+  yz 331 2025 explicitmsg "Test si le badge existe sur l'IHM"
+  show_full_operations_definition default drawing_language default show_context_mode default
+  label_xy 300 320
+msg 134450 return
+  from durationcanvas_ref 134194
+  to durationcanvas_ref 132914
+  yz 356 2025 unspecifiedmsg
+  show_full_operations_definition default drawing_language default show_context_mode default
+line 134962 -_-_
+  from ref 134578 z 2001 to ref 128178
+line 135090 -_-_
+  from ref 134706 z 2001 to ref 128306
+line 135218 -_-_
+  from ref 134834 z 2001 to ref 128562
+end

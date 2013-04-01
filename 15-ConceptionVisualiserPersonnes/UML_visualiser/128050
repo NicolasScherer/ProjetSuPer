@@ -1,6 +1,6 @@
 format 76
 "UML_visualiser_revue2" // UML_visualiser_revue2
-  revision 1
+  revision 2
   modified_by 50 "Nicolas"
   // class settings
   //class diagram settings
@@ -111,6 +111,44 @@ format 76
     end
 
     class 128050 "Badge_RFID"
+      visibility package stereotype "actor"
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    sequencediagram 134578 "sequence diagram"
+      show_full_operations_definition default write_horizontally default class_drawing_mode default drawing_language default draw_all_relations default shadow default show_stereotype_properties default show_class_context_mode default show_msg_context_mode default
+      overlapping_bars size A4
+    end
+
+    class 134578 "Bdd"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    class 134834 "Dynamique"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+    end
+
+    class 134962 "Gesttion_Badge"
       visibility package stereotype "actor"
       cpp_decl ""
       java_decl ""
