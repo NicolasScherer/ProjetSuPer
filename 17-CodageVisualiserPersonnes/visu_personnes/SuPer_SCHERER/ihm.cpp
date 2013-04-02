@@ -110,16 +110,14 @@ bool Ihm::traitementTrame(QString trame){
     }
 
     //Recherche identité de la personne
-    if(pBdd->badgeIdentite(num_badge_i))
+    if(pBdd->badgeIdentite(num_badge_i) != -1){
 
-    if (bdd->aQuiAppartientCeBadge(noBadge) != -1) {
-       tll->pers.nom = bdd->query->value(1).toString();
-       tll->pers.pnom = bdd->query->value(2).toString();
-       tll->pers.societe = bdd->query->value(3).toString();
-       tll->pers.noPers = bdd->query->value(6).toInt();
-    } else {  // a personne !
-        tll->pers.noPers = -1;
-    } // else
+    }
+    //sinon badge pas lié avec une personne
+    else{
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
+    }
+
 
 
 /*

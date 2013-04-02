@@ -5,6 +5,8 @@
 Bdd::Bdd(QObject *parent) :
     QObject(parent)
 {
+    pDynamique = new Dynamique; //allocation pointeur sur classe Dynamique
+
     //accès BDD
     database = QSqlDatabase::addDatabase("QMYSQL");
     database.setHostName("localhost");
@@ -24,7 +26,8 @@ Bdd::Bdd(QObject *parent) :
 /////////////////////
 /*** DESTRUCTEUR ***/
 Bdd::~Bdd(){
-   delete query;
+    delete pDynamique;
+    delete query;
     database.close();
 }
 
@@ -32,7 +35,7 @@ Bdd::~Bdd(){
  * Méthode pour obtenir l'identité   *
  * de la personne possédant le badge *
  *-----------------------------------*/
-int Bdd::badgeIdentite(int num_badge_i){
+bool Bdd::badgeIdentite(int num_badge_i){
 
     //avec le numéro de badge obtenir l'identité de la personne
     requete = "SELECT A1.num_pers, A2.nom, A2.prenom, A2.societe ";
@@ -46,10 +49,14 @@ int Bdd::badgeIdentite(int num_badge_i){
     }
     if (query->size() > 0){
         query->next();
-        return query->size();
+        int num_pers = query->value(0).toInt();
+        pDynamique->nom[num_pers] = query->value(1).toString();
+        pDynamique->prenom[num_pers] = query->value(2).toString();
+        pDynamique->societe[num_pers] = query->value(3).toString();
     }else{
         return -1;
     }
+
 }
 
 //////////////////////////////////////

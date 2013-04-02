@@ -6,6 +6,8 @@
 #include <QList>
 #include <QMessageBox>
 
+#include "dynamique.h"
+
 //////////////////////////////////////////
 /*** STRUCTURE pour retour de fonction***/
 //enregistrement d'un onglet
@@ -41,13 +43,16 @@ public:
     bool getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *);   //obtenir la vue et la position (x,y) en fonction du lecteur
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
     bool badgeExiste(QString &num_badge);   //est-ce que ce badge existe ?
-    int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
+    bool badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
 
 private:
     //pointeurs sur structure
     T_TupleOnglet *pTupleOnglet;
     T_TupleLecteurS * pTupleLecteurS;
     T_TupleLecteurE * pTupleLecteurE;
+
+    //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
+    Dynamique *pDynamique;
 
     QSqlQuery * query;
     QSqlDatabase  database;
