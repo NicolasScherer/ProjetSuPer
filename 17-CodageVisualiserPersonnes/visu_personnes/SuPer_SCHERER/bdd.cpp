@@ -56,7 +56,7 @@ bool Bdd::badgeIdentite(int num_badge_i){
     }else{
         return -1;
     }
-
+return 1;
 }
 
 //////////////////////////////////////
