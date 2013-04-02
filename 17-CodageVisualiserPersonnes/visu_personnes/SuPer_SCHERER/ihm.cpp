@@ -105,9 +105,23 @@ bool Ihm::traitementTrame(QString trame){
 
     //test si le badge existe dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
-        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non reference dans la Base de donnees\n");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge inconnu  dans la Base de donnees\n");
         return false;
     }
+
+    //Recherche identité de la personne
+    if(pBdd->badgeIdentite(num_badge_i))
+
+    if (bdd->aQuiAppartientCeBadge(noBadge) != -1) {
+       tll->pers.nom = bdd->query->value(1).toString();
+       tll->pers.pnom = bdd->query->value(2).toString();
+       tll->pers.societe = bdd->query->value(3).toString();
+       tll->pers.noPers = bdd->query->value(6).toInt();
+    } else {  // a personne !
+        tll->pers.noPers = -1;
+    } // else
+
+
 /*
     //test si le badge existe sur l'ihm
     int nbLigneBadge = listeLabel.size();

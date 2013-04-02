@@ -25,6 +25,31 @@ Bdd::Bdd(QObject *parent) :
 /*** DESTRUCTEUR ***/
 Bdd::~Bdd(){
    delete query;
+    database.close();
+}
+
+/*-----------------------------------*
+ * Méthode pour obtenir l'identité   *
+ * de la personne possédant le badge *
+ *-----------------------------------*/
+int Bdd::badgeIdentite(int num_badge_i){
+
+    //avec le numéro de badge obtenir l'identité de la personne
+    requete = "SELECT A1.num_pers, A2.nom, A2.prenom, A2.societe ";
+    requete += "FROM badge A1, personne A2 ";
+    requete += "WHERE A1.num_pers=A2.num_pers AND A1.num_badge=:num_badge_i";
+    query->prepare(requete);
+    query->bindValue(":num_badge_i", num_badge_i);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL identite badge" << endl;
+         return -1;
+    }
+    if (query->size() > 0){
+        query->next();
+        return query->size();
+    }else{
+        return -1;
+    }
 }
 
 //////////////////////////////////////
