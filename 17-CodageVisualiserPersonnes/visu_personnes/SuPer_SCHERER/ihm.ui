@@ -60,7 +60,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Erreur possible : La base de données est inacessible.</string>
+       <string>Erreur possible : La base de données est inaccessible.</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">

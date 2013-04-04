@@ -162,7 +162,7 @@ public:
     {
         Ihm->setWindowTitle(QApplication::translate("Ihm", "Ihm", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Ihm", "Tab 1", 0, QApplication::UnicodeUTF8));
-        label_2->setText(QApplication::translate("Ihm", "Erreur possible : La base de donn\303\251es est inacessible.", 0, QApplication::UnicodeUTF8));
+        label_2->setText(QApplication::translate("Ihm", "Erreur possible : La base de donn\303\251es est inaccessible.", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("Ihm", "Erreur : le logiciel n'a pu se mettre \303\240 jour en fonction de la Base de donn\303\251es.", 0, QApplication::UnicodeUTF8));
         label_4->setText(QApplication::translate("Ihm", "Erreur possible : La base de donn\303\251es est vide.", 0, QApplication::UnicodeUTF8));
         label_5->setText(QApplication::translate("Ihm", "Il est vivement conseill\303\251 de regarder attentivement l'aide fournit avec le logiciel.", 0, QApplication::UnicodeUTF8));

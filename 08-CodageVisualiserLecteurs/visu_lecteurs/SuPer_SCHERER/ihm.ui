@@ -60,7 +60,7 @@
        </rect>
       </property>
       <property name="text">
-       <string>Erreur possible : La base de données est inacessible.</string>
+       <string>Erreur possible : La base de données est inaccessible.</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_3">
@@ -129,19 +129,6 @@
       </property>
      </widget>
     </widget>
-   </widget>
-   <widget class="QPushButton" name="btNewLecteur">
-    <property name="geometry">
-     <rect>
-      <x>310</x>
-      <y>10</y>
-      <width>61</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Nouveau lecteur 1</string>
-    </property>
    </widget>
    <widget class="QPushButton" name="btConfigurer">
     <property name="geometry">
