@@ -35,7 +35,7 @@ Bdd::~Bdd(){
  * Méthode pour obtenir l'identité   *
  * de la personne possédant le badge *
  *-----------------------------------*/
-bool Bdd::badgeIdentite(int num_badge_i){
+int Bdd::badgeIdentite(int num_badge_i){
 
     //avec le numéro de badge obtenir l'identité de la personne
     requete = "SELECT A1.num_pers, A2.nom, A2.prenom, A2.societe ";
@@ -53,10 +53,10 @@ bool Bdd::badgeIdentite(int num_badge_i){
         pDynamique->nom[num_pers] = query->value(1).toString();
         pDynamique->prenom[num_pers] = query->value(2).toString();
         pDynamique->societe[num_pers] = query->value(3).toString();
+        return num_pers;
     }else{
         return -1;
     }
-return 1;
 }
 
 //////////////////////////////////////

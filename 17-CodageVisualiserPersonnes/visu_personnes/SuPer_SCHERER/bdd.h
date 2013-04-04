@@ -43,7 +43,7 @@ public:
     bool getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *);   //obtenir la vue et la position (x,y) en fonction du lecteur
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
     bool badgeExiste(QString &num_badge);   //est-ce que ce badge existe ?
-    bool badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
+    int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
 
 private:
     //pointeurs sur structure

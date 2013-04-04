@@ -78,7 +78,6 @@ bool Ihm::traitementTrame(QString trame){
 
     //décodage trame
     QString num_badge, sens, mouvement, num_lecteur;
-    bool existe = false;
     //T_ListeLabel *tll;
 
 //nbT++; // compteur de trames
@@ -109,45 +108,81 @@ bool Ihm::traitementTrame(QString trame){
         return false;
     }
 
-    //Recherche identité de la personne
-    if(pBdd->badgeIdentite(num_badge_i) != -1){
+    //test si le badge existe sur l'IHM
+    if(pDynamique->BadgeActif[num_badge_i] == 1){
+        //badge existe
 
+        // VOIR APRES ...
+
+    }else{
+        //badge n'existe pas sur l'IHM
+        //Combien y a t-il d'onglets/vues alors ?
+        int vueMax = pBdd->getVueMax();
+        //se placer sur les différentes vues
+        for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
+            //se placer sur un onglet
+            QWidget *onglet;
+            onglet = pDynamique->onglet[num_vue];
+
+            //nouveau label dynamique pour un badge
+            QLabel *labelB = new QLabel(onglet);
+
+            //par défaut le badge est actif (vert)
+            labelB->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+            //obtenir position du badge
+
+  /*          //déclaration QList
+            QList<T_TupleLecteurE> listeTupleLB;
+
+            pBdd->getVuePosFctLect(num_lecteur_i, &listeTupleLB);
+
+            //récupération des infos dans la liste, correspond aux coordonnées du lecteur
+            if(!listeTupleLB.empty()){
+                for(int i = 0; i < listeTupleLB.count(); i++) {
+                    int xLecteur = listeTupleLB.at(i).x;
+                    int yLecteur = listeTupleLB.at(i).y;
+
+
+                }
+            }
+*/
+
+             /*   void MainWindow::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF)
+                {
+                    float dx, dy, a, x, y;
+
+                    dx = pointB.x - pointA.x;
+                    dy = pointB.y - pointA.y;
+
+                    x = sens*dx/100;  // mise à l'échelle
+                    a = dy/dx;     // coeff directeur, pas d'ordonnée à l'origine car changement de repère
+                    y = a*x;   // équation de la droite
+                    pointF->x = pointA.x + x;
+                    pointF->y = pointA.y + y;
+                } // methode
+            */
+
+            //labelB->setGeometry(x, y, 15, 42); // largeur hauteur à définir
+
+            //sauvegarde du pointeur du label pour un badge
+            pDynamique->labelB[num_vue][num_badge_i];
+
+
+        }
+        //maintenant le badge existe sur l'IHM donc le sauvegarder
+        pDynamique->BadgeActif[num_badge_i] = 1;
     }
-    //sinon badge pas lié avec une personne
-    else{
+
+    //Recherche identité de la personne
+    int num_pers = pBdd->badgeIdentite(num_badge_i);
+    if(num_pers == -1){
+        //le badge n'est pas lié avec une personne
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
     }
+    //sinon afficher la personne
+    //comme on connait le numéro de la personne, on peut aller taper dans la classe Dynamique
 
 
-
-/*
-    //test si le badge existe sur l'ihm
-    int nbLigneBadge = listeLabel.size();
-    for(int i=0 ; i<nbLigneBadge ; i++){
-        tll = listeLabel.at(i);
-        if (num_badge_i == tll->noBadge) {
-            existe=true;
-            break;
-        } // if trouvé
-
-
-*/
-    //n'existe pas sur l'ihm
-    //combien de vue sur l'ihm ?
-    int vueMax = pBdd->getVueMax();
-    //se placer sur les différentes vues
-    for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
-        //se placer sur un onglet
-        QWidget *onglet;
-        onglet = pDynamique->onglet[num_vue];
-
-        //nouveau label dynamique pour un badge
-        QLabel *labelB = new QLabel(onglet);
-
-        //sauvegarde du pointeur du label pour un badge
-        pDynamique->labelB[num_vue][num_badge_i];
-
-    }
 
  /*   //creation label si existe pas
     if(!existe){
