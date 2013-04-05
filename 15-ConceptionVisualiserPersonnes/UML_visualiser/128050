@@ -1,6 +1,6 @@
 format 76
 "UML_visualiser_revue2" // UML_visualiser_revue2
-  revision 2
+  revision 3
   modified_by 50 "Nicolas"
   // class settings
   //class diagram settings
@@ -135,6 +135,34 @@ format 76
       idl_decl ""
       explicit_switch_type ""
       
+      operation 128434 "badgeExiste"
+	public explicit_return_type "bool"
+	nparams 1
+	  param in name "&num_badge" explicit_type "QString"
+	
+	
+	
+	
+	
+      end
+
+      operation 128562 "badgeIdentite"
+	public explicit_return_type "int"
+	nparams 1
+	  param in name "num_badge" explicit_type "int"
+	
+	
+	
+	
+	
+      end
+
+      classrelation 128434 // <unidirectional association>
+	relation 128434 --->
+	  a role_name "" private
+	    classrelation_ref 128434 // <unidirectional association>
+	  b parent class_ref 134834 // Dynamique
+      end
     end
 
     class 134834 "Dynamique"
@@ -146,6 +174,14 @@ format 76
       idl_decl ""
       explicit_switch_type ""
       
+      attribute 128050 "BadgeActif"
+	public explicit_type "bool"
+	cpp_decl ""
+	java_decl ""
+	php_decl ""
+	python_decl ""
+	idl_decl ""
+      end
     end
 
     class 134962 "Gesttion_Badge"
@@ -157,6 +193,31 @@ format 76
       idl_decl ""
       explicit_switch_type ""
       
+    end
+
+    classdiagram 141106 "class diagram"
+      draw_all_relations default hide_attributes default hide_operations default hide_getset_operations default show_members_full_definition default show_members_visibility default show_members_stereotype default show_members_context default show_members_multiplicity default show_members_initialization default show_attribute_modifiers default member_max_width 0 show_parameter_dir default show_parameter_name default package_name_in_tab default class_drawing_mode default drawing_language default show_context_mode default auto_label_position default show_relation_modifiers default show_relation_visibility default show_infonote default shadow default show_stereotype_properties default
+      size A4
+    end
+
+    class 141490 "QObject"
+      visibility package 
+      cpp_decl ""
+      java_decl ""
+      php_decl ""
+      python_2_2 python_decl ""
+      idl_decl ""
+      explicit_switch_type ""
+      
+      operation 128050 "connect"
+	public explicit_return_type "bool"
+	nparams 0
+	
+	
+	
+	
+	
+      end
     end
   end
 end
