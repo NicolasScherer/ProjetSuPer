@@ -54,6 +54,10 @@ CREATE TABLE representationLieuSurVue
    num_lieu	INT UNSIGNED 	NOT NULL,
    x		INT		NOT NULL,
    y		INT		NOT NULL,
+   xA		INT		NOT NULL,
+   yA		INT		NOT NULL,
+   xB		INT		NOT NULL,
+   yB		INT		NOT NULL,
    
    PRIMARY KEY (num_vue, num_lieu)
    

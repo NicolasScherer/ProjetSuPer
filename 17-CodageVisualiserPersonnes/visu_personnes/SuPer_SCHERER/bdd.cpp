@@ -59,6 +59,49 @@ int Bdd::badgeIdentite(int num_badge_i){
     }
 }
 
+/*--------------------------------------*
+ * Méthode pour obtenir les coordonnées *
+ * d'un lieu en fonction d'un lecteur   *
+ * et d'une vue                         *
+ *--------------------------------------*/
+bool Bdd::getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *positionLieu){
+
+    //avec le numéro de lecteur et la vue obtenir la position lieu
+    requete = "SELECT A1.xA, A1.yA, A1.xB, A1.yB ";
+    requete += "FROM representationLieuSurVue A1 ";
+    requete += "WHERE A1.num_vue=:num_vue AND A1.num_lieu=:num_lecteur";
+    query->prepare(requete);
+    query->bindValue(":num_vue", num_vue);
+    query->bindValue(":num_lecteur", num_lecteur);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL position lieu" << endl;
+         return false;
+    }
+
+    //allocation pointeur
+    this->pTuplePositionLieu = new T_TuplePositionLieu();
+
+    //réponse requête
+    while(query->next()){
+        int xA = query->value(0).toInt();
+        int yA = query->value(1).toInt();
+        int xB = query->value(2).toInt();
+        int yB = query->value(3).toInt();
+
+        //ajout sur liste
+        this->pTuplePositionLieu->xA = xA;
+        this->pTuplePositionLieu->yA = yA;
+        this->pTuplePositionLieu->xB = xB;
+        this->pTuplePositionLieu->yB = yB;
+
+        positionLieu->append(*pTuplePositionLieu);
+    }
+
+    delete this->pTuplePositionLieu;
+
+    return true;
+}
+
 //////////////////////////////////////
 /*** METHODE pour OBTENIR VUE MAX ***/
 int Bdd::getVueMax(){

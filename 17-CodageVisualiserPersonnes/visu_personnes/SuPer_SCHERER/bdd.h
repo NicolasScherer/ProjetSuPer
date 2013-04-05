@@ -29,6 +29,14 @@ typedef struct s_TupleLecteurE {
     int y;
 } T_TupleLecteurE;
 
+//enregistrement des positions d'un lieu par rapport à une vue
+typedef struct s_TuplePositionLieu {
+    int xA;
+    int yA;
+    int xB;
+    int yB;
+} T_TuplePositionLieu;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -44,12 +52,14 @@ public:
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
     bool badgeExiste(QString &num_badge);   //est-ce que ce badge existe ?
     int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
+    bool getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *); //obtenir (xA,yA) et (xB,yB) en fonction du lieu et de la vue
 
 private:
     //pointeurs sur structure
-    T_TupleOnglet *pTupleOnglet;
+    T_TupleOnglet * pTupleOnglet;
     T_TupleLecteurS * pTupleLecteurS;
     T_TupleLecteurE * pTupleLecteurE;
+    T_TuplePositionLieu * pTuplePositionLieu;
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;

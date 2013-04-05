@@ -60,7 +60,7 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
-    traitementTrame("960021A701");  //à enlever à l'intégration
+ //   traitementTrame("960021A701");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
@@ -129,23 +129,50 @@ bool Ihm::traitementTrame(QString trame){
 
             //par défaut le badge est actif (vert)
             labelB->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-            //obtenir position du badge
 
-  /*          //déclaration QList
-            QList<T_TupleLecteurE> listeTupleLB;
-
-            pBdd->getVuePosFctLect(num_lecteur_i, &listeTupleLB);
-
-            //récupération des infos dans la liste, correspond aux coordonnées du lecteur
-            if(!listeTupleLB.empty()){
-                for(int i = 0; i < listeTupleLB.count(); i++) {
-                    int xLecteur = listeTupleLB.at(i).x;
-                    int yLecteur = listeTupleLB.at(i).y;
+        //---obtenir position du badge
 
 
-                }
+            //obtenir lieu (xA,yA et xB,yB) en fonction du lecteur et de la vue (en cours)
+
+            //déclaration QList
+            QList<T_TuplePositionLieu> listePositionLieu;
+
+            pBdd->getPositionLieu(num_vue, num_lecteur_i, &listePositionLieu);
+
+            //récupération des infos dans la liste
+            if(!listePositionLieu.empty()){
+     //inutile? // for(int i = 0; i < listePositionLieu.count(); i++) {
+                    int xA = listePositionLieu.at(0).xA;
+                    int yA = listePositionLieu.at(0).yA;
+                    int xB = listePositionLieu.at(0).xB;
+                    int yB = listePositionLieu.at(0).yB;
+
+
+
+              //  }
+                    int num_vue = listeTupleL.at(i).num_vue;
+                    //suppression d'un lecteur (en dynamique)
+                    this->suppLecteur(numLecteur, num_vue);
+                    //listeTupleL.removeAt(i);    //A VERIFIER
+
             }
-*/
+
+
+
+            // calcul de la moyenne de la sensibilité
+            tll->moySens[inoLect][tll->indMoy[inoLect]++] = sens_i;
+            if (tll->indMoy[inoLect] == config.maxVal)
+                tll->indMoy[inoLect] = 0;   // indice du tableau de moyenne
+            int moy=0;
+            moy = calculerMoyenne(tll);  // sur MAX_VAL valeur
+            tll->sdp[inoLect] = moy;  // memo pour calcul sens de passage
+            moy -= 100;
+
+            sensDePassage(tll);  // maj de zone et du sens de passage de ce badge
+
+
+            //avec la sensibilité, calculer position sur droite
 
              /*   void MainWindow::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF)
                 {
