@@ -112,7 +112,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Il est vivement conseillé de regarder attentivement l'aide fournit avec le logiciel.</string>
+       <string>Il est vivement conseillé de regarder attentivement l'aide fournie avec le logiciel.</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_6">

@@ -275,7 +275,7 @@ Ihm::~Ihm()
 /*** SLOT LECTEUR INCONNU ***/
 void Ihm::lecteurInconnu(){
     //ajout texte Ihm
-    ui->txtAlarme->textCursor().insertText("<Erreur> quelque chose a tenter de se connecter\n");
+    ui->txtAlarme->textCursor().insertText("<Erreur> quelque chose a tente de se connecter\n");
 }
 //////////////////////////////
 /*** SLOT LECTEUR INACTIF ***/
