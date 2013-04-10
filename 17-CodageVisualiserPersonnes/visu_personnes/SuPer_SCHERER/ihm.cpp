@@ -108,27 +108,54 @@ bool Ihm::traitementTrame(QString trame){
         return false;
     }
 
-    //test si le badge existe sur l'IHM
-    if(pDynamique->BadgeActif[num_badge_i] == 1){
-        //badge existe
+    //badge n'existe pas sur l'IHM
+    if(!pDynamique->BadgeActif[num_badge_i] == 1){
 
-        // VOIR APRES ...
+        Dynamique *pDynamiqueB = new Dynamique();
 
-    }else{
-        //badge n'existe pas sur l'IHM
-        //Combien y a t-il d'onglets/vues alors ?
+
+        for(int i=0 ; i<pDynamiqueB->MAXLECTEURS ; i++){   // init à 100
+            for(int j=0 ; j<pDynamiqueB->MAXVAL ; j++){
+                pDynamiqueB->moySens[i][j]=100;
+            }
+        }
+        for(int i=0 ; i<pDynamiqueB->MAXLECTEURS ; i++){
+            pDynamiqueB->sdp[i]=0;
+            pDynamiqueB->sdpMem[i]=0;
+        }
+        memset(pDynamiqueB->indMoy, 0, sizeof(pDynamiqueB->indMoy));    //init à 0
+
+        //Combien y a t-il d'onglets/vues ?
         int vueMax = pBdd->getVueMax();
         //se placer sur les différentes vues
         for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
             //se placer sur un onglet
-            QWidget *onglet;
-            onglet = pDynamique->onglet[num_vue];
+         //   QWidget *onglet;
+         //   onglet = pDynamique->onglet[num_vue];
+         //test directement dedans
 
             //nouveau label dynamique pour un badge
-            QLabel *labelB = new QLabel(onglet);
+            QLabel *labelB = new QLabel(pDynamique->onglet[num_vue]);
 
             //par défaut le badge est actif (vert)
             labelB->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+            labelB->setGeometry(590, 620, 15, 42); // largeur hauteur à définir
+
+/* ne dépend pas de la vue
+            tll->noBadge = inoB;
+            tll->noLect = inoLect;
+            tll->etat = 0; // aller
+            // réglage du timer associé au mouvement
+            tll->wdm = new QTimer(this);
+            connect(tll->wdm, SIGNAL(timeout()), this, SLOT(onTimerMouv()));
+            tll->wdm->setSingleShot(true);
+            tll->wdm->start(config.tempoM); // secondes
+            // réglage du timer associé à la réception
+            tll->wdr[inoLect] = new QTimer(this);
+            connect(tll->wdr[inoLect], SIGNAL(timeout()), this, SLOT(onTimerRec()));
+            tll->wdr[inoLect]->setSingleShot(true);
+            tll->wdr[inoLect]->start(config.tempoR); // secondes
+*/
 
         //---obtenir position du badge
 
@@ -143,53 +170,18 @@ bool Ihm::traitementTrame(QString trame){
             //récupération des infos dans la liste
             if(!listePositionLieu.empty()){
      //inutile? // for(int i = 0; i < listePositionLieu.count(); i++) {
-                    int xA = listePositionLieu.at(0).xA;
-                    int yA = listePositionLieu.at(0).yA;
-                    int xB = listePositionLieu.at(0).xB;
-                    int yB = listePositionLieu.at(0).yB;
+                int xA[num_vue] = listePositionLieu.at(0).xA;
+                int yA[num_vue] = listePositionLieu.at(0).yA;
+                int xB[num_vue] = listePositionLieu.at(0).xB;
+                int yB[num_vue] = listePositionLieu.at(0).yB;
 
 
 
               //  }
-                    int num_vue = listeTupleL.at(i).num_vue;
-                    //suppression d'un lecteur (en dynamique)
-                    this->suppLecteur(numLecteur, num_vue);
-                    //listeTupleL.removeAt(i);    //A VERIFIER
+
 
             }
 
-
-
-            // calcul de la moyenne de la sensibilité
-            tll->moySens[inoLect][tll->indMoy[inoLect]++] = sens_i;
-            if (tll->indMoy[inoLect] == config.maxVal)
-                tll->indMoy[inoLect] = 0;   // indice du tableau de moyenne
-            int moy=0;
-            moy = calculerMoyenne(tll);  // sur MAX_VAL valeur
-            tll->sdp[inoLect] = moy;  // memo pour calcul sens de passage
-            moy -= 100;
-
-            sensDePassage(tll);  // maj de zone et du sens de passage de ce badge
-
-
-            //avec la sensibilité, calculer position sur droite
-
-             /*   void MainWindow::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF)
-                {
-                    float dx, dy, a, x, y;
-
-                    dx = pointB.x - pointA.x;
-                    dy = pointB.y - pointA.y;
-
-                    x = sens*dx/100;  // mise à l'échelle
-                    a = dy/dx;     // coeff directeur, pas d'ordonnée à l'origine car changement de repère
-                    y = a*x;   // équation de la droite
-                    pointF->x = pointA.x + x;
-                    pointF->y = pointA.y + y;
-                } // methode
-            */
-
-            //labelB->setGeometry(x, y, 15, 42); // largeur hauteur à définir
 
             //sauvegarde du pointeur du label pour un badge
             pDynamique->labelB[num_vue][num_badge_i];
