@@ -52,6 +52,7 @@ CREATE TABLE representationLieuSurVue
 (
    num_vue	INT UNSIGNED 	NOT NULL,
    num_lieu	INT UNSIGNED 	NOT NULL,
+   num_zone	INT UNSIGNED 	NOT NULL,
    x		INT		NOT NULL,
    y		INT		NOT NULL,
    xA		INT		NOT NULL,
@@ -94,6 +95,22 @@ CREATE TABLE badge
    
 )ENGINE=INNODB;
 
+DROP TABLE IF EXISTS zone;
+
+CREATE TABLE zone
+(
+   num_zone	INT UNSIGNED	NOT NULL,
+   num_lieu	INT UNSIGNED	NOT NULL,
+   legende	VARCHAR(100)	NOT NULL,
+   
+   PRIMARY KEY (num_zone, num_lieu)
+   
+)ENGINE=INNODB;
+
+-- Interdiction de supprimer un lieu auquel une zone est liée
+-- Un lieu modifié est aussi modifié dans zone
+alter table zone add constraint fk_zone_num_lieu foreign key (num_lieu)
+      references lieu (num_lieu) on delete restrict on update cascade;
 
 -- Interdiction de supprimer une personne auquel un badge est lié
 -- Une personne modifiée est aussi modifiée dans badge
@@ -144,3 +161,9 @@ INSERT INTO personne (nom, prenom, societe, dateDebut, dateFin, num_pers) VALUE
 
 INSERT INTO badge (num_badge, num_pers, dateMiseEnService, dateChangePile, estActif) VALUE
   (01, 1, 0, 0, 0);
+ 
+INSERT INTO zone (num_zone, num_lieu, legende) VALUE
+  (1, 1, "reception uniquement lecteur 1"),
+  (2, 2, "reception uniquement lecteur 2"),
+  (23, 2, "reception lecteur 2 et lecteur 3"),
+  (3, 3, "reception uniquement lecteur 3");

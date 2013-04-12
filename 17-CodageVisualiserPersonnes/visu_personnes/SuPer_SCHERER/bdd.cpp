@@ -67,7 +67,7 @@ int Bdd::badgeIdentite(int num_badge_i){
 bool Bdd::getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *positionLieu){
 
     //avec le numéro de lecteur et la vue obtenir la position lieu
-    requete = "SELECT A1.xA, A1.yA, A1.xB, A1.yB ";
+    requete = "SELECT DISTINCT A1.xA, A1.yA, A1.xB, A1.yB ";
     requete += "FROM representationLieuSurVue A1 ";
     requete += "WHERE A1.num_vue=:num_vue AND A1.num_lieu=:num_lecteur";
     query->prepare(requete);
@@ -124,7 +124,7 @@ int Bdd::getVueMax(){
 bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue
-    requete = "SELECT A1.num_lieu, A2.num_vue ";
+    requete = "SELECT DISTINCT A1.num_lieu, A2.num_vue ";
     requete += "FROM lecteur A1, representationLieuSurVue A2 ";
     requete += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
     query->prepare(requete);
@@ -154,7 +154,7 @@ bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 bool Bdd::getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue et la position (x,y)
-    requete = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
+    requete = "SELECT DISTINCT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
     requete += "FROM lecteur A1, representationLieuSurVue A2 ";
     requete += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
     query->prepare(requete);

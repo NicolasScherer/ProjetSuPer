@@ -170,10 +170,10 @@ bool Ihm::traitementTrame(QString trame){
             //récupération des infos dans la liste
             if(!listePositionLieu.empty()){
      //inutile? // for(int i = 0; i < listePositionLieu.count(); i++) {
-                int xA[num_vue] = listePositionLieu.at(0).xA;
-                int yA[num_vue] = listePositionLieu.at(0).yA;
-                int xB[num_vue] = listePositionLieu.at(0).xB;
-                int yB[num_vue] = listePositionLieu.at(0).yB;
+  //              int xA[num_vue] = listePositionLieu.at(0).xA;
+    //            int yA[num_vue] = listePositionLieu.at(0).yA;
+      //          int xB[num_vue] = listePositionLieu.at(0).xB;
+        //        int yB[num_vue] = listePositionLieu.at(0).yB;
 
 
 
