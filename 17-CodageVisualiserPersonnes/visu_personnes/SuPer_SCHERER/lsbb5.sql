@@ -60,7 +60,7 @@ CREATE TABLE representationLieuSurVue
    xB		INT		NOT NULL,
    yB		INT		NOT NULL,
    
-   PRIMARY KEY (num_vue, num_lieu)
+   PRIMARY KEY (num_vue, num_lieu, num_zone)
    
 )ENGINE=INNODB;
 
@@ -148,13 +148,15 @@ INSERT INTO vue (num_vue, legende, image) VALUE
   (2, "Vue zoomant de l'entree aux dependances", "../ressources/vue_lieu_1-2-3.jpg");
 
 
-INSERT INTO representationLieuSurVue (num_vue, num_lieu, x, y) VALUE
-  (1, 1, 580, 472),
-  (1, 2, 540, 442),
-  (1, 3, 520, 432),
-  (2, 1, 580, 488),
-  (2, 2, 220, 128),
-  (2, 3, 60, 28);
+INSERT INTO representationLieuSurVue (num_vue, num_lieu, num_zone, x, y, xA, yA, xB, yB) VALUE
+  (1, 1, 1, 580, 472, 570, 530, 0, 0),
+  (1, 2, 2, 540, 442, 540, 510, 0, 0),
+  (1, 2, 23, 540, 442, 530, 490, 0, 0),
+  (1, 3, 3, 520, 432, 480, 450, 0, 0),
+  (2, 1, 1, 580, 488, 550, 530, 400, 390),
+  (2, 2, 2, 220, 128, 400, 390, 200, 190),
+  (2, 2, 23, 220, 128, 200, 190, 40, 190),
+  (2, 3, 3, 60, 28, 40, 190, 40, 10);
   
 INSERT INTO personne (nom, prenom, societe, dateDebut, dateFin, num_pers) VALUE
   ("scherer", "nicolas", "LAB", 0, 0, 1);

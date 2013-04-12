@@ -78,9 +78,8 @@ bool Ihm::traitementTrame(QString trame){
 
     //décodage trame
     QString num_badge, sens, mouvement, num_lecteur;
-    //T_ListeLabel *tll;
-
-//nbT++; // compteur de trames
+    T_ListeLabel *tll;  //pointeur sur structure
+    //nbT++; // compteur de trames
 
     //séparation des parties de la trame
     num_badge = trame.mid(2,3); //numéro de badge
@@ -102,7 +101,7 @@ bool Ihm::traitementTrame(QString trame){
     int sens_i = sens.toInt(0,16);
     int num_lecteur_i = num_lecteur.toInt(0,16);
 
-    //test si le badge existe dans la BDD
+    //si le badge n'existe dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge inconnu  dans la Base de donnees\n");
         return false;
@@ -111,19 +110,25 @@ bool Ihm::traitementTrame(QString trame){
     //badge n'existe pas sur l'IHM
     if(!pDynamique->BadgeActif[num_badge_i] == 1){
 
-        Dynamique *pDynamiqueB = new Dynamique();
+        tll = new T_ListeLabel();
 
-
-        for(int i=0 ; i<pDynamiqueB->MAXLECTEURS ; i++){   // init à 100
-            for(int j=0 ; j<pDynamiqueB->MAXVAL ; j++){
-                pDynamiqueB->moySens[i][j]=100;
+        for(int i=0 ; i<MAXLECTEURS ; i++){   // init à 100
+            for(int j=0 ; j<MAXVAL ; j++){
+                tll->moySens[i][j]=100;
             }
         }
-        for(int i=0 ; i<pDynamiqueB->MAXLECTEURS ; i++){
-            pDynamiqueB->sdp[i]=0;
-            pDynamiqueB->sdpMem[i]=0;
+        for(int i=0 ; i<MAXLECTEURS ; i++){
+            tll->sdp[i]=0;      //sens de passage
+            tll->sdpMem[i]=0;
         }
-        memset(pDynamiqueB->indMoy, 0, sizeof(pDynamiqueB->indMoy));    //init à 0
+        memset(tll->indMoy, 0, sizeof(tll->indMoy));    //init à 0
+
+        //obtenir vue où ce lecteur est représenté
+        //se placer sur les différentes vues
+            //nouveau badge
+
+        //tll->labelB[onglet][badge]
+            //pré-positionné badge
 
         //Combien y a t-il d'onglets/vues ?
         int vueMax = pBdd->getVueMax();

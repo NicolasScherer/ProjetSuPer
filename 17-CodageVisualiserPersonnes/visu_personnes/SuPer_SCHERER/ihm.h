@@ -69,7 +69,7 @@ private:
     tempoR,// ms tempo pour le timer de réception
     tempoA;// affichage général IHM
 
-
+    QList<T_ListeLabel *> listeLabel;
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
