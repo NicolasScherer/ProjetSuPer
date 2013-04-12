@@ -50,9 +50,9 @@ bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){
 
     //avec le numéro obtenu, obtenir la vue
     QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue ";
+    req = "SELECT DISTINCT A1.num_lieu, A2.num_vue ";
     req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur ";
     query->prepare(req);
     query->bindValue(":numLecteur", numLecteur);
     if(!query->exec()){
@@ -81,9 +81,9 @@ bool Bdd::getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *listeLecteur)
 
     //avec le numéro obtenu, obtenir la vue et la position (x,y)
     QString req;
-    req = "SELECT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
+    req = "SELECT DISTINCT A1.num_lieu, A2.num_vue, A2.x, A2.y ";
     req += "FROM lecteur A1, representationLieuSurVue A2 ";
-    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur";
+    req += "WHERE A1.num_lieu = A2.num_lieu AND A1.num_lecteur=:numLecteur ";
     query->prepare(req);
     query->bindValue(":numLecteur", numLecteur);
     if(!query->exec()){

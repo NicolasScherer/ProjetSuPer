@@ -57,7 +57,7 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
 
     lecteurActif(pLecteur);     // à enlever à l'intégration
-    lecteurInactif(pLecteur);   // à enlever à l'intégration
+   // lecteurInactif(pLecteur);   // à enlever à l'intégration
     lecteurInconnu();           // à enlever à l'intégration
 
     //fenêtre sans bordure
