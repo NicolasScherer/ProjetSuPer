@@ -100,6 +100,7 @@ bool Ihm::traitementTrame(QString trame){
     int num_badge_i = num_badge.toInt(0,16);
     int sens_i = sens.toInt(0,16);
     int num_lecteur_i = num_lecteur.toInt(0,16);
+    int mouvement_i = mouvement.toInt(0,16);
 
     //si le badge n'existe dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
@@ -108,7 +109,7 @@ bool Ihm::traitementTrame(QString trame){
     }
 
     //badge n'existe pas sur l'IHM
-    if(!pDynamique->BadgeActif[num_badge_i] == 1){
+    if(!pDynamique->BadgeActif[num_badge_i]){
 
         tll = new T_ListeLabel();
 
@@ -130,8 +131,8 @@ bool Ihm::traitementTrame(QString trame){
         pBdd->getVueFctLect(num_lecteur_i, &listeTupleL);
 
         //récupération des infos dans la liste
-        if(!listeTupleL.empty()){
-            for(int i = 0; i < listeTupleL.count(); i++) {
+        if (!listeTupleL.empty()){
+            for (int i = 0; i < listeTupleL.count(); i++) {
 
                 int num_vue = listeTupleL.at(i).num_vue;
 
@@ -141,6 +142,10 @@ bool Ihm::traitementTrame(QString trame){
 
                 //nouveau label dynamique pour un badge
                 tll->labelB[num_vue][num_badge_i] = new QLabel(onglet);
+
+                //réglage par défaut du nouveau badge (vert + haut)
+                tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+                tll->labelB[num_vue][num_badge_i]->setGeometry(590, 620, 15, 42); // largeur hauteur à définir
             }
         }
 
@@ -160,29 +165,59 @@ bool Ihm::traitementTrame(QString trame){
         tll->tpsSens[num_lecteur_i]->setSingleShot(true);                                   //un seul temps
         tll->tpsSens[num_lecteur_i]->start(this->tempoR);                                   //débute le timer
 
+        // ajout à la liste mémoire
+        listeLabel.append(tll);
+
+        //maintenant le badge existe sur l'IHM donc le sauvegarder
+        pDynamique->BadgeActif[num_badge_i] = true;
+    }
+
+    tll->numLecteur = num_lecteur_i;    //sauvegarde numéro lecteur
+
+    tll->etat |= MOUV0;   // mouv=0
+    //relance du timer si mouvement
+    if (mouvement_i > 0 ) {  // si mouvement
+        tll->etat &= ~MOUV;    // alarme mouvement
+        tll->etat &= ~MOUV0;   // un seul mouvement
+        tll->tpsMouv->setSingleShot(true);
+        tll->tpsMouv->start(this->tempoM);  //ms
+    }
+
+    // réarmer le timer REC, le créer si nouveau lecteur
+    tll->etat &= ~REC;
+    //création timer réception, si nouveau lecteur
+    if (!tll->tpsSens[num_lecteur_i]) {
+        tll->tpsSens[num_lecteur_i] = new QTimer(this);
+        connect(tll->tpsSens[num_lecteur_i], SIGNAL(timeout()), this, SLOT(TimerRec()));
+    }
+    //réarmer le timer de réception
+    tll->tpsSens[num_lecteur_i]->setSingleShot(true);
+    tll->tpsSens[num_lecteur_i]->start(this->tempoR);
+
+    //Recherche identité de la personne
+    int num_pers = pBdd->badgeIdentite(num_badge_i);
+    if (num_pers == -1){
+        //le badge n'est pas lié avec une personne
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
+    }
+
+    // calcul de la moyenne de la sensibilité
+    tll->moySens[num_lecteur_i][tll->indMoy[num_lecteur_i]++] = sens_i ;
+
+    if (tll->indMoy[num_lecteur_i] == MAXVAL){
+        tll->indMoy[num_lecteur_i] = 0;     //indice du tableau de moyenne
+    }
+    int moy = 0;
+    moy = calculerMoyenne(tll);     //sur MAXVAL valeur
+    tll->sdp[num_lecteur_i] = moy;  //mémo pour calcul sens de passage
+    moy -= 100;
+
+    sensDePassage(tll);  //maj de zone et du sens de passage de ce badge
 
 
-        //tll->labelB[onglet][badge]
-            //pré-positionné badge
-
-        //Combien y a t-il d'onglets/vues ?
-        int vueMax = pBdd->getVueMax();
-        //se placer sur les différentes vues
-        for(int num_vue=vueMax ; num_vue>0 ; num_vue--){
-            //se placer sur un onglet
-         //   QWidget *onglet;
-         //   onglet = pDynamique->onglet[num_vue];
-         //test directement dedans
-
-            //nouveau label dynamique pour un badge
-            QLabel *labelB = new QLabel(pDynamique->onglet[num_vue]);
-
-            //par défaut le badge est actif (vert)
-            labelB->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
-            labelB->setGeometry(590, 620, 15, 42); // largeur hauteur à définir
 
 
-
+/*
         //---obtenir position du badge
 
 
@@ -201,84 +236,17 @@ bool Ihm::traitementTrame(QString trame){
       //          int xB[num_vue] = listePositionLieu.at(0).xB;
         //        int yB[num_vue] = listePositionLieu.at(0).yB;
 
+*/
 
 
-              //  }
 
 
-            }
-
-
-            //sauvegarde du pointeur du label pour un badge
-            pDynamique->labelB[num_vue][num_badge_i];
-
-
-        }
-        //maintenant le badge existe sur l'IHM donc le sauvegarder
-        pDynamique->BadgeActif[num_badge_i] = 1;
     }
 
-    //Recherche identité de la personne
-    int num_pers = pBdd->badgeIdentite(num_badge_i);
-    if(num_pers == -1){
-        //le badge n'est pas lié avec une personne
-        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
-    }
+
     //sinon afficher la personne
     //comme on connait le numéro de la personne, on peut aller taper dans la classe Dynamique
 
-
-
- /*   //creation label si existe pas
-    if(!existe){
-        tll = new T_ListeLabel();
-        nbB++;
-        for(int i=0 ; i<config.maxLect ; i++)   // init à 100
-            for(int j=0 ; j<config.maxVal ; j++)
-                tll->moySens[i][j]=100;
-        for(int i=0 ; i<config.maxLect ; i++)
-        {
-            tll->sdp[i]=0;
-            tll->memSdp[i]=0;
-        } // for
-        memset(tll->indMoy, 0, sizeof(tll->indMoy));   // init à 0
-        tll->l = new QLabel(ui->centralWidget);
-        tll->noBadge = inoB;
-        tll->noLect = inoLect;
-        tll->etat = 0; // aller
-        // réglage du timer associé au mouvement
-        tll->wdm = new QTimer(this);
-        connect(tll->wdm, SIGNAL(timeout()), this, SLOT(onTimerMouv()));
-        tll->wdm->setSingleShot(true);
-        tll->wdm->start(config.tempoM); // secondes
-        // réglage du timer associé à la réception
-        tll->wdr[inoLect] = new QTimer(this);
-        connect(tll->wdr[inoLect], SIGNAL(timeout()), this, SLOT(onTimerRec()));
-        tll->wdr[inoLect]->setSingleShot(true);
-        tll->wdr[inoLect]->start(config.tempoR); // secondes
-        // ajout à la liste mémoire et affichage
-        listeLabel.append(tll);
-        nbB = listeLabel.size();
-        ui->lNbB->setText(QString("%1").arg(nbB)); // affiche nb de badge actuel
-        // réglage par défaut du nouveau label
-        tll->l->setEnabled(true);
-        tll->l->setGeometry(QRect(590, 620, 20, 20));
-        tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertehaut.jpg")));
-        tll->l->setScaledContents(true);
-        tll->l->show();
-    } // if !existe
-    */
-/*
-     // recherche identité
-    if (bdd->aQuiAppartientCeBadge(noBadge) != -1) {
-       tll->pers.nom = bdd->query->value(1).toString();
-       tll->pers.pnom = bdd->query->value(2).toString();
-       tll->pers.societe = bdd->query->value(3).toString();
-       tll->pers.noPers = bdd->query->value(6).toInt();
-    } else {  // a personne !
-        tll->pers.noPers = -1;
-    } // else
-*/
 }
 ///////////////////////////////////////////////////////////
 void Ihm::TimerMouv() {
