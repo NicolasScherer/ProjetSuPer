@@ -123,9 +123,44 @@ bool Ihm::traitementTrame(QString trame){
         }
         memset(tll->indMoy, 0, sizeof(tll->indMoy));    //init à 0
 
-        //obtenir vue où ce lecteur est représenté
-        //se placer sur les différentes vues
-            //nouveau badge
+        //obtenir vue(s) en fonction du lecteur
+        //déclaration QList
+        QList<T_TupleLecteurS> listeTupleL;
+
+        pBdd->getVueFctLect(num_lecteur_i, &listeTupleL);
+
+        //récupération des infos dans la liste
+        if(!listeTupleL.empty()){
+            for(int i = 0; i < listeTupleL.count(); i++) {
+
+                int num_vue = listeTupleL.at(i).num_vue;
+
+                //se placer sur l'onglet
+                QWidget *onglet;
+                onglet = pDynamique->onglet[num_vue];
+
+                //nouveau label dynamique pour un badge
+                tll->labelB[num_vue][num_badge_i] = new QLabel(onglet);
+            }
+        }
+
+        tll->numBadge = num_badge_i;        //numéro de badge
+        tll->numLecteur = num_lecteur_i;    //numéro de lecteur
+        tll->etat = 0;                      //aller
+
+        // réglage du timer associé au mouvement
+        tll->tpsMouv = new QTimer(this);                                    //nouveau Timer
+        connect(tll->tpsMouv, SIGNAL(timeout()), this, SLOT(TimerMouv()));  //connect timeout
+        tll->tpsMouv->setSingleShot(true);                                  //un seul temps
+        tll->tpsMouv->start(this->tempoM);                                  //débute le timer
+
+        // réglage du timer associé à la réception
+        tll->tpsSens[num_lecteur_i] = new QTimer(this);                                     //nouveau Timer
+        connect(tll->tpsSens[num_lecteur_i], SIGNAL(timeout()), this, SLOT(TimerSens()));   //connect timeout
+        tll->tpsSens[num_lecteur_i]->setSingleShot(true);                                   //un seul temps
+        tll->tpsSens[num_lecteur_i]->start(this->tempoR);                                   //débute le timer
+
+
 
         //tll->labelB[onglet][badge]
             //pré-positionné badge
@@ -146,21 +181,7 @@ bool Ihm::traitementTrame(QString trame){
             labelB->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
             labelB->setGeometry(590, 620, 15, 42); // largeur hauteur à définir
 
-/* ne dépend pas de la vue
-            tll->noBadge = inoB;
-            tll->noLect = inoLect;
-            tll->etat = 0; // aller
-            // réglage du timer associé au mouvement
-            tll->wdm = new QTimer(this);
-            connect(tll->wdm, SIGNAL(timeout()), this, SLOT(onTimerMouv()));
-            tll->wdm->setSingleShot(true);
-            tll->wdm->start(config.tempoM); // secondes
-            // réglage du timer associé à la réception
-            tll->wdr[inoLect] = new QTimer(this);
-            connect(tll->wdr[inoLect], SIGNAL(timeout()), this, SLOT(onTimerRec()));
-            tll->wdr[inoLect]->setSingleShot(true);
-            tll->wdr[inoLect]->start(config.tempoR); // secondes
-*/
+
 
         //---obtenir position du badge
 
@@ -259,6 +280,19 @@ bool Ihm::traitementTrame(QString trame){
     } // else
 */
 }
+///////////////////////////////////////////////////////////
+void Ihm::TimerMouv() {
+    T_ListeLabel *tll;
+    int nbB = listeLabel.size();
+    for (int i=0 ; i<nbB ; i++) {
+        tll = listeLabel.at(i);
+        //si Timer n'est pas actif
+        if (!tll->tpsMouv->isActive()) {
+            tll->etat |= MOUV;   // homme en danger
+        }
+    }
+}
+
 /////////////////////
 /*** DESTRUCTEUR ***/
 Ihm::~Ihm()

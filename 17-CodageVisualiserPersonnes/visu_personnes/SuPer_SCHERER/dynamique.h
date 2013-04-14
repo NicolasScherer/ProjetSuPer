@@ -11,14 +11,14 @@
 #define MAXVAL 20 //nombre de valeur pour faire la moyenne
 
 // Permet le mise en correspondance d'un QLabel de position avec un badge.
-// création dynamique des logo affiché représentant les personnes badgées.
+// création dynamique des logos affichés représentant les personnes badgées.
 typedef struct s_listeLabel {
     QLabel *labelB[MAXONGLETS][MAXBADGES];      //pointeur sur le label du badge
     QTimer *tpsMouv;                //timer sur le mouvement
     QTimer *tpsSens[MAXLECTEURS];   //timer sur la réception
 
-    int numBadge;
-    int numLecteurMem;      //numéro de lecteur mémorisé
+    int numBadge;           //numéro de badge
+    int numLecteur;      //numéro de lecteur lu
     int etat;    // bit0:Mouv(0:RAS, 1:TO)   bit1:REC(0:RAS, 1:TO)  bit2:SENS(0:haut, 1:bas) bit3:MOUV0
     int moySens[MAXLECTEURS][MAXVAL];   //moyenne réception
     int indMoy[MAXLECTEURS];    //indice moyenne

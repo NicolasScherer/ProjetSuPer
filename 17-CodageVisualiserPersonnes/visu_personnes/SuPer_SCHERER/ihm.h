@@ -64,6 +64,9 @@ private:
     void ajoutLecteur(int numLecteur, int num_vue, int x, int y);
     void suppLecteur(int numLecteur, int num_vue);
 
+    //Init nouveau badge
+    void ajoutBadge(int numLecteur, int num_vue);
+
     /*---Config de Super---*/
     int tempoM,// ms tempo pour le timer mouvement
     tempoR,// ms tempo pour le timer de réception
@@ -88,6 +91,9 @@ public slots:
 
     //traitement de la trame
     bool traitementTrame(QString trame);
+
+    //timer mouvement (homme en danger)
+    void TimerMouv();
 
 private slots:
     //bouton sur l'ihm pour quitter
