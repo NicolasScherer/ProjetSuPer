@@ -214,8 +214,24 @@ bool Ihm::traitementTrame(QString trame){
 
     sensDePassage(tll);  //maj de zone et du sens de passage de ce badge
 
+    // recherche si lecteur n'est pas connecté
+    if (!pBdd->getEtatLect(num_lecteur_i)){
+        qDebug("le lecteur n'est pas connecte ?!");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Lecteur "+num_lecteur+"> Lecteur non connecte\n");
+        return false;
+    }
 
+/*
+    bdd->getPointsZone(vue, tll->zone,&tll->ptA, &tll->ptB);
+    calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptF);  // retourne ptF
 
+    bdd->receptionRetrouvee(inoB);  // efface badge dans perte
+
+    // affichage ihm
+    ui->teRecu->append(" S:"+sens+" B:"+noBadge+" M:"+mouv+" L:"+lect+" "+trame);
+
+    return true;
+*/
 
 /*
         //---obtenir position du badge
@@ -247,7 +263,50 @@ bool Ihm::traitementTrame(QString trame){
     //sinon afficher la personne
     //comme on connait le numéro de la personne, on peut aller taper dans la classe Dynamique
 
+///////////////////////////////////////////////////////////////
+void Ihm::sensDePassage(T_ListeLabel *tll)
+{
+    // pour l'instant, une seule zone
+    if (tll->sdp[tll->numLecteur] < tll->sdpMem[tll->numLecteur])
+        tll->etat &= ~AR;   //retour
+
+    if (tll->sdp[tll->numLecteur] > tll->sdpMem[tll->numLecteur])
+        tll->etat |= AR;    //aller
+
+    if (tll->sdp[tll->numLecteur] != tll->numLecteur)
+        tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+
+
+ /*   // détermination de la zone contigüe
+    if (tll->sdp[tll->numLecteur] > 0)
+        tll->zone = tll->numLecteur;
+
+    if (tll->sdp[tll->numLecteur+1] > 0)
+        tll->zone =
+
+    if (tll->sdp[tll->noLect+1]>0)
+        tll->zone = tll->noLect*11+1;
+    if (tll->sdp[tll->noLect-1]>0)
+        tll->zone = (tll->noLect-1)*11+1;
+    ui->lZone->setText(QString("Zone %1").arg(tll->zone));
+*/
 }
+
+
+///////////////////////////////////////////////////////////////
+int Ihm::calculerMoyenne(T_ListeLabel *tll)
+{
+    // calcul de la moyenne de la sensibilité
+    int sumMoy=0;
+    for (int i=0 ; i<MAXVAL ; i++)
+        sumMoy += tll->moySens[tll->numLecteur][i];
+    return sumMoy / MAXVAL;
+
+} // method
+
+
+
+
 ///////////////////////////////////////////////////////////
 void Ihm::TimerMouv() {
     T_ListeLabel *tll;
@@ -326,6 +385,10 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
     supLecteur += numVueS;
     supLecteur += "> vient de se deconnecter";
     ui->txtAlarme->textCursor().insertText(supLecteur + "\n");
+
+    //mettre à jour la BDD
+    int etat = 0;   //état déconnexion
+    pBdd->setEtatLect(numLecteur, etat);
 }
 ////////////////////////////
 /*** SLOT LECTEUR ACTIF ***/
@@ -374,6 +437,10 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
 
     //sauvegarde du pointeur du label du lecteur
     pDynamique->labelL[num_vue][numLecteur] = labelL;
+
+    //mettre à jour la BDD
+    int etat = 1;   //état connexion
+    pBdd->setEtatLect(numLecteur, etat);
 
 }
 //////////////////////////////

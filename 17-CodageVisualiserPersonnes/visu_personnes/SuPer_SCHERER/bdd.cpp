@@ -30,6 +30,47 @@ Bdd::~Bdd(){
     delete query;
     database.close();
 }
+////////////////////
+// co/déco lecteur
+void Bdd::setEtatLect(int numLecteur, bool etat){
+
+    //avec le numéro de lecteur et son état le mettre à jour dans la BDD
+    requete = "UPDATE lecteur ";
+    requete += "SET estConnecte=:etat ";
+    requete += "WHERE num_lecteur=:numLecteur";
+    query->prepare(requete);
+    query->bindValue(":etat", etat);
+    query->bindValue(":num_lecteur", numLecteur);
+    if (!query->exec())
+        qDebug() << "Erreur requete SQL co/déco lecteur" << endl;
+
+}
+
+///////////////////////
+// voir état lecteur (co ou déco)
+bool Bdd::getEtatLect(int numLecteur){
+
+    //avec le numéro de lecteur obtenir l'état du lecteur (connecté ou non)
+    requete = "SELECT estConnecte ";
+    requete += "FROM lecteur ";
+    requete += "WHERE num_lecteur=:numLecteur";
+    query->prepare(requete);
+    query->bindValue(":numLecteur", numLecteur);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL etat lecteur" << endl;
+         return -1;
+    }
+
+    query->next();
+    int etat = query->value(0).toInt();
+    if (etat == 0)
+        return false;
+    if (etat ==1)
+        return true;
+
+}
+
+
 
 /*-----------------------------------*
  * Méthode pour obtenir l'identité   *

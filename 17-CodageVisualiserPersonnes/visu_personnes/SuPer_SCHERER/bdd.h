@@ -54,6 +54,9 @@ public:
     int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
     bool getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *); //obtenir (xA,yA) et (xB,yB) en fonction du lieu et de la vue
 
+    void setEtatLect(int numLecteur, bool etat);    //connexion/déconnexion lecteur
+    bool getEtatLect(int numLecteur);                   //état lecteur (connecté ou non)
+
 private:
     //pointeurs sur structure
     T_TupleOnglet * pTupleOnglet;

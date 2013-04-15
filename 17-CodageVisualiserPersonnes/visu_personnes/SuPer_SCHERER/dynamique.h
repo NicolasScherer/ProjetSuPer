@@ -4,6 +4,12 @@
 #include <QObject>
 #include <QLabel>
 
+// masque de l'octet d'état
+#define MOUV 1
+#define REC  2
+#define AR 4
+#define MOUV0 8  //mouv=0 avant alarme
+
 #define MAXONGLETS 20   //maximum d'onglets possible
 #define MAXLECTEURS 40  //maximum de lecteurs possible (NB : 1 lieu = 1 lecteur)
 #define MAXBADGES 40    //maximum de badges possible
@@ -20,6 +26,7 @@ typedef struct s_listeLabel {
     int numBadge;           //numéro de badge
     int numLecteur;      //numéro de lecteur lu
     int etat;    // bit0:Mouv(0:RAS, 1:TO)   bit1:REC(0:RAS, 1:TO)  bit2:SENS(0:haut, 1:bas) bit3:MOUV0
+    int zone;   // lieu géographique d'affichage du badge
     int moySens[MAXLECTEURS][MAXVAL];   //moyenne réception
     int indMoy[MAXLECTEURS];    //indice moyenne
     int sdp[MAXLECTEURS];       //sens de passage

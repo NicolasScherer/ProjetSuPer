@@ -74,6 +74,9 @@ private:
 
     QList<T_ListeLabel *> listeLabel;
 
+    int calculerMoyenne(T_ListeLabel *tll); //calculer moyenne sensibilité
+    void sensDePassage(T_ListeLabel *tll);  //sens de passage
+
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
     //pointeur sur la classe BDD
