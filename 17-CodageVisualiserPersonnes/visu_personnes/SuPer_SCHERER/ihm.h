@@ -7,39 +7,6 @@
 #include "dynamique.h"
 #include "bdd.h"
 
-//structure pour un Badge
-typedef struct s_Badge {
-    QString num_badge;
-    QString num_pers;
-    int dateMiseEnService;
-    int dateChangePile;
-    bool estActif;
-} T_Badge;
-
-typedef struct s_personne {
-    QString nom, pnom;
-    QString societe;
-    QString dateDeb, dateFin;
-    QString email;
-    int noPers; // no unique de la personne
-    QString ident;
-    QString pass;
-    QString exploit;
-} T_Pers;
-
-// structure pour le positionnement X, Y du label badge
-typedef struct {
-    int x,y;
-} T_Point;
-
-// configuration de SuPER
-typedef struct {
-    int tempoM,// ms tempo pour le timer mouvement
-    tempoR,// ms tempo pour le timer de réception
-    tempoA,// affichage général IHM
-    maxVal;// Nbre de valeur pour faire la moyenne de sensibilité
-} T_Config;
-
 /////////////////////////////////
 
 namespace Ui {

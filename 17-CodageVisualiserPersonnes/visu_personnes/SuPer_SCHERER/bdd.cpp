@@ -65,9 +65,8 @@ bool Bdd::getEtatLect(int numLecteur){
     int etat = query->value(0).toInt();
     if (etat == 0)
         return false;
-    if (etat ==1)
-        return true;
 
+return true;
 }
 
 

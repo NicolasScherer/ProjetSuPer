@@ -16,6 +16,11 @@
 #define MAXPERSONNES 200    //maximum de personnes possible
 #define MAXVAL 20 //nombre de valeur pour faire la moyenne
 
+// structure pour le positionnement X, Y du label badge
+typedef struct {
+    int x,y;
+} T_Point;
+
 // Permet le mise en correspondance d'un QLabel de position avec un badge.
 // création dynamique des logos affichés représentant les personnes badgées.
 typedef struct s_listeLabel {
@@ -36,16 +41,12 @@ typedef struct s_listeLabel {
     QString nom[MAXPERSONNES];      //sauvegarde identité personne, nom
     QString prenom[MAXPERSONNES];   //prenom
     QString societe[MAXPERSONNES];  //societe
+    QString photo[MAXPERSONNES];    //photographie
 
-    /*---Points de la droite---*/
-    int xPointA[MAXONGLETS][MAXLECTEURS];   // x du point A
-    int yPointA[MAXONGLETS][MAXLECTEURS];   // y du point A
-    int xPointB[MAXONGLETS][MAXLECTEURS];   // x du point B
-    int yPointB[MAXONGLETS][MAXLECTEURS];   // y du point B
+    /*---Pointes et coordonnées---*/
+    T_Point ptA, ptB, ptBadge;
 
 } T_ListeLabel;
-
-
 
 
 //////////////////////////////////////////////////////////////
@@ -62,6 +63,12 @@ public:
 
     /*---Badge---*/
     bool BadgeActif[MAXBADGES];     //badge actif ou non
+
+    /*---Personne---*/
+    QString nom[MAXPERSONNES];      //sauvegarde identité personne, nom
+    QString prenom[MAXPERSONNES];   //prenom
+    QString societe[MAXPERSONNES];  //societe
+    QString photo[MAXPERSONNES];    //photographie
 signals:
     
 public slots:

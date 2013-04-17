@@ -199,6 +199,11 @@ bool Ihm::traitementTrame(QString trame){
     if (num_pers == -1){
         //le badge n'est pas lié avec une personne
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
+    } else {
+        tll->nom[num_pers] = pDynamique->nom[num_pers];
+        tll->prenom[num_pers] = pDynamique->prenom[num_pers];
+        tll->societe[num_pers] = pDynamique->societe[num_pers];
+        tll->photo[num_pers] = pDynamique->photo[num_pers];
     }
 
     // calcul de la moyenne de la sensibilité
@@ -221,47 +226,31 @@ bool Ihm::traitementTrame(QString trame){
         return false;
     }
 
-/*
-    bdd->getPointsZone(vue, tll->zone,&tll->ptA, &tll->ptB);
-    calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptF);  // retourne ptF
+    //Obtenir les points de la zone en fonction des vues
 
-    bdd->receptionRetrouvee(inoB);  // efface badge dans perte
+    //obtenir vue(s) en fonction du lecteur
+    //déclaration QList
+    QList<T_TupleLecteurS> listeTupleL;
 
-    // affichage ihm
-    ui->teRecu->append(" S:"+sens+" B:"+noBadge+" M:"+mouv+" L:"+lect+" "+trame);
+    pBdd->getVueFctLect(num_lecteur_i, &listeTupleL);
 
-    return true;
-*/
+    if (!listeTupleL.empty()){
+        for (int i = 0; i < listeTupleL.count(); i++) {
 
-/*
-        //---obtenir position du badge
+            int num_vue = listeTupleL.at(i).num_vue;
 
+            pBdd->getPointsZone(num_vue, tll->zone, &tll->ptA, &tll->ptB);
 
-            //obtenir lieu (xA,yA et xB,yB) en fonction du lecteur et de la vue (en cours)
+            this->calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptBadge);
 
-            //déclaration QList
-            QList<T_TuplePositionLieu> listePositionLieu;
-
-            pBdd->getPositionLieu(num_vue, num_lecteur_i, &listePositionLieu);
-
-            //récupération des infos dans la liste
-            if(!listePositionLieu.empty()){
-     //inutile? // for(int i = 0; i < listePositionLieu.count(); i++) {
-  //              int xA[num_vue] = listePositionLieu.at(0).xA;
-    //            int yA[num_vue] = listePositionLieu.at(0).yA;
-      //          int xB[num_vue] = listePositionLieu.at(0).xB;
-        //        int yB[num_vue] = listePositionLieu.at(0).yB;
-
-*/
-
-
-
-
+        }
     }
 
+     bdd->receptionRetrouvee(inoB);  // efface badge dans perte
+    return true;
+}
 
-    //sinon afficher la personne
-    //comme on connait le numéro de la personne, on peut aller taper dans la classe Dynamique
+
 
 ///////////////////////////////////////////////////////////////
 void Ihm::sensDePassage(T_ListeLabel *tll)

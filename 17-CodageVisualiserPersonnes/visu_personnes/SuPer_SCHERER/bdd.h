@@ -57,6 +57,8 @@ public:
     void setEtatLect(int numLecteur, bool etat);    //connexion/déconnexion lecteur
     bool getEtatLect(int numLecteur);                   //état lecteur (connecté ou non)
 
+    QSqlQuery * query;
+
 private:
     //pointeurs sur structure
     T_TupleOnglet * pTupleOnglet;
@@ -67,7 +69,7 @@ private:
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
 
-    QSqlQuery * query;
+
     QSqlDatabase  database;
     QString requete;  // requête parfois utilisé
     
