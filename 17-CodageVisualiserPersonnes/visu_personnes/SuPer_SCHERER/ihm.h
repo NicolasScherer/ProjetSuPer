@@ -43,6 +43,7 @@ private:
 
     int calculerMoyenne(T_ListeLabel *tll); //calculer moyenne sensibilité
     void sensDePassage(T_ListeLabel *tll);  //sens de passage
+    void calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF);    //calcul position exacte
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
@@ -66,6 +67,9 @@ public slots:
     void TimerMouv();
 
 private slots:
+    //timer affichage
+    void TimerAffichage();
+
     //bouton sur l'ihm pour quitter
     void on_btQuitter_clicked();
 };

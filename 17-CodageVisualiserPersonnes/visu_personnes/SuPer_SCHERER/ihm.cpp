@@ -60,7 +60,7 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
- //   traitementTrame("960021A701");  //à enlever à l'intégration
+    traitementTrame("960021A701");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
@@ -102,12 +102,12 @@ bool Ihm::traitementTrame(QString trame){
     int num_lecteur_i = num_lecteur.toInt(0,16);
     int mouvement_i = mouvement.toInt(0,16);
 
-    //si le badge n'existe dans la BDD
+/*    //si le badge n'existe dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge inconnu  dans la Base de donnees\n");
         return false;
     }
-
+*/
     //badge n'existe pas sur l'IHM
     if(!pDynamique->BadgeActif[num_badge_i]){
 
@@ -241,44 +241,176 @@ bool Ihm::traitementTrame(QString trame){
 
             pBdd->getPointsZone(num_vue, tll->zone, &tll->ptA, &tll->ptB);
 
-            this->calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptBadge);
+            this->calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptBadge[num_vue]);
 
         }
     }
 
-     bdd->receptionRetrouvee(inoB);  // efface badge dans perte
+    pBdd->setBadgeActif(num_badge_i);      //le badge n'est pas perdu
     return true;
 }
 
 
+///////////////////////////////////////////////////////////////
+void Ihm::TimerAffichage(){
+    T_ListeLabel *tll;
+    int nbB;
+
+    // témoin timer OK
+    if (ui->lAff->isVisible())
+        ui->lAff->setVisible(false);
+    else
+        ui->lAff->setVisible(true);
+
+    nbB = listeLabel.size();  // nbre de badge
+    for (int i=0 ; i<nbB ; i++)
+    {
+        tll = listeLabel.at(i);
+        tll->l->setEnabled(true);
+        switch(tll->etat) {
+        case 0:  // ALLER
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertehaut.jpg")));
+            break;
+        case 1:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougehaut.jpg")));
+            break;
+        case 2:
+            tll->l->setEnabled(false);
+            break;
+        case 3:
+            tll->l->setEnabled(false);
+            break;
+        case 4:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertebas.jpg")));
+            break;
+        case 5:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougebas.jpg")));
+            break;
+        case 6:
+            tll->l->setEnabled(false);
+            break;
+        case 7:
+            tll->l->setEnabled(false);
+            break;
+        case 8:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecheorangehaut.jpg")));
+            break;
+        case 9:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougehaut.jpg")));
+            break;
+        case 10:
+            tll->l->setEnabled(false);
+            break;
+        case 11:
+            tll->l->setEnabled(false);
+            break;
+        case 12:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecheorangebas.jpg")));
+            break;
+        case 13:
+            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougebas.jpg")));
+            break;
+        case 14:
+            tll->l->setEnabled(false);
+            break;
+        case 15:
+            tll->l->setEnabled(false);
+            break;
+        } // sw etat
+
+        if (tll->pers.noPers != -1) {
+            tll->l->setGeometry(tll->ptF.x+(20*tll->pers.noPers),tll->ptF.y,20,20);
+            tll->l->setToolTip("Badge "+ QString("%1").arg(tll->noBadge)+" de : "+tll->pers.nom+" "
+                               +tll->pers.pnom+QString::fromUtf8(" Société : ")+tll->pers.societe+" "
+                               +QString("Zone:%1").arg(tll->zone));
+        } else {
+            tll->pers.noPers = bdd->getNoPersSuivant();
+            tll->l->setGeometry(tll->ptF.x+(20*tll->pers.noPers), tll->ptF.y, 20, 20);
+            tll->l->setToolTip(QString::fromUtf8("Badge non affecté : ")+QString("%1 zone:%2").arg(tll->noBadge).arg(tll->zone));
+        } // else
+    } // for
+} // method
+
+///////////////////////////////////////////////////////////////
+void Ihm::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF)
+{
+    //pas de calcul, les points correspondent à la droite (uniquement vue 1)
+    if ((pointB.x == 0) && (pointB.y == 0)){
+        pointF->x = pointA.x;
+        pointF->y = pointA.y;
+    }
+    //sinon calculer position
+    else{
+        float dx, dy, a, x, y;
+
+        dx = pointB.x - pointA.x;
+        dy = pointB.y - pointA.y;
+
+        x = sens*dx/100;  // mise à l'échelle
+        a = dy/dx;     // coeff directeur, pas d'ordonnée à l'origine car changement de repère
+        y = a*x;   // équation de la droite
+        pointF->x = pointA.x + x;
+        pointF->y = pointA.y + y;
+    }
+
+}
 
 ///////////////////////////////////////////////////////////////
 void Ihm::sensDePassage(T_ListeLabel *tll)
 {
-    // pour l'instant, une seule zone
-    if (tll->sdp[tll->numLecteur] < tll->sdpMem[tll->numLecteur])
-        tll->etat &= ~AR;   //retour
+    int sensMonter = pBdd->getSensMonter(tll->numLecteur);
 
-    if (tll->sdp[tll->numLecteur] > tll->sdpMem[tll->numLecteur])
-        tll->etat |= AR;    //aller
+    //sens de montée = rapprochement
+    if (sensMonter == 1){
 
-    if (tll->sdp[tll->numLecteur] != tll->numLecteur)
-        tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+        //RSSI plus petit donc aller
+        if (tll->sdp[tll->numLecteur] < tll->sdpMem[tll->numLecteur]){
+            tll->etat |= AR;
+            tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+        }
+        //RSSI plus grand donc retour
+        if (tll->sdp[tll->numLecteur] > tll->sdpMem[tll->numLecteur]){
+            tll->etat &= ~AR;
+            tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+        }
 
+        //zone
+        if (tll->sdp[tll->numLecteur]>0)
+            tll->zone = tll->numLecteur;
 
- /*   // détermination de la zone contigüe
-    if (tll->sdp[tll->numLecteur] > 0)
-        tll->zone = tll->numLecteur;
+    //sens de montée = éloignement
+    }else if (sensMonter == 2){
 
-    if (tll->sdp[tll->numLecteur+1] > 0)
-        tll->zone =
+        //RSSSI plus petit donc retour
+        if (tll->sdp[tll->numLecteur] < tll->sdpMem[tll->numLecteur]){
+            tll->etat &= ~AR;
+            tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+        }
+        //RSSI plus grand donc aller
+        if (tll->sdp[tll->numLecteur] > tll->sdpMem[tll->numLecteur]){
+            tll->etat |= AR;
+            tll->sdpMem[tll->numLecteur] = tll->sdp[tll->numLecteur];   //sauvegarde
+        }
 
-    if (tll->sdp[tll->noLect+1]>0)
-        tll->zone = tll->noLect*11+1;
-    if (tll->sdp[tll->noLect-1]>0)
-        tll->zone = (tll->noLect-1)*11+1;
-    ui->lZone->setText(QString("Zone %1").arg(tll->zone));
-*/
+        //zone
+        if (tll->sdp[tll->numLecteur]>0)
+            tll->zone = tll->numLecteur;
+
+    //sens de montée = zone contigüe
+    }else if (sensMonter == 3){
+
+        //détermination de la zone contigüe
+        if (tll->sdp[tll->numLecteur+1]>0)
+            tll->zone = tll->numLecteur*11+1;
+
+        if (tll->sdp[tll->numLecteur-1]>0)
+            tll->zone = (tll->numLecteur-1)*11+1;
+
+    //pas de sens de passage
+    }else{
+        tll->zone = -1;
+    }
+
 }
 
 

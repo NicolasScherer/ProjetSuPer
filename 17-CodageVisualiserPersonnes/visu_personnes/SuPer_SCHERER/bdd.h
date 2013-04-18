@@ -52,10 +52,16 @@ public:
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
     bool badgeExiste(QString &num_badge);   //est-ce que ce badge existe ?
     int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
-    bool getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *); //obtenir (xA,yA) et (xB,yB) en fonction du lieu et de la vue
+  //  bool getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *); //obtenir (xA,yA) et (xB,yB) en fonction du lieu et de la vue
 
     void setEtatLect(int numLecteur, bool etat);    //connexion/déconnexion lecteur
     bool getEtatLect(int numLecteur);                   //état lecteur (connecté ou non)
+
+    int getSensMonter(int numLecteur);     //obtenir le type de zone
+    bool getPointsZone(int vue, int zone, T_Point *pointA, T_Point *pointB);  //obtenir les points de la zone
+
+    //perte badge
+    void setBadgeActif(int numBadge);    //mettre badge actif
 
     QSqlQuery * query;
 

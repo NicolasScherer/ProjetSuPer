@@ -30,6 +30,40 @@ Bdd::~Bdd(){
     delete query;
     database.close();
 }
+///////////////////////////////////////////
+void Bdd::setBadgeActif(int numBadge)
+{
+    //avec le numéro de badge, mettre qu'il n'est pas perdu
+    requete = "UPDATE badge ";
+    requete += "SET estActif=1 ";
+    requete += "WHERE num_badge=:numBadge";
+    query->prepare(requete);
+    query->bindValue(":numBadge", numBadge);
+    if (!query->exec())
+        qDebug() << "Erreur requete SQL badge actif (perte badge)" << endl;
+
+}
+
+//////////////////////////////////////////////
+bool Bdd::getPointsZone(int vue, int zone, T_Point *pointA, T_Point *pointB)
+{
+    //avec la zone et la vue, obtenir les points de la droite
+    requete = "SELECT xA, yA, xB, yB ";
+    requete += "FROM representationLieuSurVue ";
+    requete += "WHERE num_vue =:vue AND num_zone =:zone";
+    query->prepare(requete);
+    query->bindValue(":vue", vue);
+    query->bindValue(":zone", zone);
+    if (!query->exec()) return false;
+    if (!query->size()) return false;
+    query->next();
+    pointA->x=query->value(0).toInt();
+    pointA->y=query->value(1).toInt();
+    pointB->x=query->value(2).toInt();
+    pointB->y=query->value(3).toInt();
+    return true;
+}
+
 ////////////////////
 // co/déco lecteur
 void Bdd::setEtatLect(int numLecteur, bool etat){
@@ -104,7 +138,7 @@ int Bdd::badgeIdentite(int num_badge_i){
  * d'un lieu en fonction d'un lecteur   *
  * et d'une vue                         *
  *--------------------------------------*/
-bool Bdd::getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *positionLieu){
+/*bool Bdd::getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *positionLieu){
 
     //avec le numéro de lecteur et la vue obtenir la position lieu
     requete = "SELECT DISTINCT A1.xA, A1.yA, A1.xB, A1.yB ";
@@ -141,7 +175,7 @@ bool Bdd::getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLie
 
     return true;
 }
-
+*/
 //////////////////////////////////////
 /*** METHODE pour OBTENIR VUE MAX ***/
 int Bdd::getVueMax(){
@@ -159,6 +193,29 @@ int Bdd::getVueMax(){
     }
     return vueMax;
 }
+////////////////////////////////////////
+/*** obtenir sens de passage (type de zone)
+ * montée, descentee, contigu ****/
+int Bdd::getSensMonter(int numLecteur){
+
+    //avec le numéro de lecteur, obtenir le type de zone
+    requete = "SELECT DISTINCT A1.sensMonter ";
+    requete += "FROM zone A1, lecteur A2 ";
+    requete += "WHERE A1.num_lieu = A2.num_lieu AND A2.num_lecteur =:numLecteur";
+    query->prepare(requete);
+    query->bindValue(":numLecteur", numLecteur);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL sens de passage (zone)" << endl;
+         return -1;
+    }
+    //réponse requête
+    query->next();
+    int sensMonter = query->value(0).toInt();
+    return sensMonter;
+
+}
+
+
 /////////////////////////////////////////////////////////
 /*** METHODE pour OBTENIR VUE en FONCTION du n° LECTEUR ***/
 bool Bdd::getVueFctLect(int numLecteur, QList<T_TupleLecteurS> *listeLecteur){

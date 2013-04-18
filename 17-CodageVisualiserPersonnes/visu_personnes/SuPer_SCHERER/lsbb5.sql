@@ -101,6 +101,7 @@ CREATE TABLE zone
 (
    num_zone	INT UNSIGNED	NOT NULL,
    num_lieu	INT UNSIGNED	NOT NULL,
+   sensMonter	INT UNSIGNED	NOT NULL,
    legende	VARCHAR(100)	NOT NULL,
    
    PRIMARY KEY (num_zone, num_lieu)

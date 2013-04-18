@@ -43,8 +43,8 @@ typedef struct s_listeLabel {
     QString societe[MAXPERSONNES];  //societe
     QString photo[MAXPERSONNES];    //photographie
 
-    /*---Pointes et coordonnées---*/
-    T_Point ptA, ptB, ptBadge;
+    /*---Points et coordonnées---*/
+    T_Point ptA, ptB, ptBadge[MAXONGLETS];
 
 } T_ListeLabel;
 
