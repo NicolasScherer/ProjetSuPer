@@ -102,12 +102,12 @@ bool Ihm::traitementTrame(QString trame){
     int num_lecteur_i = num_lecteur.toInt(0,16);
     int mouvement_i = mouvement.toInt(0,16);
 
-/*    //si le badge n'existe dans la BDD
+    //si le badge n'existe dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
         ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge inconnu  dans la Base de donnees\n");
         return false;
     }
-*/
+
     //badge n'existe pas sur l'IHM
     if(!pDynamique->BadgeActif[num_badge_i]){
 
@@ -257,14 +257,24 @@ void Ihm::TimerAffichage(){
     int nbB;
 
     // témoin timer OK
-    if (ui->lAff->isVisible())
-        ui->lAff->setVisible(false);
+    if (ui->lbActivite->isEnabled())
+        ui->lbActivite->setEnabled(false);
     else
-        ui->lAff->setVisible(true);
+        ui->lbActivite->setEnabled(true);
+
+
 
     nbB = listeLabel.size();  // nbre de badge
     for (int i=0 ; i<nbB ; i++)
     {
+        //obtenir num_badge
+        //obtenir num_vue
+        //selon l'état afficher
+        //gérer pas de sens de passage
+        //si vue 1 : pas de sens de passage
+        //décalage badge si plusieurs au même endroit ?
+
+
         tll = listeLabel.at(i);
         tll->l->setEnabled(true);
         switch(tll->etat) {
