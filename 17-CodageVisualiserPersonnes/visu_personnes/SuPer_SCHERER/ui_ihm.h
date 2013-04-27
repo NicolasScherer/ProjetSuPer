@@ -48,6 +48,7 @@ public:
     QLabel *label2;
     QLabel *label2_2;
     QLabel *label;
+    QLabel *lbActivite;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -135,9 +136,14 @@ public:
         label2_2->setGeometry(QRect(10, 20, 61, 20));
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(40, 10, 211, 21));
+        label->setGeometry(QRect(60, 10, 211, 21));
         label->setTextFormat(Qt::AutoText);
         label->setAlignment(Qt::AlignCenter);
+        lbActivite = new QLabel(centralWidget);
+        lbActivite->setObjectName(QString::fromUtf8("lbActivite"));
+        lbActivite->setEnabled(true);
+        lbActivite->setGeometry(QRect(30, 0, 31, 31));
+        lbActivite->setPixmap(QPixmap(QString::fromUtf8("../ressources/activite_vert.png")));
         Ihm->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(Ihm);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
@@ -175,6 +181,7 @@ public:
         label2->setText(QApplication::translate("Ihm", "r\303\251centes", 0, QApplication::UnicodeUTF8));
         label2_2->setText(QApplication::translate("Ihm", "anciennes", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Ihm", "SuPer : Supervision de Personnes", 0, QApplication::UnicodeUTF8));
+        lbActivite->setText(QString());
     } // retranslateUi
 
 };

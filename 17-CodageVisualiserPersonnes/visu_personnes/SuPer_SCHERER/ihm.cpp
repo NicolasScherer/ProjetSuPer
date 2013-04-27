@@ -56,11 +56,12 @@ Ihm::Ihm(QWidget *parent) :
     //mettre l'onglet de base dans la vue
     ui->tabWidget->setCurrentIndex(0);
 
+
     lecteurActif(pLecteur);     // à enlever à l'intégration
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
-    traitementTrame("960021A701");  //à enlever à l'intégration
+    traitementTrame("F60016A701");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
@@ -75,6 +76,12 @@ Ihm::Ihm(QWidget *parent) :
  * Slot traitement de la trame   *
  *-------------------------------*/
 bool Ihm::traitementTrame(QString trame){
+
+    //témoin timer affichage
+    if (ui->lbActivite->isEnabled())
+        ui->lbActivite->setEnabled(false);
+    else
+        ui->lbActivite->setEnabled(true);
 
     //décodage trame
     QString num_badge, sens, mouvement, num_lecteur;
@@ -144,7 +151,7 @@ bool Ihm::traitementTrame(QString trame){
                 tll->labelB[num_vue][num_badge_i] = new QLabel(onglet);
 
                 //réglage par défaut du nouveau badge (vert + haut)
-                tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/lecteur_actif_petit.jpg"));
+                tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_vert.jpg"));
                 tll->labelB[num_vue][num_badge_i]->setGeometry(590, 620, 15, 42); // largeur hauteur à définir
             }
         }
@@ -243,103 +250,127 @@ bool Ihm::traitementTrame(QString trame){
 
             this->calculerDroite(moy, tll->ptA, tll->ptB, &tll->ptBadge[num_vue]);
 
-        }
-    }
+            //affichage
+            tll->labelB[num_vue][num_badge_i]->setEnabled(true);
+
+            //en fonction de l'état
+            switch(tll->etat) {
+            case 0:  // ALLER
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_vert.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_vert.jpg"));
+                }
+                break;
+            case 1:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_rouge.jpg"));
+                }
+                break;
+            case 2:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 3:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 4:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_vert.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_vert.jpg"));
+                }
+                break;
+            case 5:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_rouge.jpg"));
+                }
+                break;
+            case 6:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 7:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 8:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_orange.jpg"));
+                }
+                break;
+            case 9:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_rouge.jpg"));
+                }
+                break;
+            case 10:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 11:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 12:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_orange.jpg"));
+                }
+                break;
+            case 13:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                } else {
+                    tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_rouge.jpg"));
+                }
+                break;
+            case 14:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            case 15:
+                tll->labelB[num_vue][num_badge_i]->setEnabled(false);
+                break;
+            } //fin switch
+
+            //affichage position exacte badge
+            if (num_vue==1 && num_pers==1)  //taille petite, pas de décalement
+                tll->labelB[num_vue][num_badge_i]->setGeometry(tll->ptBadge[num_vue].x, tll->ptBadge[num_vue].y,15,20);
+            else if (num_vue==1 && num_pers!=1) //taile petite, décalement
+                tll->labelB[num_vue][num_badge_i]->setGeometry(tll->ptBadge[num_vue].x + (15*num_pers), tll->ptBadge[num_vue].y,15,20);
+
+            else if (num_vue!=1 && num_pers==1) //taille grande, pas de décalement
+                tll->labelB[num_vue][num_badge_i]->setGeometry(tll->ptBadge[num_vue].x, tll->ptBadge[num_vue].y,30,20);
+            else    //taille grande, décalement
+                tll->labelB[num_vue][num_badge_i]->setGeometry(tll->ptBadge[num_vue].x + (30*num_pers), tll->ptBadge[num_vue].y,30,20);
+
+            //affichage identité personne
+            if (num_pers != -1) {
+                tll->labelB[num_vue][num_badge_i]->setToolTip("Badge "+ QString::number(num_badge_i) +" de : "+ tll->nom[num_pers] +" "
+                                                              + tll->prenom[num_pers] +QString::fromUtf8(" Société : ")+ tll->societe[num_pers]);
+            } else { //badge pas affecté
+                tll->labelB[num_vue][num_badge_i]->setToolTip(QString::fromUtf8("Badge non affecté à une personne"));
+            }
+
+        } //fin for
+    } //fin if
 
     pBdd->setBadgeActif(num_badge_i);      //le badge n'est pas perdu
     return true;
 }
 
-
-///////////////////////////////////////////////////////////////
-void Ihm::TimerAffichage(){
-    T_ListeLabel *tll;
-    int nbB;
-
-    // témoin timer OK
-    if (ui->lbActivite->isEnabled())
-        ui->lbActivite->setEnabled(false);
-    else
-        ui->lbActivite->setEnabled(true);
-
-
-
-    nbB = listeLabel.size();  // nbre de badge
-    for (int i=0 ; i<nbB ; i++)
-    {
-        //obtenir num_badge
-        //obtenir num_vue
-        //selon l'état afficher
-        //gérer pas de sens de passage
-        //si vue 1 : pas de sens de passage
-        //décalage badge si plusieurs au même endroit ?
-
-
-        tll = listeLabel.at(i);
-        tll->l->setEnabled(true);
-        switch(tll->etat) {
-        case 0:  // ALLER
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertehaut.jpg")));
-            break;
-        case 1:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougehaut.jpg")));
-            break;
-        case 2:
-            tll->l->setEnabled(false);
-            break;
-        case 3:
-            tll->l->setEnabled(false);
-            break;
-        case 4:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flechevertebas.jpg")));
-            break;
-        case 5:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougebas.jpg")));
-            break;
-        case 6:
-            tll->l->setEnabled(false);
-            break;
-        case 7:
-            tll->l->setEnabled(false);
-            break;
-        case 8:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecheorangehaut.jpg")));
-            break;
-        case 9:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougehaut.jpg")));
-            break;
-        case 10:
-            tll->l->setEnabled(false);
-            break;
-        case 11:
-            tll->l->setEnabled(false);
-            break;
-        case 12:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecheorangebas.jpg")));
-            break;
-        case 13:
-            tll->l->setPixmap(QPixmap(QString::fromUtf8("../ressources/flecherougebas.jpg")));
-            break;
-        case 14:
-            tll->l->setEnabled(false);
-            break;
-        case 15:
-            tll->l->setEnabled(false);
-            break;
-        } // sw etat
-
-        if (tll->pers.noPers != -1) {
-            tll->l->setGeometry(tll->ptF.x+(20*tll->pers.noPers),tll->ptF.y,20,20);
-            tll->l->setToolTip("Badge "+ QString("%1").arg(tll->noBadge)+" de : "+tll->pers.nom+" "
-                               +tll->pers.pnom+QString::fromUtf8(" Société : ")+tll->pers.societe+" "
-                               +QString("Zone:%1").arg(tll->zone));
-        } else {
-            tll->pers.noPers = bdd->getNoPersSuivant();
-            tll->l->setGeometry(tll->ptF.x+(20*tll->pers.noPers), tll->ptF.y, 20, 20);
-            tll->l->setToolTip(QString::fromUtf8("Badge non affecté : ")+QString("%1 zone:%2").arg(tll->noBadge).arg(tll->zone));
-        } // else
-    } // for
-} // method
 
 ///////////////////////////////////////////////////////////////
 void Ihm::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF)

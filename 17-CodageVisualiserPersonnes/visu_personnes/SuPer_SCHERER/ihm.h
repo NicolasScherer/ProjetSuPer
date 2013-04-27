@@ -68,7 +68,7 @@ public slots:
 
 private slots:
     //timer affichage
-    void TimerAffichage();
+    void TimerAffichageTemoin();
 
     //bouton sur l'ihm pour quitter
     void on_btQuitter_clicked();
