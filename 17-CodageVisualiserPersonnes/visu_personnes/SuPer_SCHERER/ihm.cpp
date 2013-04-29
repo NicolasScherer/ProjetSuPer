@@ -6,6 +6,7 @@
 #include <QtDebug>
 #include <QMessageBox>
 #include <QLabel>
+#include <QToolTip>
 
 
 //////////////////////
@@ -61,7 +62,7 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
-    traitementTrame("F60016A701");  //à enlever à l'intégration
+    traitementTrame("F60016A702");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
@@ -86,7 +87,6 @@ bool Ihm::traitementTrame(QString trame){
     //décodage trame
     QString num_badge, sens, mouvement, num_lecteur;
     T_ListeLabel *tll;  //pointeur sur structure
-    //nbT++; // compteur de trames
 
     //séparation des parties de la trame
     num_badge = trame.mid(2,3); //numéro de badge
@@ -109,9 +109,9 @@ bool Ihm::traitementTrame(QString trame){
     int num_lecteur_i = num_lecteur.toInt(0,16);
     int mouvement_i = mouvement.toInt(0,16);
 
-    //si le badge n'existe dans la BDD
+    //si le badge n'existe pas dans la BDD
     if(!pBdd->badgeExiste(num_badge)){
-        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge inconnu  dans la Base de donnees\n");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+QString::fromUtf8("> Badge inconnu  dans la Base de données\n"));
         return false;
     }
 
@@ -201,17 +201,22 @@ bool Ihm::traitementTrame(QString trame){
     tll->tpsSens[num_lecteur_i]->setSingleShot(true);
     tll->tpsSens[num_lecteur_i]->start(this->tempoR);
 
+
+    //déclaration QList
+    QList<T_Personne > listePersonne;
+
     //Recherche identité de la personne
-    int num_pers = pBdd->badgeIdentite(num_badge_i);
+    int num_pers = pBdd->badgeIdentite(num_badge_i, &listePersonne);
     if (num_pers == -1){
         //le badge n'est pas lié avec une personne
-        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+"> Badge non lie a une personne\n");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Badge "+num_badge+QString::fromUtf8("> Badge non lié à une personne\n"));
     } else {
-        tll->nom[num_pers] = pDynamique->nom[num_pers];
-        tll->prenom[num_pers] = pDynamique->prenom[num_pers];
-        tll->societe[num_pers] = pDynamique->societe[num_pers];
-        tll->photo[num_pers] = pDynamique->photo[num_pers];
+        tll->nom[num_pers] = listePersonne.at(0).nom;
+        tll->prenom[num_pers] = listePersonne.at(0).prenom;
+        tll->societe[num_pers] = listePersonne.at(0).societe;
+        tll->photo[num_pers] = listePersonne.at(0).photo;
     }
+
 
     // calcul de la moyenne de la sensibilité
     tll->moySens[num_lecteur_i][tll->indMoy[num_lecteur_i]++] = sens_i ;
@@ -224,12 +229,17 @@ bool Ihm::traitementTrame(QString trame){
     tll->sdp[num_lecteur_i] = moy;  //mémo pour calcul sens de passage
     moy -= 100;
 
-    sensDePassage(tll);  //maj de zone et du sens de passage de ce badge
+    if (!sensDePassage(tll)){ //maj de zone et du sens de passage de ce badge
+        //pas de sens de passage
+        qDebug("pas de sens de passage dans BDD");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Lecteur "+num_lecteur+ QString::fromUtf8("> Pas de sens de passage précisé dans BDD\n"));
+        return false;
+    }
 
     // recherche si lecteur n'est pas connecté
     if (!pBdd->getEtatLect(num_lecteur_i)){
         qDebug("le lecteur n'est pas connecte ?!");
-        ui->txtAlarme->textCursor().insertText("<Erreur><Lecteur "+num_lecteur+"> Lecteur non connecte\n");
+        ui->txtAlarme->textCursor().insertText("<Erreur><Lecteur "+num_lecteur+QString::fromUtf8("> Lecteur non connecté\n"));
         return false;
     }
 
@@ -358,8 +368,11 @@ bool Ihm::traitementTrame(QString trame){
 
             //affichage identité personne
             if (num_pers != -1) {
-                tll->labelB[num_vue][num_badge_i]->setToolTip("Badge "+ QString::number(num_badge_i) +" de : "+ tll->nom[num_pers] +" "
-                                                              + tll->prenom[num_pers] +QString::fromUtf8(" Société : ")+ tll->societe[num_pers]);
+               tll->labelB[num_vue][num_badge_i]->setToolTip("<img src=':" + tll->photo[num_pers] + "'/>"
+                                                             +" Badge "+ QString::number(num_badge_i) +" de : "
+                                                             + tll->nom[num_pers] +" "  + tll->prenom[num_pers]
+                                                             +QString::fromUtf8(" Société : ")+ tll->societe[num_pers]);
+
             } else { //badge pas affecté
                 tll->labelB[num_vue][num_badge_i]->setToolTip(QString::fromUtf8("Badge non affecté à une personne"));
             }
@@ -397,7 +410,7 @@ void Ihm::calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *poin
 }
 
 ///////////////////////////////////////////////////////////////
-void Ihm::sensDePassage(T_ListeLabel *tll)
+bool Ihm::sensDePassage(T_ListeLabel *tll)
 {
     int sensMonter = pBdd->getSensMonter(tll->numLecteur);
 
@@ -419,6 +432,7 @@ void Ihm::sensDePassage(T_ListeLabel *tll)
         if (tll->sdp[tll->numLecteur]>0)
             tll->zone = tll->numLecteur;
 
+        return true;
     //sens de montée = éloignement
     }else if (sensMonter == 2){
 
@@ -437,6 +451,7 @@ void Ihm::sensDePassage(T_ListeLabel *tll)
         if (tll->sdp[tll->numLecteur]>0)
             tll->zone = tll->numLecteur;
 
+        return true;
     //sens de montée = zone contigüe
     }else if (sensMonter == 3){
 
@@ -447,9 +462,11 @@ void Ihm::sensDePassage(T_ListeLabel *tll)
         if (tll->sdp[tll->numLecteur-1]>0)
             tll->zone = (tll->numLecteur-1)*11+1;
 
+        return true;
     //pas de sens de passage
     }else{
         tll->zone = -1;
+        return false;
     }
 
 }
@@ -495,7 +512,7 @@ Ihm::~Ihm()
 /*** SLOT LECTEUR INCONNU ***/
 void Ihm::lecteurInconnu(){
     //ajout texte Ihm
-    ui->txtAlarme->textCursor().insertText("<Erreur> quelque chose a tente de se connecter\n");
+    ui->txtAlarme->textCursor().insertText(QString::fromUtf8("<Erreur> Quelque chose a tenté de se connecter\n"));
 }
 //////////////////////////////
 /*** SLOT LECTEUR INACTIF ***/
@@ -545,7 +562,7 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
     supLecteur += numLecteurS;
     supLecteur += "><Vue ";
     supLecteur += numVueS;
-    supLecteur += "> vient de se deconnecter";
+    supLecteur += QString::fromUtf8("> vient de se déconnecter");
     ui->txtAlarme->textCursor().insertText(supLecteur + "\n");
 
     //mettre à jour la BDD
@@ -557,7 +574,7 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
 void Ihm::lecteurActif(Lecteur *pLecteur){
     //obtenir le numéro de lecteur grâce à la classe Lecteur
     //int numLecteur = pLecteur->getnum_lecteur();
-    int numLecteur = 1; //doit disparaitre à l'intégration
+    int numLecteur = 2; //doit disparaitre à l'intégration
 
     //déclaration QList
     QList<T_TupleLecteurE> listeTupleLA;

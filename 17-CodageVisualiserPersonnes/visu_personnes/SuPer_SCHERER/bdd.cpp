@@ -109,10 +109,10 @@ return true;
  * Méthode pour obtenir l'identité   *
  * de la personne possédant le badge *
  *-----------------------------------*/
-int Bdd::badgeIdentite(int num_badge_i){
+int Bdd::badgeIdentite(int num_badge_i, QList<T_Personne> *listePersonne){
 
     //avec le numéro de badge obtenir l'identité de la personne
-    requete = "SELECT A1.num_pers, A2.nom, A2.prenom, A2.societe ";
+    requete = "SELECT A1.num_pers, A2.nom, A2.prenom, A2.societe, A2.photo ";
     requete += "FROM badge A1, personne A2 ";
     requete += "WHERE A1.num_pers=A2.num_pers AND A1.num_badge=:num_badge_i";
     query->prepare(requete);
@@ -121,12 +121,23 @@ int Bdd::badgeIdentite(int num_badge_i){
          qDebug() << "Erreur requete SQL identite badge" << endl;
          return -1;
     }
+
+    //allocation pointeur
+    this->pPersonne = new T_Personne;
+
     if (query->size() > 0){
         query->next();
         int num_pers = query->value(0).toInt();
-        pDynamique->nom[num_pers] = query->value(1).toString();
-        pDynamique->prenom[num_pers] = query->value(2).toString();
-        pDynamique->societe[num_pers] = query->value(3).toString();
+
+        //ajout liste
+        this->pPersonne->nom = query->value(1).toString();
+        this->pPersonne->prenom = query->value(2).toString();
+        this->pPersonne->societe = query->value(3).toString();
+        this->pPersonne->photo = query->value(4).toString();
+        listePersonne->append(*pPersonne);
+
+        delete this->pPersonne;
+
         return num_pers;
     }else{
         return -1;

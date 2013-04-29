@@ -7,8 +7,7 @@
 #include "dynamique.h"
 #include "bdd.h"
 
-/////////////////////////////////
-
+////////////////////////////////
 namespace Ui {
 class Ihm;
 }
@@ -41,8 +40,9 @@ private:
 
     QList<T_ListeLabel *> listeLabel;
 
+
     int calculerMoyenne(T_ListeLabel *tll); //calculer moyenne sensibilité
-    void sensDePassage(T_ListeLabel *tll);  //sens de passage
+    bool sensDePassage(T_ListeLabel *tll);  //sens de passage
     void calculerDroite(int sens, T_Point pointA, T_Point pointB, T_Point *pointF);    //calcul position exacte
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
@@ -67,9 +67,6 @@ public slots:
     void TimerMouv();
 
 private slots:
-    //timer affichage
-    void TimerAffichageTemoin();
-
     //bouton sur l'ihm pour quitter
     void on_btQuitter_clicked();
 };

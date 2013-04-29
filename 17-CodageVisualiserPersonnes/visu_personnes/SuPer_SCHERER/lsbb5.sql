@@ -165,8 +165,8 @@ INSERT INTO personne (nom, prenom, societe, dateDebut, dateFin, num_pers) VALUE
 INSERT INTO badge (num_badge, num_pers, dateMiseEnService, dateChangePile, estActif) VALUE
   (01, 1, 0, 0, 0);
  
-INSERT INTO zone (num_zone, num_lieu, legende) VALUE
-  (1, 1, "reception uniquement lecteur 1"),
-  (2, 2, "reception uniquement lecteur 2"),
-  (23, 2, "reception lecteur 2 et lecteur 3"),
-  (3, 3, "reception uniquement lecteur 3");
+INSERT INTO zone (num_zone, num_lieu,sensMonter, legende) VALUE
+  (1, 1, 2, "reception uniquement lecteur 1"),
+  (2, 2, 1, "reception uniquement lecteur 2"),
+  (23, 2, 3, "reception lecteur 2 et lecteur 3"),
+  (3, 3, 1, "reception uniquement lecteur 3");

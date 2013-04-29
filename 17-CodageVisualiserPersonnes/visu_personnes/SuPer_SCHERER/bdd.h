@@ -10,6 +10,15 @@
 
 //////////////////////////////////////////
 /*** STRUCTURE pour retour de fonction***/
+//////////////////////////////////////////
+//identité personne
+typedef struct s_Personne {
+    QString nom;      //sauvegarde identité personne, nom
+    QString prenom;   //prenom
+    QString societe;  //societe
+    QString photo;    //photographie
+
+} T_Personne;
 //enregistrement d'un onglet
 typedef struct s_TupleOnglet {
     int num_vue;
@@ -51,7 +60,7 @@ public:
     bool getVuePosFctLect(int numLecteur, QList<T_TupleLecteurE> *);   //obtenir la vue et la position (x,y) en fonction du lecteur
     bool getVue(QList<T_TupleOnglet>*);   //obtenir toutes les vues
     bool badgeExiste(QString &num_badge);   //est-ce que ce badge existe ?
-    int badgeIdentite(int num_badge_i);    //a qui appartient ce badge ?
+    int badgeIdentite(int num_badge_i, QList<T_Personne> *listePersonne);    //a qui appartient ce badge ?
   //  bool getPositionLieu(int num_vue, int num_lecteur, QList<T_TuplePositionLieu> *); //obtenir (xA,yA) et (xB,yB) en fonction du lieu et de la vue
 
     void setEtatLect(int numLecteur, bool etat);    //connexion/déconnexion lecteur
@@ -63,7 +72,7 @@ public:
     //perte badge
     void setBadgeActif(int numBadge);    //mettre badge actif
 
-    QSqlQuery * query;
+
 
 private:
     //pointeurs sur structure
@@ -71,11 +80,12 @@ private:
     T_TupleLecteurS * pTupleLecteurS;
     T_TupleLecteurE * pTupleLecteurE;
     T_TuplePositionLieu * pTuplePositionLieu;
+    T_Personne * pPersonne;
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;
 
-
+    QSqlQuery * query;
     QSqlDatabase  database;
     QString requete;  // requête parfois utilisé
     
