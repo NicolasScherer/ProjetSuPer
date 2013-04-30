@@ -108,6 +108,19 @@ CREATE TABLE zone
    
 )ENGINE=INNODB;
 
+CREATE TABLE log
+(
+   num_log	INT UNSIGNED	NOT NULL,
+   num_badge	INT UNSIGNED	NOT NULL,
+   dateLog	DATE		NOT NULL,
+   legende	VARCHAR(100)	NOT NULL,
+   
+   PRIMARY KEY (num_log, num_badge)
+   
+)ENGINE=INNODB;
+
+
+
 -- Interdiction de supprimer un lieu auquel une zone est liée
 -- Un lieu modifié est aussi modifié dans zone
 alter table zone add constraint fk_zone_num_lieu foreign key (num_lieu)

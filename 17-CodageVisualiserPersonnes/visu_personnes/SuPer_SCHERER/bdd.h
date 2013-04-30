@@ -72,6 +72,9 @@ public:
     //perte badge
     void setBadgeActif(int numBadge);    //mettre badge actif
 
+    //gestion log
+    void getLog();  //obtenir historique des événements
+    void setLog(int typeLog);  //mettre à jour historique des événements
 
 
 private:

@@ -30,6 +30,12 @@ Bdd::~Bdd(){
     delete query;
     database.close();
 }
+/////////////////////
+void Bdd::setLog(int typeLog){
+
+}
+
+
 ///////////////////////////////////////////
 void Bdd::setBadgeActif(int numBadge)
 {

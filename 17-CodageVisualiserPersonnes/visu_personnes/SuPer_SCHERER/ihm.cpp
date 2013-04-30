@@ -31,6 +31,8 @@ Ihm::Ihm(QWidget *parent) :
    emit signalNewLecteur(pLecteur);
 */
 
+    //réception signal homme en danger
+    connect(this, SIGNAL(signalHommeEnDanger(QString &)), this, SLOT(hommeEnDanger(QString &)));
 
     //obtention du nombre de vue max
     int vueMax = pBdd->getVueMax();
@@ -63,6 +65,7 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInconnu();           // à enlever à l'intégration
 
     traitementTrame("F60016A702");  //à enlever à l'intégration
+ //   traitementTrame("050016B102");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
@@ -73,6 +76,17 @@ Ihm::Ihm(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
 
 }
+
+///////
+//SLOT homme en danger
+///////
+void Ihm::hommeEnDanger(QString & nom){
+
+    //affichage texte alarme
+    ui->txtAlarme->textCursor().insertText("<ALARME> "+ nom + " est en danger ! Aucun mouvement.");
+}
+
+
 /*-------------------------------*
  * Slot traitement de la trame   *
  *-------------------------------*/
@@ -117,6 +131,8 @@ bool Ihm::traitementTrame(QString trame){
 
     //badge n'existe pas sur l'IHM
     if(!pDynamique->BadgeActif[num_badge_i]){
+
+        pBdd->setLog(1);
 
         tll = new T_ListeLabel();
 
@@ -277,8 +293,12 @@ bool Ihm::traitementTrame(QString trame){
                 if (num_vue == 1 || tll->zone == -1){
                     //pas de sens de passage
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 } else {
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 }
                 break;
             case 2:
@@ -299,8 +319,12 @@ bool Ihm::traitementTrame(QString trame){
                 if (num_vue == 1 || tll->zone == -1){
                     //pas de sens de passage
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 } else {
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 }
                 break;
             case 6:
@@ -321,8 +345,12 @@ bool Ihm::traitementTrame(QString trame){
                 if (num_vue == 1 || tll->zone == -1){
                     //pas de sens de passage
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 } else {
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/haut_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 }
                 break;
             case 10:
@@ -343,8 +371,12 @@ bool Ihm::traitementTrame(QString trame){
                 if (num_vue == 1 || tll->zone == -1){
                     //pas de sens de passage
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/pers_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 } else {
                     tll->labelB[num_vue][num_badge_i]->setPixmap(QPixmap("../ressources/bas_rouge.jpg"));
+                    //homme en danger
+                    emit signalHommeEnDanger(tll->nom[num_pers]);
                 }
                 break;
             case 14:

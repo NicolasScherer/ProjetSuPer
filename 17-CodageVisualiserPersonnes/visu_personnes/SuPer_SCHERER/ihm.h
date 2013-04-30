@@ -53,6 +53,7 @@ private:
 
 signals:
     void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
+    void signalHommeEnDanger(QString &);    //alarme homme en danger
 
 public slots:
     //lié à la connexion/déconnexion des lecteurs
@@ -69,6 +70,9 @@ public slots:
 private slots:
     //bouton sur l'ihm pour quitter
     void on_btQuitter_clicked();
+
+    //homme en danger (alarme)
+    void hommeEnDanger(QString &);
 };
 
 #endif // IHM_H
