@@ -170,7 +170,7 @@ INSERT INTO representationLieuSurVue (num_vue, num_lieu, num_zone, x, y, xA, yA,
   (2, 1, 1, 580, 488, 550, 530, 400, 390),
   (2, 2, 2, 220, 128, 400, 390, 200, 190),
   (2, 2, 23, 220, 128, 200, 190, 40, 190),
-  (2, 3, 3, 60, 28, 40, 190, 40, 10);
+  (2, 3, 3, 60, 28, 40, 190, 41, 10);
   
 INSERT INTO personne (nom, prenom, societe, dateDebut, dateFin, num_pers) VALUE
   ("scherer", "nicolas", "LAB", 0, 0, 1);

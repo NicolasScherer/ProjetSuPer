@@ -65,7 +65,9 @@ public slots:
     bool traitementTrame(QString trame);
 
     //timer mouvement (homme en danger)
-    void TimerMouv();
+    void timerMouv();
+    //timer réception (perte de badge)
+    void timerRec();
 
 private slots:
     //bouton sur l'ihm pour quitter

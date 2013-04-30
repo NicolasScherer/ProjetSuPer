@@ -31,7 +31,15 @@ Bdd::~Bdd(){
     database.close();
 }
 /////////////////////
-void Bdd::setLog(int typeLog){
+void Bdd::setLog(int typeLog, int numBadge){
+ //   switch (typeLog){
+ //   case 1 :    //nouveau badge
+
+
+ //   }
+
+    //requete sql en fonction du type de log
+    //+num badge
 
 }
 
@@ -42,6 +50,19 @@ void Bdd::setBadgeActif(int numBadge)
     //avec le numéro de badge, mettre qu'il n'est pas perdu
     requete = "UPDATE badge ";
     requete += "SET estActif=1 ";
+    requete += "WHERE num_badge=:numBadge";
+    query->prepare(requete);
+    query->bindValue(":numBadge", numBadge);
+    if (!query->exec())
+        qDebug() << "Erreur requete SQL badge actif (perte badge)" << endl;
+
+}
+///////////////////////////////////////////////
+void Bdd::setBadgePerdu(int numBadge)
+{
+    //avec le numéro de badge, mettre qu'il est perdu !
+    requete = "UPDATE badge ";
+    requete += "SET estActif=0 ";
     requete += "WHERE num_badge=:numBadge";
     query->prepare(requete);
     query->bindValue(":numBadge", numBadge);

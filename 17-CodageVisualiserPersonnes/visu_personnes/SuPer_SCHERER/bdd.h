@@ -69,12 +69,13 @@ public:
     int getSensMonter(int numLecteur);     //obtenir le type de zone
     bool getPointsZone(int vue, int zone, T_Point *pointA, T_Point *pointB);  //obtenir les points de la zone
 
-    //perte badge
+    //perte badge (réception)
     void setBadgeActif(int numBadge);    //mettre badge actif
+    void setBadgePerdu(int numBadge);   //mettre badge perdu
 
     //gestion log
     void getLog();  //obtenir historique des événements
-    void setLog(int typeLog);  //mettre à jour historique des événements
+    void setLog(int typeLog, int numBadge);  //mettre à jour historique des événements
 
 
 private:
