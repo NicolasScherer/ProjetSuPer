@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>441</height>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,7 +20,7 @@
       <x>0</x>
       <y>10</y>
       <width>971</width>
-      <height>361</height>
+      <height>390</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -33,8 +33,8 @@
      <widget class="QPushButton" name="btAffLog">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>40</y>
+        <x>30</x>
+        <y>20</y>
         <width>140</width>
         <height>30</height>
        </rect>
@@ -46,7 +46,7 @@
      <widget class="QPushButton" name="btSuppLog">
       <property name="geometry">
        <rect>
-        <x>190</x>
+        <x>20</x>
         <y>250</y>
         <width>171</width>
         <height>30</height>
@@ -59,8 +59,8 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>255</y>
+        <x>20</x>
+        <y>190</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -75,8 +75,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>270</y>
+        <x>20</x>
+        <y>205</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -92,7 +92,7 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>285</y>
+        <y>220</y>
         <width>201</width>
         <height>16</height>
        </rect>
@@ -104,8 +104,8 @@
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>240</y>
+        <x>60</x>
+        <y>170</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -124,11 +124,69 @@
      <widget class="QTextEdit" name="txtLog">
       <property name="geometry">
        <rect>
-        <x>370</x>
-        <y>20</y>
-        <width>581</width>
-        <height>311</height>
+        <x>210</x>
+        <y>10</y>
+        <width>741</width>
+        <height>350</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>60</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Cette action permet</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>75</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>d'obtenir l'Historique</string>
+      </property>
+      <property name="textFormat">
+       <enum>Qt::AutoText</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>141</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>des événements (Log).</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>130</y>
+        <width>171</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </widget>

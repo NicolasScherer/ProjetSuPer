@@ -110,12 +110,11 @@ CREATE TABLE zone
 
 CREATE TABLE log
 (
-   num_log	INT UNSIGNED	NOT NULL,
    num_badge	INT UNSIGNED	NOT NULL,
-   dateLog	DATETIME		NOT NULL,
+   dateLog	VARCHAR(100)	NOT NULL,
    legende	VARCHAR(100)	NOT NULL,
    
-   PRIMARY KEY (num_log, num_badge)
+   PRIMARY KEY (dateLog, num_badge)
    
 )ENGINE=INNODB;
 

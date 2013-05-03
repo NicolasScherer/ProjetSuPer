@@ -27,18 +27,6 @@ Bdd::~Bdd(){
     delete query;
     database.close();
 }
-/////////////////////
-void Bdd::setLog(int typeLog, int numBadge){
- //   switch (typeLog){
- //   case 1 :    //nouveau badge
-
-
- //   }
-
-    //requete sql en fonction du type de log
-    //+num badge
-
-}
 
 ////////
 //obtenir la liste de l'historique des événements
@@ -57,6 +45,10 @@ bool Bdd::getLog(QList<T_Log> * listeLog){
 
     //allocation pointeur
     this->pLog = new T_Log;
+
+    //bdd vide
+    if(query->size() == 0)
+        return false;
 
     //réponse requete
     while(query->next()){
@@ -78,6 +70,21 @@ bool Bdd::getLog(QList<T_Log> * listeLog){
     delete this->pLog;
 
     return true;
+}
+
+/////////
+//supprimer l'historique des événements
+bool Bdd::removeLog(){
+    //requête
+    //supprimer tout les tuples de la table log
+    requete = "DELETE FROM log";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL suppression historique" << endl << database.lastError() << endl;
+        return false;
+    }
+    return true;
+
 }
 
 

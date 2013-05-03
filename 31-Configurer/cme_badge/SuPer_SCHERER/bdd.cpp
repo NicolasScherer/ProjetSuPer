@@ -1,3 +1,4 @@
+#include <QDateTime>
 #include "bdd.h"
 
 //////////////////////
@@ -35,55 +36,65 @@ Bdd::~Bdd(){
 }
 /////////////////////
 void Bdd::setLog(int typeLog, int numBadge){
- //   switch (typeLog){
- //   case 1 :    //nouveau badge
 
+    //obtenir date
+    QString dateLog = QDateTime::currentDateTime().toString();
 
- //   }
+    //legende
+    QString legende;
 
-    //requete sql en fonction du type de log
-    //+num badge
+    //gestion le type de log
+    switch (typeLog){
+        case 1 :    //nouveau badge
+            legende = "Nouveau badge";
 
-}
+            //requête
+            requete = "INSERT INTO log (num_badge, dateLog,legende) VALUES (:numBadge, :dateLog,:legende)";
+            query->prepare(requete);
+            query->bindValue(":numBadge", numBadge);
+            query->bindValue(":dateLog", dateLog);
+            query->bindValue(":legende", legende);
+            if(!query->exec())
+                qDebug() << "Erreur requete SQL ajout Log" << endl;
+            break;
 
-////////
-//obtenir la liste de l'historique des événements
-bool Bdd::getLog(QList<T_Log> * listeLog){
+        case 2 :    //badge perte réception
+            legende = "Perte de Reception Badge";
 
-    // requête
-    //obtenir date, legende, nom, prénom, société (pour historique)
-    requete = "SELECT A1.dateLog, A1.legende, A2.nom, A2.prenom, A2.societe ";
-    requete += "FROM log A1, personne A2, badge A3 ";
-    requete += "WHERE A1.num_badge=A3.num_badge AND A3.num_pers=A2.num_pers";
-    query->prepare(requete);
-    if (!query->exec()){
-        qDebug() << "Erreur requete SQL historique evenement" << endl << database.lastError() << endl;
-        return false;
+            //requête
+            requete = "INSERT INTO log (num_badge, dateLog,legende) VALUES (:numBadge, :dateLog,:legende)";
+            query->prepare(requete);
+            query->bindValue(":numBadge", numBadge);
+            query->bindValue(":dateLog", dateLog);
+            query->bindValue(":legende", legende);
+            if(!query->exec())
+                qDebug() << "Erreur requete SQL ajout Log" << endl;
+            break;
+
+        case 3 :    //badge alarme-non mouvement
+            legende = "Alarme non-Mouvement Badge";
+            //requête
+            requete = "INSERT INTO log (num_badge, dateLog,legende) VALUES (:numBadge, :dateLog,:legende)";
+            query->prepare(requete);
+            query->bindValue(":numBadge", numBadge);
+            query->bindValue(":dateLog", dateLog);
+            query->bindValue(":legende", legende);
+            if(!query->exec())
+                qDebug() << "Erreur requete SQL ajout Log" << endl;
+            break;
+
+        default :   //pas de typeLog ? cas impossible
+            legende = "Pas d'information";
+            //requête
+            requete = "INSERT INTO log (num_badge, dateLog,legende) VALUES (:numBadge, :dateLog,:legende)";
+            query->prepare(requete);
+            query->bindValue(":numBadge", numBadge);
+            query->bindValue(":dateLog", dateLog);
+            query->bindValue(":legende", legende);
+            if(!query->exec())
+                qDebug() << "Erreur requete SQL ajout Log" << endl;
+            break;
     }
-
-    //allocation pointeur
-    this->pLog = new T_Log;
-
-    //réponse requete
-    while(query->next()){
-        QString date_log = query->value(0).toString();
-        QString legende = query->value(1).toString();
-        QString nom = query->value(2).toString();
-        QString prenom = query->value(3).toString();
-        QString societe = query->value(4).toString();
-
-        //ajout liste
-        this->pLog->date = date_log;
-        this->pLog->legende = legende;
-        this->pLog->nom = nom;
-        this->pLog->prenom = prenom;
-        this->pLog->societe = societe;
-        listeLog->append(*pLog);
-    }
-
-    delete this->pLog;
-
-    return true;
 }
 
 

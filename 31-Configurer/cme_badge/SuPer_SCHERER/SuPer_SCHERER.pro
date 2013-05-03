@@ -17,15 +17,12 @@ SOURCES += main.cpp\
     lecteur.cpp \
     contenuonglet.cpp \
     bdd.cpp \
-    dynamique.cpp \
-    configurer.cpp
+    dynamique.cpp
 
 HEADERS  += ihm.h \
     lecteur.h \
     contenuonglet.h \
     dynamique.h \
-    bdd.h \
-    configurer.h
+    bdd.h
 
-FORMS    += ihm.ui \
-    configurer.ui
+FORMS    += ihm.ui

@@ -83,7 +83,6 @@ public:
     void setBadgePerdu(int numBadge);   //mettre badge perdu
 
     //gestion log
-    bool getLog(QList<T_Log> *);  //obtenir historique des événements
     void setLog(int typeLog, int numBadge);  //mettre à jour historique des événements
 
 

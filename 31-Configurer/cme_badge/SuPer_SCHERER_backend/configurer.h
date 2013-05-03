@@ -19,6 +19,8 @@ public:
 private slots:
     void on_btAffLog_clicked();
 
+    void on_btSuppLog_clicked();
+
 private:
     Ui::Configurer *ui;
 
