@@ -8,9 +8,6 @@ Bdd::Bdd(QObject *parent) :
 {
     pDynamique = new Dynamique; //allocation pointeur sur classe Dynamique
 
-
-    qDebug() << "database deja ouverte" << endl;
-
     //accès BDD
     database = QSqlDatabase::addDatabase("QMYSQL");
     database.setHostName("localhost");
@@ -60,6 +57,7 @@ void Bdd::setLog(int typeLog, int numBadge){
 
         case 2 :    //badge perte réception
             legende = "Perte de Reception Badge";
+            numBadge++; //dû au numéro de badge venant de timerRec
 
             //requête
             requete = "INSERT INTO log (num_badge, dateLog,legende) VALUES (:numBadge, :dateLog,:legende)";
