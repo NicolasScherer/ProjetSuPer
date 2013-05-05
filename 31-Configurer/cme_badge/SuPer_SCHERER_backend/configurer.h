@@ -21,6 +21,14 @@ private slots:
 
     void on_btSuppLog_clicked();
 
+    void on_btBadgeExistant_clicked();
+
+    void on_btAnnulerLier_clicked();
+
+    void on_btAnnulerLierMod_clicked();
+
+    void on_btAnnulerDelier_clicked();
+
 private:
     Ui::Configurer *ui;
 

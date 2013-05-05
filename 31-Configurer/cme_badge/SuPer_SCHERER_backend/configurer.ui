@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>500</height>
+    <width>920</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,15 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QTabWidget" name="tabWidget">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>10</y>
-      <width>1000</width>
-      <height>450</height>
+      <width>920</width>
+      <height>590</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -33,22 +36,22 @@
      <widget class="QPushButton" name="btAffLog">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>20</y>
-        <width>140</width>
+        <x>70</x>
+        <y>30</y>
+        <width>170</width>
         <height>30</height>
        </rect>
       </property>
       <property name="text">
-       <string>Obtenir Historique</string>
+       <string>Obtenir l'Historique</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btSuppLog">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>250</y>
-        <width>171</width>
+        <x>550</x>
+        <y>30</y>
+        <width>170</width>
         <height>30</height>
        </rect>
       </property>
@@ -59,8 +62,8 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>190</y>
+        <x>735</x>
+        <y>30</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -75,8 +78,8 @@
      <widget class="QLabel" name="label_2">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>205</y>
+        <x>732</x>
+        <y>50</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -91,21 +94,21 @@
      <widget class="QLabel" name="label_3">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>220</y>
+        <x>710</x>
+        <y>70</y>
         <width>201</width>
         <height>16</height>
        </rect>
       </property>
       <property name="text">
-       <string>de l'historique des événements.</string>
+       <string>de l'Historique des événements.</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_4">
       <property name="geometry">
        <rect>
-        <x>60</x>
-        <y>170</y>
+        <x>765</x>
+        <y>10</y>
         <width>71</width>
         <height>16</height>
        </rect>
@@ -124,19 +127,19 @@
      <widget class="QTextEdit" name="txtLog">
       <property name="geometry">
        <rect>
-        <x>210</x>
-        <y>10</y>
-        <width>741</width>
-        <height>350</height>
+        <x>0</x>
+        <y>130</y>
+        <width>911</width>
+        <height>421</height>
        </rect>
       </property>
      </widget>
      <widget class="QLabel" name="label_5">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>60</y>
-        <width>141</width>
+        <x>255</x>
+        <y>30</y>
+        <width>121</width>
         <height>16</height>
        </rect>
       </property>
@@ -150,8 +153,8 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>75</y>
+        <x>252</x>
+        <y>50</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -166,8 +169,8 @@
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>30</x>
-        <y>90</y>
+        <x>250</x>
+        <y>70</y>
         <width>141</width>
         <height>16</height>
        </rect>
@@ -176,12 +179,57 @@
        <string>des événements (Log).</string>
       </property>
      </widget>
+     <widget class="QLabel" name="label_35">
+      <property name="geometry">
+       <rect>
+        <x>480</x>
+        <y>10</y>
+        <width>51</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../ressources/poubelle.png</pixmap>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_36">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>51</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../ressources/historique.png</pixmap>
+      </property>
+     </widget>
      <widget class="Line" name="line">
       <property name="geometry">
        <rect>
-        <x>20</x>
-        <y>130</y>
-        <width>171</width>
+        <x>450</x>
+        <y>10</y>
+        <width>20</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+     </widget>
+     <widget class="Line" name="line_2">
+      <property name="geometry">
+       <rect>
+        <x>7</x>
+        <y>110</y>
+        <width>901</width>
         <height>20</height>
        </rect>
       </property>
@@ -189,11 +237,938 @@
        <enum>Qt::Horizontal</enum>
       </property>
      </widget>
+     <zorder>label_35</zorder>
+     <zorder>btAffLog</zorder>
+     <zorder>btSuppLog</zorder>
+     <zorder>label</zorder>
+     <zorder>label_2</zorder>
+     <zorder>label_3</zorder>
+     <zorder>label_4</zorder>
+     <zorder>txtLog</zorder>
+     <zorder>label_5</zorder>
+     <zorder>label_6</zorder>
+     <zorder>label_7</zorder>
+     <zorder>label_36</zorder>
+     <zorder>line</zorder>
+     <zorder>line_2</zorder>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
-      <string>Affecter/Désafecter Badge à une Personne</string>
+      <string>Affecter/Désaffecter Badge à une Personne</string>
      </attribute>
+     <widget class="QToolBox" name="tBoxLier">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>900</width>
+        <height>530</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>2</number>
+      </property>
+      <widget class="QWidget" name="page">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>94</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Lier un Badge à une Personne</string>
+       </attribute>
+       <widget class="QLabel" name="label_9">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>0</y>
+          <width>421</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Remplir les champs ci-dessous pour ajouter un nouveau badge :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_10">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>30</y>
+          <width>121</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Numéro du badge :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_11">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>100</y>
+          <width>181</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date de Mise en Service :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_12">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>170</y>
+          <width>211</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date de Changement de Pile :</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditNumBadgeLier">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>50</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditDateServiceLier">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>120</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditDatePileLier">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>190</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtBadgeExistant">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>70</y>
+          <width>331</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>ForbiddenCursor</cursorShape>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btBadgeExistant">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>70</y>
+          <width>111</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Badge existant</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_13">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>30</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Attention à ne pas mettre un numéro de badge déjà existant !</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_14">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>50</y>
+          <width>581</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Cliquer sur le bouton ci-dessous pour obtenir une liste des numéros de badges déjà existants :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_15">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>120</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Mettre sous la forme AAAA-MM-JJ</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_16">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>140</y>
+          <width>561</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Vous pouvez indiquer la date d'aujourd'hui ou mettre 0000-00-00.</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_17">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>190</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Mettre sous la forme AAAA-MM-JJ</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_18">
+        <property name="geometry">
+         <rect>
+          <x>260</x>
+          <y>210</y>
+          <width>561</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Vous pouvez indiquer la date approximative de changement de pile ou mettre 0000-00-00.</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btOkLier">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Confirmer</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btAnnulerLier">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Annuler</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_8">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>0</y>
+          <width>51</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../ressources/new.png</pixmap>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_39">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>250</y>
+          <width>321</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Choisir ci-contre la Personne à lier à ce badge :</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cBoxPersonneLier">
+        <property name="geometry">
+         <rect>
+          <x>350</x>
+          <y>245</y>
+          <width>190</width>
+          <height>23</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_40">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>290</y>
+          <width>281</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Information concernant cette Personne :</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtInfoPersonne">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>320</y>
+          <width>451</width>
+          <height>71</height>
+         </rect>
+        </property>
+        <property name="cursor" stdset="0">
+         <cursorShape>ForbiddenCursor</cursorShape>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+       </widget>
+       <zorder>label_8</zorder>
+       <zorder>label_9</zorder>
+       <zorder>label_10</zorder>
+       <zorder>label_11</zorder>
+       <zorder>label_12</zorder>
+       <zorder>lEditNumBadgeLier</zorder>
+       <zorder>lEditDateServiceLier</zorder>
+       <zorder>lEditDatePileLier</zorder>
+       <zorder>txtBadgeExistant</zorder>
+       <zorder>btBadgeExistant</zorder>
+       <zorder>label_13</zorder>
+       <zorder>label_14</zorder>
+       <zorder>label_15</zorder>
+       <zorder>label_16</zorder>
+       <zorder>label_17</zorder>
+       <zorder>label_18</zorder>
+       <zorder>btOkLier</zorder>
+       <zorder>btAnnulerLier</zorder>
+       <zorder>label_39</zorder>
+       <zorder>cBoxPersonneLier</zorder>
+       <zorder>label_40</zorder>
+       <zorder>txtInfoPersonne</zorder>
+      </widget>
+      <widget class="QWidget" name="page_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>94</width>
+         <height>24</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Apporter une modification concernant une Affectation</string>
+       </attribute>
+       <widget class="QLabel" name="label_19">
+        <property name="geometry">
+         <rect>
+          <x>20</x>
+          <y>30</y>
+          <width>341</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Choissir un badge dans la liste déroulante ci-contre :</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cBoxLierMod">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="geometry">
+         <rect>
+          <x>380</x>
+          <y>30</y>
+          <width>131</width>
+          <height>23</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_20">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>170</y>
+          <width>121</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Numéro du badge :</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditNumBadgeMod">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>190</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_21">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>240</y>
+          <width>181</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date de Mise en Service :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_22">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>310</y>
+          <width>211</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Date de Changement de Pile :</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditDateServiceMod">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>260</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="lEditDatePileMod">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>330</y>
+          <width>160</width>
+          <height>22</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_23">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>170</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Attention à ne pas mettre un numéro de badge déjà existant !</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_24">
+        <property name="geometry">
+         <rect>
+          <x>240</x>
+          <y>190</y>
+          <width>581</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Cliquer sur le bouton ci-dessous pour obtenir une liste des numéros de badges déjà existants :</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btBadgeExistant_2">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>210</y>
+          <width>111</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Badge existant</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtBadgeExistantMod">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>210</y>
+          <width>331</width>
+          <height>31</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_25">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>260</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Mettre sous la forme AAAA-MM-JJ</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_26">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>280</y>
+          <width>561</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Vous pouvez indiquer la date d'aujourd'hui ou mettre 0000-00-00.</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_27">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>330</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="text">
+         <string>Mettre sous la forme AAAA-MM-JJ</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_28">
+        <property name="geometry">
+         <rect>
+          <x>250</x>
+          <y>350</y>
+          <width>561</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Vous pouvez indiquer la date approximative de changement de pile ou mettre 0000-00-00.</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btAnnulerLierMod">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Annuler</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btOkLierMod">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Confirmer</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_31">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>30</y>
+          <width>281</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Apparaissent uniquement les badges inactifs.</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_37">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>0</y>
+          <width>51</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../ressources/modifier.png</pixmap>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_42">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>50</y>
+          <width>241</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Information concernant ce badge :</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtInfoBadgeLier">
+        <property name="geometry">
+         <rect>
+          <x>70</x>
+          <y>70</y>
+          <width>451</width>
+          <height>71</height>
+         </rect>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_3">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>890</width>
+         <height>442</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Désaffecter un Badge à une Personne</string>
+       </attribute>
+       <widget class="QLabel" name="label_29">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>341</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Choissir un badge dans la liste déroulante ci-contre :</string>
+        </property>
+       </widget>
+       <widget class="QComboBox" name="cBoxBadgeSupp">
+        <property name="geometry">
+         <rect>
+          <x>370</x>
+          <y>0</y>
+          <width>131</width>
+          <height>23</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_30">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>130</y>
+          <width>241</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Information concernant ce badge :</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtInfoBadgeDelier">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>150</y>
+          <width>451</width>
+          <height>71</height>
+         </rect>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btAnnulerDelier">
+        <property name="geometry">
+         <rect>
+          <x>520</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Annuler</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btOkDelier">
+        <property name="geometry">
+         <rect>
+          <x>630</x>
+          <y>400</y>
+          <width>100</width>
+          <height>30</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Confirmer</string>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_32">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>50</y>
+          <width>381</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Attention il n'est pas possible de supprimer un badge :</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_33">
+        <property name="geometry">
+         <rect>
+          <x>80</x>
+          <y>70</y>
+          <width>151</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>-&gt; Si le badge est actif</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_38">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>0</y>
+          <width>51</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../ressources/supprimer.png</pixmap>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_41">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>240</y>
+          <width>421</width>
+          <height>16</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+          <underline>true</underline>
+         </font>
+        </property>
+        <property name="text">
+         <string>Information concernant la Personne qui est liée à ce Badge :</string>
+        </property>
+       </widget>
+       <widget class="QTextEdit" name="txtInfoPersonneDelier">
+        <property name="geometry">
+         <rect>
+          <x>50</x>
+          <y>260</y>
+          <width>451</width>
+          <height>71</height>
+         </rect>
+        </property>
+       </widget>
+       <zorder>label_38</zorder>
+       <zorder>label_29</zorder>
+       <zorder>cBoxBadgeSupp</zorder>
+       <zorder>label_30</zorder>
+       <zorder>txtInfoBadgeDelier</zorder>
+       <zorder>btAnnulerDelier</zorder>
+       <zorder>btOkDelier</zorder>
+       <zorder>label_32</zorder>
+       <zorder>label_33</zorder>
+       <zorder>label_41</zorder>
+       <zorder>txtInfoPersonneDelier</zorder>
+      </widget>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -216,8 +1191,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -229,8 +1204,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -242,758 +1217,13 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
         <string>Effacer une Personne existante</string>
        </attribute>
-      </widget>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="tab_3">
-     <attribute name="title">
-      <string>Configurer Badge</string>
-     </attribute>
-     <widget class="QToolBox" name="tBoxConfigBadge">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>970</width>
-        <height>380</height>
-       </rect>
-      </property>
-      <property name="currentIndex">
-       <number>0</number>
-      </property>
-      <widget class="QWidget" name="page">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>960</width>
-         <height>292</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Ajouter un nouveau Badge</string>
-       </attribute>
-       <widget class="QLabel" name="label_9">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>0</y>
-          <width>421</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Remplissez les champs ci-dessous pour ajouter un nouveau badge :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_10">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>121</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Numéro du badge :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_11">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>181</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Date de Mise en Service :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_12">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>170</y>
-          <width>211</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Date de Changement de Pile :</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>50</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_2">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>120</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_3">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>190</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="textEdit">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>70</y>
-          <width>331</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btBadgeExistant">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>70</y>
-          <width>111</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Badge existant</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_13">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>30</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Attention à ne pas mettre un numéro de badge déjà existant !</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_14">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>50</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Cliquez sur le bouton ci-dessous pour obtenir une liste des numéros de badges déjà existants :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_15">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>120</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Mettre sous la forme AAAA-MM-JJ</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_16">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>140</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vous pouvez indiquer la date d'aujourd'hui ou mettre 0000-00-00.</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_17">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>190</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Mettre sous la forme AAAA-MM-JJ</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_18">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>210</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vous pouvez indiquer la date approximative de changement de pile ou mettre 0000-00-00.</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btOkNewBadge">
-        <property name="geometry">
-         <rect>
-          <x>130</x>
-          <y>220</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Confirmer</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btAnnulerBadge">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>220</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Annuler</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_8">
-        <property name="geometry">
-         <rect>
-          <x>760</x>
-          <y>70</y>
-          <width>231</width>
-          <height>221</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="pixmap">
-         <pixmap>../ressources/new.png</pixmap>
-        </property>
-       </widget>
-       <zorder>label_8</zorder>
-       <zorder>label_9</zorder>
-       <zorder>label_10</zorder>
-       <zorder>label_11</zorder>
-       <zorder>label_12</zorder>
-       <zorder>lineEdit</zorder>
-       <zorder>lineEdit_2</zorder>
-       <zorder>lineEdit_3</zorder>
-       <zorder>textEdit</zorder>
-       <zorder>btBadgeExistant</zorder>
-       <zorder>label_13</zorder>
-       <zorder>label_14</zorder>
-       <zorder>label_15</zorder>
-       <zorder>label_16</zorder>
-       <zorder>label_17</zorder>
-       <zorder>label_18</zorder>
-       <zorder>btOkNewBadge</zorder>
-       <zorder>btAnnulerBadge</zorder>
-      </widget>
-      <widget class="QWidget" name="page_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>941</width>
-         <height>273</height>
-        </rect>
-       </property>
-       <attribute name="label">
-        <string>Modifier un Badge existant</string>
-       </attribute>
-       <widget class="QLabel" name="label_19">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>0</y>
-          <width>341</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Choississez un badge dans la liste déroulante ci-contre :</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>0</y>
-          <width>131</width>
-          <height>23</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_20">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>121</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Numéro du badge :</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_4">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>50</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_21">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>100</y>
-          <width>181</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Date de Mise en Service :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_22">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>170</y>
-          <width>211</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Date de Changement de Pile :</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_5">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>120</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="lineEdit_6">
-        <property name="geometry">
-         <rect>
-          <x>70</x>
-          <y>190</y>
-          <width>160</width>
-          <height>22</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_23">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>30</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Attention à ne pas mettre un numéro de badge déjà existant !</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_24">
-        <property name="geometry">
-         <rect>
-          <x>240</x>
-          <y>50</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Cliquez sur le bouton ci-dessous pour obtenir une liste des numéros de badges déjà existants :</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btBadgeExistant_2">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>70</y>
-          <width>111</width>
-          <height>23</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Badge existant</string>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="textEdit_2">
-        <property name="geometry">
-         <rect>
-          <x>360</x>
-          <y>70</y>
-          <width>331</width>
-          <height>31</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_25">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>120</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Mettre sous la forme AAAA-MM-JJ</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_26">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>140</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vous pouvez indiquer la date d'aujourd'hui ou mettre 0000-00-00.</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_27">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>190</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <italic>true</italic>
-         </font>
-        </property>
-        <property name="text">
-         <string>Mettre sous la forme AAAA-MM-JJ</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_28">
-        <property name="geometry">
-         <rect>
-          <x>250</x>
-          <y>210</y>
-          <width>561</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Vous pouvez indiquer la date approximative de changement de pile ou mettre 0000-00-00.</string>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btAnnulerBadge_2">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>220</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Annuler</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btOkNewBadge_2">
-        <property name="geometry">
-         <rect>
-          <x>130</x>
-          <y>220</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Confirmer</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_31">
-        <property name="geometry">
-         <rect>
-          <x>520</x>
-          <y>0</y>
-          <width>341</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Apparait uniquement les badges inactifs.</string>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QWidget" name="page_3">
-       <attribute name="label">
-        <string>Effacer un Badge existant</string>
-       </attribute>
-       <widget class="QLabel" name="label_29">
-        <property name="geometry">
-         <rect>
-          <x>10</x>
-          <y>0</y>
-          <width>341</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Choississez un badge dans la liste déroulante ci-contre :</string>
-        </property>
-       </widget>
-       <widget class="QComboBox" name="comboBox_2">
-        <property name="geometry">
-         <rect>
-          <x>370</x>
-          <y>0</y>
-          <width>131</width>
-          <height>23</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_30">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>241</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Information concernant ce badge :</string>
-        </property>
-       </widget>
-       <widget class="QTextEdit" name="textEdit_3">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>50</y>
-          <width>451</width>
-          <height>71</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btAnnulerBadge_3">
-        <property name="geometry">
-         <rect>
-          <x>290</x>
-          <y>200</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Annuler</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
-        </property>
-       </widget>
-       <widget class="QPushButton" name="btOkNewBadge_3">
-        <property name="geometry">
-         <rect>
-          <x>400</x>
-          <y>200</y>
-          <width>100</width>
-          <height>30</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>Confirmer</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_32">
-        <property name="geometry">
-         <rect>
-          <x>540</x>
-          <y>70</y>
-          <width>381</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="font">
-         <font>
-          <weight>75</weight>
-          <bold>true</bold>
-          <underline>true</underline>
-         </font>
-        </property>
-        <property name="text">
-         <string>Attention il n'est pas possible de supprimer un badge :</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_33">
-        <property name="geometry">
-         <rect>
-          <x>560</x>
-          <y>90</y>
-          <width>151</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>-&gt; Si le badge est actif</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_34">
-        <property name="geometry">
-         <rect>
-          <x>560</x>
-          <y>110</y>
-          <width>261</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>-&gt; Si le badge est affecter à une personne</string>
-        </property>
-       </widget>
       </widget>
      </widget>
     </widget>
@@ -1018,8 +1248,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1031,8 +1261,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1040,6 +1270,14 @@
        </attribute>
       </widget>
       <widget class="QWidget" name="page_6">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>94</width>
+         <height>24</height>
+        </rect>
+       </property>
        <attribute name="label">
         <string>Effacer un Lecteur existant</string>
        </attribute>
@@ -1067,8 +1305,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1080,8 +1318,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>960</width>
-         <height>292</height>
+         <width>94</width>
+         <height>24</height>
         </rect>
        </property>
        <attribute name="label">
@@ -1089,6 +1327,14 @@
        </attribute>
       </widget>
       <widget class="QWidget" name="page_9">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>94</width>
+         <height>24</height>
+        </rect>
+       </property>
        <attribute name="label">
         <string>Gestion des Zones</string>
        </attribute>
@@ -1102,7 +1348,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1000</width>
+     <width>920</width>
      <height>20</height>
     </rect>
    </property>

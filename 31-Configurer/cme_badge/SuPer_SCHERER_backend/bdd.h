@@ -32,6 +32,9 @@ public:
     bool getLog(QList<T_Log> *);  //obtenir historique des événements
     bool removeLog();   //suppression historique
 
+    //gestion badge
+    bool getBadgeExistant(QString *);    //obtenir liste badge existant
+
 
 private:
     //pointeurs sur structure

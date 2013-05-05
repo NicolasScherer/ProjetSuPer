@@ -6,6 +6,7 @@ Configurer::Configurer(QWidget *parent) :
     ui(new Ui::Configurer)
 {
     ui->setupUi(this);
+    ui->tabWidget->setCurrentIndex(0);
     pBdd = new Bdd;
 }
 
@@ -63,4 +64,49 @@ void Configurer::on_btSuppLog_clicked()
              ui->txtLog->insertHtml("<b> Operation reussie ! </b>");
         }
     }
+}
+//onglet Affecter/désaffecter badge
+//Boutons annuler
+void Configurer::on_btAnnulerLier_clicked()
+{
+    //nettoyer et remettre par défaut
+    ui->lEditNumBadgeLier->clear();
+    ui->lEditDateServiceLier->clear();
+    ui->lEditDatePileLier->clear();
+    ui->txtBadgeExistant->clear();
+    ui->txtInfoPersonne->clear();
+    ui->cBoxPersonneLier->setCurrentIndex(0);
+}
+void Configurer::on_btAnnulerLierMod_clicked()
+{
+    //nettoyer et remettre par défaut
+    ui->txtInfoBadgeLier->clear();
+    ui->lEditNumBadgeMod->clear();
+    ui->lEditDateServiceMod->clear();
+    ui->lEditDatePileMod->clear();
+    ui->txtBadgeExistantMod->clear();
+    ui->cBoxLierMod->setCurrentIndex(0);
+}
+void Configurer::on_btAnnulerDelier_clicked()
+{
+    //nettoyer et remettre par défaut
+    ui->txtInfoBadgeDelier->clear();
+    ui->txtInfoPersonneDelier->clear();
+    ui->cBoxBadgeSupp->setCurrentIndex(0);
+}
+
+//bouton badge existant
+void Configurer::on_btBadgeExistant_clicked()
+{
+    //initialisation
+    ui->txtBadgeExistant->clear();
+
+    QString badgeExistant;
+
+    bool retour = pBdd->getBadgeExistant(&badgeExistant);
+    if (retour == false)
+        ui->txtBadgeExistant->textCursor().insertText("Aucun badge.");
+
+    ui->txtBadgeExistant->textCursor().insertText(badgeExistant);
+
 }

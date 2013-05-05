@@ -118,6 +118,16 @@ CREATE TABLE log
    
 )ENGINE=INNODB;
 
+CREATE TABLE super
+(
+   config	INT UNSIGNED	NOT NULL,
+   tempoM	INT UNSIGNED	NOT NULL,
+   tempoR	INT UNSIGNED	NOT NULL,
+   
+   PRIMARY KEY (config)
+   
+)ENGINE=INNODB;
+
 
 
 -- Interdiction de supprimer un lieu auquel une zone est liée

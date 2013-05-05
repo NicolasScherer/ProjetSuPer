@@ -87,4 +87,31 @@ bool Bdd::removeLog(){
 
 }
 
+/////////
+//obtenir badge existant
+bool Bdd::getBadgeExistant(QString *badgeExistant){
+
+    badgeExistant->fromUtf8("");
+
+    //requête
+    requete = "SELECT num_badge ";
+    requete += "FROM badge";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL badge existant" << endl << database.lastError() << endl;
+        return false;
+    }
+
+    //bdd vide
+    if(query->size() == 0)
+        return false;
+
+    //réponse requete
+    while(query->next()){
+        badgeExistant->append(query->value(0).toString());
+        badgeExistant->append(" ; ");
+    }
+    return true;
+}
+
 
