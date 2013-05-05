@@ -33,6 +33,8 @@ Ihm::Ihm(QWidget *parent) :
 
     //réception signal homme en danger
     connect(this, SIGNAL(signalHommeEnDanger(QString &)), this, SLOT(hommeEnDanger(QString &)));
+    //réception signal perte réceptin
+    connect(this, SIGNAL(signalPerteReception(int, int, T_ListeLabel *)), this, SLOT(perteReception(int, int, T_ListeLabel *)));
 
     //obtention du nombre de vue max
     int vueMax = pBdd->getVueMax();
@@ -60,6 +62,13 @@ Ihm::Ihm(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
 
 
+    //régler les temps des timer en fonction de la base de données
+    int tempoMouv; // ms tempo pour le timer mouvement
+    int tempoRec; // ms tempo pour le timer de réception
+    pBdd->getTempo(&tempoMouv, &tempoRec);
+    this->setTempo(tempoMouv, tempoRec);
+
+
     lecteurActif(pLecteur);     // à enlever à l'intégration
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
@@ -76,6 +85,15 @@ Ihm::Ihm(QWidget *parent) :
     setWindowFlags(Qt::FramelessWindowHint);
 
 }
+////////////
+//
+///////////
+void Ihm::setTempo(int tempoMouv, int tempoRec){
+
+    this->tempoM = tempoMouv;
+    this->tempoR = tempoRec;
+
+}
 
 ///////
 //SLOT homme en danger
@@ -84,7 +102,70 @@ void Ihm::hommeEnDanger(QString & nom){
     //affichage texte alarme
     ui->txtAlarme->textCursor().insertText("<ALARME> "+ nom + " est en danger ! Aucun mouvement.\n");
 }
+//////
+//SLOT perte réception
+//////
+void Ihm::perteReception(int numBadge, int numLecteur, T_ListeLabel *tll){
 
+
+    //obtenir vue(s) en fonction du lecteur
+    //déclaration QList
+    QList<T_TupleLecteurS> listeTupleL1;
+
+    pBdd->getVueFctLect(numLecteur, &listeTupleL1);
+
+    if (!listeTupleL1.empty()){
+        for (int i = 0; i < listeTupleL1.count(); i++) {
+
+            int num_vue = listeTupleL1.at(i).num_vue;
+
+            //affichage
+            tll->labelB[num_vue][numBadge]->setEnabled(true);
+
+            //en fonction de l'état
+            switch(tll->etat) {
+
+            case 8:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
+                } else {
+                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/haut_orange.jpg"));
+                }
+                break;
+            case 9:
+
+                break;
+            case 10:
+                tll->labelB[num_vue][numBadge]->setEnabled(false);
+                break;
+            case 11:
+                tll->labelB[num_vue][numBadge]->setEnabled(false);
+                break;
+            case 12:
+                if (num_vue == 1 || tll->zone == -1){
+                    //pas de sens de passage
+                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
+                } else {
+                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/bas_orange.jpg"));
+                }
+                break;
+            case 13:
+
+                break;
+            case 14:
+                tll->labelB[num_vue][numBadge]->setEnabled(false);
+                break;
+            case 15:
+                tll->labelB[num_vue][numBadge]->setEnabled(false);
+                break;
+            } //fin switch
+
+
+
+        } //fin for
+    } //fin if
+}
 
 /*-------------------------------*
  * Slot traitement de la trame   *
@@ -544,6 +625,8 @@ void Ihm::timerRec() {
                     ui->txtAlarme->textCursor().insertText(QString::fromUtf8("<ALARME> Perte de réception du badge ")+ QString("%1").arg(tll->numBadge,0,16));
                     //Historique des événements (log) : perte réception
                     pBdd->setLog(2, i); //2=perte de réception
+                    //signal perte de réception
+                    emit signalPerteReception(tll->numBadge, num_lecteur, tll);
 
                     //arrêt du timer de mouvement
                     tll->tpsMouv->stop();

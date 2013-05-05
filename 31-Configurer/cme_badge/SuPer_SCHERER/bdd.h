@@ -85,6 +85,9 @@ public:
     //gestion log
     void setLog(int typeLog, int numBadge);  //mettre à jour historique des événements
 
+    //configuration SuPer
+    void getTempo(int *, int *);
+
 
 private:
     //pointeurs sur structure

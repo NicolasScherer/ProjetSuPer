@@ -32,6 +32,26 @@ Bdd::~Bdd(){
     database.close();
 }
 /////////////////////
+void Bdd::getTempo(int *tempoM, int *tempoR){
+
+    //requête
+    requete = "SELECT tempoM, tempoR ";
+    requete += "FROM super ";
+    requete += "LIMIT 1";
+    query->prepare(requete);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL obtenir tempo" << endl;
+    }
+
+    //réponse requête
+    query->next();
+    *tempoM = query->value(0).toInt();
+    *tempoR = query->value(1).toInt();
+
+}
+
+
+/////////////////////
 void Bdd::setLog(int typeLog, int numBadge){
 
     //obtenir date

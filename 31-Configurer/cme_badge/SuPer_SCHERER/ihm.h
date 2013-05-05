@@ -34,9 +34,9 @@ private:
     void ajoutBadge(int numLecteur, int num_vue);
 
     /*---Config de Super---*/
-    int tempoM,// ms tempo pour le timer mouvement
-    tempoR,// ms tempo pour le timer de réception
-    tempoA;// affichage général IHM
+    int tempoM; // ms tempo pour le timer mouvement
+    int tempoR; // ms tempo pour le timer de réception
+    void setTempo(int, int);
 
     QList<T_ListeLabel *> listeLabel;
 
@@ -54,6 +54,7 @@ private:
 signals:
     void signalNewLecteur(Lecteur *pLecteur);         //doit disparaitre à l'intégration
     void signalHommeEnDanger(QString &);    //alarme homme en danger
+    void signalPerteReception(int numBadge, int numLecteur, T_ListeLabel *);    //perte de réception
 
 public slots:
     //lié à la connexion/déconnexion des lecteurs
@@ -75,6 +76,8 @@ private slots:
 
     //homme en danger (alarme)
     void hommeEnDanger(QString &);
+    //perte de réception
+    void perteReception(int, int, T_ListeLabel *);
 };
 
 #endif // IHM_H
