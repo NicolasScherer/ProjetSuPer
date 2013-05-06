@@ -18,6 +18,14 @@ typedef struct s_Log {
     QString prenom;
     QString societe;
 } T_Log;
+//personne
+typedef struct s_Pers {
+    QString nom;
+    QString prenom;
+    QString societe;
+    QString dateDebut;
+    QString dateFin;
+} T_Personne;
 
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
@@ -32,13 +40,16 @@ public:
     bool getLog(QList<T_Log> *);  //obtenir historique des événements
     bool removeLog();   //suppression historique
 
-    //gestion badge
+    //gestion badge //lier/délier
     bool getBadgeExistant(QString *);    //obtenir liste badge existant
-
+    bool getPersonneLier(QList<T_Personne>*);   //obtenir liste personne à lier
+    int getNumPersonne(QString);       //obtenir numéro de la personne
+    bool setLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //affectation
 
 private:
     //pointeurs sur structure
     T_Log * pLog;
+    T_Personne * pPersonne;
 
 
     QSqlQuery * query;

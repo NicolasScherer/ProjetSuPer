@@ -221,7 +221,7 @@ public:
         tBoxLier->setGeometry(QRect(10, 10, 900, 530));
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 890, 442));
+        page->setGeometry(QRect(0, 0, 100, 30));
         label_9 = new QLabel(page);
         label_9->setObjectName(QString::fromUtf8("label_9"));
         label_9->setGeometry(QRect(20, 0, 421, 16));
@@ -334,7 +334,7 @@ public:
         txtInfoPersonne->raise();
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 890, 442));
+        page_2->setGeometry(QRect(0, 0, 100, 30));
         label_19 = new QLabel(page_2);
         label_19->setObjectName(QString::fromUtf8("label_19"));
         label_19->setGeometry(QRect(20, 30, 341, 16));

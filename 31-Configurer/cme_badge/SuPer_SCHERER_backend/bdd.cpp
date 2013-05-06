@@ -27,6 +27,84 @@ Bdd::~Bdd(){
     delete query;
     database.close();
 }
+////////
+//obtenir uniquement les numéros de personne qui n'apparraissent pas dans badge
+bool Bdd::getPersonneLier(QList<T_Personne> *listePersonne){
+
+    // requête
+    requete = "SELECT A1.nom, A1.prenom, A1.societe, A1.dateDebut, A1.dateFin ";
+    requete += "FROM personne A1, badge ";
+    requete += "WHERE NOT A1.num_pers = badge.num_pers";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL personneLier" << endl << database.lastError() << endl;
+        return false;
+    }
+
+    if(query->size() == 0)
+        return false;
+
+    //allocation pointeur
+    this->pPersonne = new T_Personne;
+
+    //réponse requete
+    while(query->next()){
+        QString nom = query->value(0).toString();
+        QString prenom = query->value(1).toString();
+        QString societe = query->value(2).toString();
+        QString dateDebut = query->value(3).toString();
+        QString dateFin = query->value(4).toString();
+
+        //ajout liste
+        this->pPersonne->nom = nom;
+        this->pPersonne->prenom = prenom;
+        this->pPersonne->societe = societe;
+        this->pPersonne->dateDebut = dateDebut;
+        this->pPersonne->dateFin = dateFin;
+        listePersonne->append(*pPersonne);
+
+    }
+
+    delete this->pPersonne;
+
+    return true;
+}
+////////
+//obtenir le numéro de la personne
+int Bdd::getNumPersonne(QString personne){
+    //requete
+    requete = "SELECT num_pers ";
+    requete += "FROM personne ";
+    requete += "WHERE nom=:personne";
+    query->prepare(requete);
+    query->bindValue(":personne", personne);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL obtenir num personne" << endl << database.lastError() << endl;
+        return -1;
+    }
+    //réponse requete
+    query->next();
+    int numPersonne = query->value(0).toInt();
+    return numPersonne;
+}
+////////
+//mettre en oeuvre l'affectation
+bool Bdd::setLier(int numPersonne, QString numBadge, QString dateService, QString datePile){
+    //requete
+    requete = "INSERT INTO badge (num_badge, num_pers, dateMiseEnService, dateChangePile) ";
+    requete += "VALUES (:numBadge, :numPersonne, :dateService, :datePile)";
+    query->prepare(requete);
+    query->bindValue(":numBadge", numBadge);
+    query->bindValue(":numPersonne", numPersonne);
+    query->bindValue(":dateService", dateService);
+    query->bindValue(":datePile", datePile);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL affectation" << endl << database.lastError() << endl;
+        return false;
+    }
+    return true;
+
+}
 
 ////////
 //obtenir la liste de l'historique des événements

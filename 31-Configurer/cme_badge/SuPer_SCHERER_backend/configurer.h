@@ -29,11 +29,18 @@ private slots:
 
     void on_btAnnulerDelier_clicked();
 
+    void on_cBoxPersonneLier_activated(int index);
+
+    void on_btOkLier_clicked();
+
 private:
     Ui::Configurer *ui;
 
     //pointeur sur la classe BDD
     Bdd *pBdd;
+
+    //déclaration QList
+    QList<T_Personne> listePersonne;
 };
 
 #endif // CONFIGURER_H

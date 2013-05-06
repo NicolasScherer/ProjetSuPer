@@ -115,7 +115,7 @@ void Ihm::perteReception(int numBadge, int numLecteur, T_ListeLabel *tll){
     pBdd->getVueFctLect(numLecteur, &listeTupleL1);
 
     if (!listeTupleL1.empty()){
-        for (int i = 0; i < listeTupleL1.count(); i++) {
+        for (int i = 0; i < listeTupleL1.count(); i++){
 
             int num_vue = listeTupleL1.at(i).num_vue;
 
@@ -123,46 +123,13 @@ void Ihm::perteReception(int numBadge, int numLecteur, T_ListeLabel *tll){
             tll->labelB[num_vue][numBadge]->setEnabled(true);
 
             //en fonction de l'état
-            switch(tll->etat) {
-
-            case 8:
-                if (num_vue == 1 || tll->zone == -1){
-                    //pas de sens de passage
-                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
-                } else {
-                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/haut_orange.jpg"));
-                }
-                break;
-            case 9:
-
-                break;
-            case 10:
-                tll->labelB[num_vue][numBadge]->setEnabled(false);
-                break;
-            case 11:
-                tll->labelB[num_vue][numBadge]->setEnabled(false);
-                break;
-            case 12:
-                if (num_vue == 1 || tll->zone == -1){
-                    //pas de sens de passage
-                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
-                } else {
-                    tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/bas_orange.jpg"));
-                }
-                break;
-            case 13:
-
-                break;
-            case 14:
-                tll->labelB[num_vue][numBadge]->setEnabled(false);
-                break;
-            case 15:
-                tll->labelB[num_vue][numBadge]->setEnabled(false);
-                break;
-            } //fin switch
-
-
-
+            //dans tout les cas images sans sens de passage
+            if (num_vue == 1){
+                //petite image
+                tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange.jpg"));
+            }else{    //image normale
+                tll->labelB[num_vue][numBadge]->setPixmap(QPixmap("../ressources/pers_orange_2.jpg"));
+            }
         } //fin for
     } //fin if
 }
