@@ -221,7 +221,7 @@ public:
         tBoxLier->setGeometry(QRect(10, 10, 900, 530));
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 100, 30));
+        page->setGeometry(QRect(0, 0, 890, 442));
         label_9 = new QLabel(page);
         label_9->setObjectName(QString::fromUtf8("label_9"));
         label_9->setGeometry(QRect(20, 0, 421, 16));
@@ -334,7 +334,7 @@ public:
         txtInfoPersonne->raise();
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 100, 30));
+        page_2->setGeometry(QRect(0, 0, 890, 442));
         label_19 = new QLabel(page_2);
         label_19->setObjectName(QString::fromUtf8("label_19"));
         label_19->setGeometry(QRect(20, 30, 341, 16));
@@ -479,11 +479,11 @@ public:
         tBoxConfigLecteur_2->addItem(page_10, QString::fromUtf8("Ajouter une nouvelle Personne"));
         page_11 = new QWidget();
         page_11->setObjectName(QString::fromUtf8("page_11"));
-        page_11->setGeometry(QRect(0, 0, 100, 30));
+        page_11->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigLecteur_2->addItem(page_11, QString::fromUtf8("Modifier une Personne existante"));
         page_12 = new QWidget();
         page_12->setObjectName(QString::fromUtf8("page_12"));
-        page_12->setGeometry(QRect(0, 0, 100, 30));
+        page_12->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigLecteur_2->addItem(page_12, QString::fromUtf8("Effacer une Personne existante"));
         tabWidget->addTab(tab_2, QString());
         tab_4 = new QWidget();
@@ -497,11 +497,11 @@ public:
         tBoxConfigLecteur->addItem(page_4, QString::fromUtf8("Ajouter un nouveau Lecteur"));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 100, 30));
+        page_5->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigLecteur->addItem(page_5, QString::fromUtf8("Modifier un Lecteur existant"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 100, 30));
+        page_6->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigLecteur->addItem(page_6, QString::fromUtf8("Effacer un Lecteur existant"));
         tabWidget->addTab(tab_4, QString());
         tab_5 = new QWidget();
@@ -515,11 +515,11 @@ public:
         tBoxConfigSuper->addItem(page_7, QString::fromUtf8("Gestion des Vues"));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 100, 30));
+        page_8->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigSuper->addItem(page_8, QString::fromUtf8("Gestions des Lieux"));
         page_9 = new QWidget();
         page_9->setObjectName(QString::fromUtf8("page_9"));
-        page_9->setGeometry(QRect(0, 0, 100, 30));
+        page_9->setGeometry(QRect(0, 0, 94, 24));
         tBoxConfigSuper->addItem(page_9, QString::fromUtf8("Gestion des Zones"));
         tabWidget->addTab(tab_5, QString());
         Configurer->setCentralWidget(centralwidget);
@@ -534,7 +534,7 @@ public:
         retranslateUi(Configurer);
 
         tabWidget->setCurrentIndex(1);
-        tBoxLier->setCurrentIndex(2);
+        tBoxLier->setCurrentIndex(0);
         tBoxConfigLecteur_2->setCurrentIndex(0);
         tBoxConfigLecteur->setCurrentIndex(0);
         tBoxConfigSuper->setCurrentIndex(0);
