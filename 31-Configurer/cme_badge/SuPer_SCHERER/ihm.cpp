@@ -613,7 +613,22 @@ void Ihm::timerRec() {
 /*** DESTRUCTEUR ***/
 Ihm::~Ihm()
 {
-    delete pLecteur;
+    //déclaration QList
+    QList<T_Badge> listeBadge;
+
+    //récupération des infos sur les onglets
+    pBdd->badgeExistant(&listeBadge);
+
+    if(!listeBadge.empty()){
+        for(int i = 0; i < listeBadge.count(); i++) {
+            int num_badge = listeBadge.at(i).numBadge;
+
+            //mettre badge inactif
+            pBdd->setBadgePerdu(num_badge);
+        }
+    }
+
+    delete pLecteur;        //a supprimer à l'intégration
     delete pDynamique;
     delete pBdd;
     delete ui;

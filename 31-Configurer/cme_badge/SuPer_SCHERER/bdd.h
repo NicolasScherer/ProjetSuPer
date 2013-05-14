@@ -55,6 +55,11 @@ typedef struct s_Log {
     QString societe;
 } T_Log;
 
+//badge existant
+typedef struct s_Badge {
+    int numBadge;
+} T_Badge;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -81,6 +86,7 @@ public:
     //perte badge (réception)
     void setBadgeActif(int numBadge);    //mettre badge actif
     void setBadgePerdu(int numBadge);   //mettre badge perdu
+    bool badgeExistant(QList<T_Badge> *);   //obtenir les badges actifs
 
     //gestion log
     void setLog(int typeLog, int numBadge);  //mettre à jour historique des événements
@@ -97,6 +103,7 @@ private:
     T_TuplePositionLieu * pTuplePositionLieu;
     T_Personne * pPersonne;
     T_Log * pLog;
+    T_Badge * pBadge;
 
     //pointeur sur la classe Dynamique (sauvegarde de l'affichage dynamique)
     Dynamique *pDynamique;

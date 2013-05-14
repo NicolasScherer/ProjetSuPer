@@ -27,6 +27,18 @@ typedef struct s_Pers {
     QString dateFin;
 } T_Personne;
 
+//badge
+typedef struct s_Badge {
+    int numBadge;
+    QString dateMiseEnService;
+    QString dateChangePile;
+    QString nom;
+    QString prenom;
+    QString societe;
+    QString dateDebut;
+    QString dateFin;
+} T_Badge;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -45,11 +57,13 @@ public:
     bool getPersonneLier(QList<T_Personne>*);   //obtenir liste personne à lier
     int getNumPersonne(QString);       //obtenir numéro de la personne
     bool setLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //affectation
+    bool getBadgeNonActif(QList<T_Badge> *);   //obtenir badge non actifs
 
 private:
     //pointeurs sur structure
     T_Log * pLog;
     T_Personne * pPersonne;
+    T_Badge * pBadge;
 
 
     QSqlQuery * query;

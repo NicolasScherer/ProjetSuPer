@@ -142,6 +142,34 @@ void Bdd::setBadgePerdu(int numBadge)
         qDebug() << "Erreur requete SQL badge actif (perte badge)" << endl;
 
 }
+////////////////////////////////////////////////
+bool Bdd::badgeExistant(QList <T_Badge> *listeBadge){
+    //obtenir les badges actifs
+    requete = "SELECT badge.num_badge ";
+    requete += "FROM badge ";
+    requete += "WHERE badge.estActif = 1";
+    query->prepare(requete);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL badge existant" << endl;
+         return false;
+    }
+
+    //allocation pointeur
+    this->pBadge = new T_Badge;
+
+    //réponse requête
+    while(query->next()){
+        int num_badge = query->value(0).toInt();
+
+        //ajout sur liste
+        this->pBadge->numBadge = num_badge;
+        listeBadge->append(*pBadge);
+    }
+
+    delete this->pBadge;
+    return true;
+
+}
 
 //////////////////////////////////////////////
 bool Bdd::getPointsZone(int vue, int zone, T_Point *pointA, T_Point *pointB)

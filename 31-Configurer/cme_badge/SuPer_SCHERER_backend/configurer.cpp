@@ -25,6 +25,27 @@ Configurer::Configurer(QWidget *parent) :
 
         }
     }
+    //init badge non actif
+    //récupération des infos
+    pBdd->getBadgeNonActif(&listeBadge);
+
+    if(!listeBadge.empty()){
+        for(int i = 0; i < listeBadge.count(); i++) {
+            int num_badge = listeBadge.at(i).numBadge;
+            QString dateMiseEnService = listeBadge.at(i).dateMiseEnService;
+            QString dateChangePile = listeBadge.at(i).dateChangePile;
+            QString nom = listeBadge.at(i).nom;
+            QString prenom = listeBadge.at(i).prenom;
+            QString societe = listeBadge.at(i).societe;
+            QString dateDebut = listeBadge.at(i).dateDebut;
+            QString dateFin = listeBadge.at(i).dateFin;
+
+            //ajout du combo
+            ui->cBoxLierMod->addItem(nom);
+
+        }
+    }
+
 }
 
 
@@ -202,4 +223,28 @@ void Configurer::on_btOkLier_clicked()
             }
         }
     }
+}
+//////////
+//SLOT ComboBox modification
+void Configurer::on_cBoxLierMod_activated(int index)
+{
+    int num_badge = listeBadge.at(index).numBadge;
+    QString dateMiseEnService = listeBadge.at(index).dateMiseEnService;
+    QString dateChangePile = listeBadge.at(index).dateChangePile;
+    QString nom = listeBadge.at(index).nom;
+    QString prenom = listeBadge.at(index).prenom;
+    QString societe = listeBadge.at(index).societe;
+    QString dateDebut = listeBadge.at(index).dateDebut;
+    QString dateFin = listeBadge.at(index).dateFin;
+
+    //ajout info txtInfoPersonne
+    //selon la personne (d'où le slot)
+    ui->txtInfoBadgeLier->clear();
+    ui->txtInfoBadgeLier->textCursor().insertText(nom+" "+prenom+" de la societe "+societe+". Date d'intervention : "+dateDebut+" "+dateFin+ " Date de mise en service : "+dateMiseEnService+" Date de changement Pile : "+dateChangePile);
+
+    //autre champs
+    ui->lEditNumBadgeMod->clear();
+    ui->lEditNumBadgeMod->insert(nom);
+    ui->lEditDateServiceMod->clear();
+   // ui->lEditDateServiceMod->insertText(dateMiseEnService);
 }

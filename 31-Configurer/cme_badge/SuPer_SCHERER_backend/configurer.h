@@ -33,6 +33,8 @@ private slots:
 
     void on_btOkLier_clicked();
 
+    void on_cBoxLierMod_activated(int index);
+
 private:
     Ui::Configurer *ui;
 
@@ -41,6 +43,7 @@ private:
 
     //déclaration QList
     QList<T_Personne> listePersonne;
+    QList<T_Badge> listeBadge;
 };
 
 #endif // CONFIGURER_H

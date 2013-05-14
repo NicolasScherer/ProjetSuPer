@@ -32,9 +32,10 @@ Bdd::~Bdd(){
 bool Bdd::getPersonneLier(QList<T_Personne> *listePersonne){
 
     // requête
-    requete = "SELECT A1.nom, A1.prenom, A1.societe, A1.dateDebut, A1.dateFin ";
-    requete += "FROM personne A1, badge ";
-    requete += "WHERE NOT A1.num_pers = badge.num_pers";
+    requete = "SELECT personne.nom, personne.prenom, personne.societe, personne.dateDebut, personne.dateFin ";
+    requete += "FROM badge ";
+    requete += "RIGHT JOIN personne ON personne.num_pers = badge.num_pers ";
+    requete += "WHERE badge.num_pers IS NULL";
     query->prepare(requete);
     if(!query->exec()){
         qDebug() << "Erreur requete SQL personneLier" << endl << database.lastError() << endl;
@@ -189,6 +190,48 @@ bool Bdd::getBadgeExistant(QString *badgeExistant){
         badgeExistant->append(query->value(0).toString());
         badgeExistant->append(" ; ");
     }
+    return true;
+}
+////////
+//obtenir badge qui ne sont pas actif
+bool Bdd::getBadgeNonActif(QList<T_Badge> *listeBadge){
+    //requête
+    requete = "SELECT A1.num_badge, A1.dateMiseEnService, A1.dateChangePile, A2.nom, A2.prenom, A2.societe, A2.dateDebut, A2.dateFin ";
+    requete += "FROM badge A1, personne A2 ";
+    requete += "WHERE A1.estActif = 0 AND A1.num_pers = A2.num_pers";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL badge non actif" << endl << database.lastError() << endl;
+        return false;
+    }
+
+    //allocation pointeur
+    this->pBadge = new T_Badge;
+
+    //réponse requête
+    while(query->next()){
+        int num_badge = query->value(0).toInt();
+        QString dateMiseEnService = query->value(1).toString();
+        QString dateChangePile = query->value(2).toString();
+        QString nom = query->value(3).toString();
+        QString prenom = query->value(4).toString();
+        QString societe = query->value(5).toString();
+        QString dateDebut = query->value(6).toString();
+        QString dateFin = query->value(7).toString();
+
+        //ajout liste
+        this->pBadge->numBadge = num_badge;
+        this->pBadge->dateMiseEnService = dateMiseEnService;
+        this->pBadge->dateChangePile = dateChangePile;
+        this->pBadge->nom = nom;
+        this->pBadge->prenom = prenom;
+        this->pBadge->societe = societe;
+        this->pBadge->dateDebut = dateDebut;
+        this->pBadge->dateFin = dateFin;
+        listeBadge->append(*pBadge);
+    }
+
+    delete this->pBadge;
     return true;
 }
 
