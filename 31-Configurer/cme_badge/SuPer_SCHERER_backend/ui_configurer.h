@@ -85,10 +85,7 @@ public:
     QLabel *label_22;
     QLineEdit *lEditDateServiceMod;
     QLineEdit *lEditDatePileMod;
-    QLabel *label_23;
     QLabel *label_24;
-    QPushButton *btBadgeExistant_2;
-    QTextEdit *txtBadgeExistantMod;
     QLabel *label_25;
     QLabel *label_26;
     QLabel *label_27;
@@ -99,6 +96,10 @@ public:
     QLabel *label_37;
     QLabel *label_42;
     QTextEdit *txtInfoBadgeLier;
+    QLabel *label_34;
+    QTextEdit *txtBadgeExistant_2;
+    QLabel *label_23;
+    QPushButton *btBadgeExistant_2;
     QWidget *page_3;
     QLabel *label_29;
     QComboBox *cBoxBadgeSupp;
@@ -126,6 +127,8 @@ public:
     QWidget *page_7;
     QWidget *page_8;
     QWidget *page_9;
+    QWidget *page_13;
+    QPushButton *btAffichage;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -133,13 +136,13 @@ public:
     {
         if (Configurer->objectName().isEmpty())
             Configurer->setObjectName(QString::fromUtf8("Configurer"));
-        Configurer->resize(920, 620);
+        Configurer->resize(920, 640);
         centralwidget = new QWidget(Configurer);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         tabWidget = new QTabWidget(centralwidget);
         tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
         tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(0, 10, 920, 590));
+        tabWidget->setGeometry(QRect(0, 40, 920, 590));
         tab_6 = new QWidget();
         tab_6->setObjectName(QString::fromUtf8("tab_6"));
         btAffLog = new QPushButton(tab_6);
@@ -221,7 +224,7 @@ public:
         tBoxLier->setGeometry(QRect(10, 10, 900, 530));
         page = new QWidget();
         page->setObjectName(QString::fromUtf8("page"));
-        page->setGeometry(QRect(0, 0, 890, 442));
+        page->setGeometry(QRect(0, 0, 100, 30));
         label_9 = new QLabel(page);
         label_9->setObjectName(QString::fromUtf8("label_9"));
         label_9->setGeometry(QRect(20, 0, 421, 16));
@@ -363,19 +366,9 @@ public:
         lEditDatePileMod = new QLineEdit(page_2);
         lEditDatePileMod->setObjectName(QString::fromUtf8("lEditDatePileMod"));
         lEditDatePileMod->setGeometry(QRect(70, 330, 160, 22));
-        label_23 = new QLabel(page_2);
-        label_23->setObjectName(QString::fromUtf8("label_23"));
-        label_23->setGeometry(QRect(240, 170, 381, 16));
-        label_23->setFont(font1);
         label_24 = new QLabel(page_2);
         label_24->setObjectName(QString::fromUtf8("label_24"));
-        label_24->setGeometry(QRect(240, 190, 581, 16));
-        btBadgeExistant_2 = new QPushButton(page_2);
-        btBadgeExistant_2->setObjectName(QString::fromUtf8("btBadgeExistant_2"));
-        btBadgeExistant_2->setGeometry(QRect(250, 210, 111, 23));
-        txtBadgeExistantMod = new QTextEdit(page_2);
-        txtBadgeExistantMod->setObjectName(QString::fromUtf8("txtBadgeExistantMod"));
-        txtBadgeExistantMod->setGeometry(QRect(360, 210, 331, 31));
+        label_24->setGeometry(QRect(20, 150, 581, 16));
         label_25 = new QLabel(page_2);
         label_25->setObjectName(QString::fromUtf8("label_25"));
         label_25->setGeometry(QRect(250, 260, 381, 16));
@@ -412,10 +405,26 @@ public:
         txtInfoBadgeLier = new QTextEdit(page_2);
         txtInfoBadgeLier->setObjectName(QString::fromUtf8("txtInfoBadgeLier"));
         txtInfoBadgeLier->setGeometry(QRect(70, 70, 451, 71));
+        label_34 = new QLabel(page_2);
+        label_34->setObjectName(QString::fromUtf8("label_34"));
+        label_34->setGeometry(QRect(250, 180, 381, 16));
+        label_34->setFont(font1);
+        txtBadgeExistant_2 = new QTextEdit(page_2);
+        txtBadgeExistant_2->setObjectName(QString::fromUtf8("txtBadgeExistant_2"));
+        txtBadgeExistant_2->setEnabled(true);
+        txtBadgeExistant_2->setGeometry(QRect(370, 220, 331, 31));
+        txtBadgeExistant_2->viewport()->setProperty("cursor", QVariant(QCursor(Qt::ForbiddenCursor)));
+        txtBadgeExistant_2->setReadOnly(true);
+        label_23 = new QLabel(page_2);
+        label_23->setObjectName(QString::fromUtf8("label_23"));
+        label_23->setGeometry(QRect(250, 200, 581, 16));
+        btBadgeExistant_2 = new QPushButton(page_2);
+        btBadgeExistant_2->setObjectName(QString::fromUtf8("btBadgeExistant_2"));
+        btBadgeExistant_2->setGeometry(QRect(260, 220, 111, 23));
         tBoxLier->addItem(page_2, QString::fromUtf8("Apporter une modification concernant une Affectation"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 890, 442));
+        page_3->setGeometry(QRect(0, 0, 100, 30));
         label_29 = new QLabel(page_3);
         label_29->setObjectName(QString::fromUtf8("label_29"));
         label_29->setGeometry(QRect(10, 0, 341, 16));
@@ -479,11 +488,11 @@ public:
         tBoxConfigLecteur_2->addItem(page_10, QString::fromUtf8("Ajouter une nouvelle Personne"));
         page_11 = new QWidget();
         page_11->setObjectName(QString::fromUtf8("page_11"));
-        page_11->setGeometry(QRect(0, 0, 94, 24));
+        page_11->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigLecteur_2->addItem(page_11, QString::fromUtf8("Modifier une Personne existante"));
         page_12 = new QWidget();
         page_12->setObjectName(QString::fromUtf8("page_12"));
-        page_12->setGeometry(QRect(0, 0, 94, 24));
+        page_12->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigLecteur_2->addItem(page_12, QString::fromUtf8("Effacer une Personne existante"));
         tabWidget->addTab(tab_2, QString());
         tab_4 = new QWidget();
@@ -497,11 +506,11 @@ public:
         tBoxConfigLecteur->addItem(page_4, QString::fromUtf8("Ajouter un nouveau Lecteur"));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
-        page_5->setGeometry(QRect(0, 0, 94, 24));
+        page_5->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigLecteur->addItem(page_5, QString::fromUtf8("Modifier un Lecteur existant"));
         page_6 = new QWidget();
         page_6->setObjectName(QString::fromUtf8("page_6"));
-        page_6->setGeometry(QRect(0, 0, 94, 24));
+        page_6->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigLecteur->addItem(page_6, QString::fromUtf8("Effacer un Lecteur existant"));
         tabWidget->addTab(tab_4, QString());
         tab_5 = new QWidget();
@@ -511,17 +520,24 @@ public:
         tBoxConfigSuper->setGeometry(QRect(10, 30, 970, 380));
         page_7 = new QWidget();
         page_7->setObjectName(QString::fromUtf8("page_7"));
-        page_7->setGeometry(QRect(0, 0, 960, 292));
+        page_7->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigSuper->addItem(page_7, QString::fromUtf8("Gestion des Vues"));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 94, 24));
+        page_8->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigSuper->addItem(page_8, QString::fromUtf8("Gestions des Lieux"));
         page_9 = new QWidget();
         page_9->setObjectName(QString::fromUtf8("page_9"));
-        page_9->setGeometry(QRect(0, 0, 94, 24));
+        page_9->setGeometry(QRect(0, 0, 100, 30));
         tBoxConfigSuper->addItem(page_9, QString::fromUtf8("Gestion des Zones"));
+        page_13 = new QWidget();
+        page_13->setObjectName(QString::fromUtf8("page_13"));
+        page_13->setGeometry(QRect(0, 0, 960, 266));
+        tBoxConfigSuper->addItem(page_13, QString::fromUtf8("Gestion des Timers"));
         tabWidget->addTab(tab_5, QString());
+        btAffichage = new QPushButton(centralwidget);
+        btAffichage->setObjectName(QString::fromUtf8("btAffichage"));
+        btAffichage->setGeometry(QRect(764, 10, 141, 23));
         Configurer->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Configurer);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -534,10 +550,10 @@ public:
         retranslateUi(Configurer);
 
         tabWidget->setCurrentIndex(1);
-        tBoxLier->setCurrentIndex(0);
+        tBoxLier->setCurrentIndex(1);
         tBoxConfigLecteur_2->setCurrentIndex(0);
         tBoxConfigLecteur->setCurrentIndex(0);
-        tBoxConfigSuper->setCurrentIndex(0);
+        tBoxConfigSuper->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(Configurer);
@@ -579,9 +595,7 @@ public:
         label_20->setText(QApplication::translate("Configurer", "Num\303\251ro du badge :", 0, QApplication::UnicodeUTF8));
         label_21->setText(QApplication::translate("Configurer", "Date de Mise en Service :", 0, QApplication::UnicodeUTF8));
         label_22->setText(QApplication::translate("Configurer", "Date de Changement de Pile :", 0, QApplication::UnicodeUTF8));
-        label_23->setText(QApplication::translate("Configurer", "Attention \303\240 ne pas mettre un num\303\251ro de badge d\303\251j\303\240 existant !", 0, QApplication::UnicodeUTF8));
-        label_24->setText(QApplication::translate("Configurer", "Cliquer sur le bouton ci-dessous pour obtenir une liste des num\303\251ros de badges d\303\251j\303\240 existants :", 0, QApplication::UnicodeUTF8));
-        btBadgeExistant_2->setText(QApplication::translate("Configurer", "Badge existant", 0, QApplication::UnicodeUTF8));
+        label_24->setText(QApplication::translate("Configurer", "Apporter vos modifications directements dans les champs ci-dessous, puis Confirmer", 0, QApplication::UnicodeUTF8));
         label_25->setText(QApplication::translate("Configurer", "Mettre sous la forme AAAA-MM-JJ", 0, QApplication::UnicodeUTF8));
         label_26->setText(QApplication::translate("Configurer", "Vous pouvez indiquer la date d'aujourd'hui ou mettre 0000-00-00.", 0, QApplication::UnicodeUTF8));
         label_27->setText(QApplication::translate("Configurer", "Mettre sous la forme AAAA-MM-JJ", 0, QApplication::UnicodeUTF8));
@@ -591,6 +605,9 @@ public:
         label_31->setText(QApplication::translate("Configurer", "Apparaissent uniquement les badges inactifs.", 0, QApplication::UnicodeUTF8));
         label_37->setText(QString());
         label_42->setText(QApplication::translate("Configurer", "Information concernant ce badge :", 0, QApplication::UnicodeUTF8));
+        label_34->setText(QApplication::translate("Configurer", "Indiquer obligatoirement un nombre positif", 0, QApplication::UnicodeUTF8));
+        label_23->setText(QApplication::translate("Configurer", "Cliquer sur le bouton ci-dessous pour obtenir une liste des num\303\251ros de badges d\303\251j\303\240 existants :", 0, QApplication::UnicodeUTF8));
+        btBadgeExistant_2->setText(QApplication::translate("Configurer", "Badge existant", 0, QApplication::UnicodeUTF8));
         tBoxLier->setItemText(tBoxLier->indexOf(page_2), QApplication::translate("Configurer", "Apporter une modification concernant une Affectation", 0, QApplication::UnicodeUTF8));
         label_29->setText(QApplication::translate("Configurer", "Choissir un badge dans la liste d\303\251roulante ci-contre :", 0, QApplication::UnicodeUTF8));
         label_30->setText(QApplication::translate("Configurer", "Information concernant ce badge :", 0, QApplication::UnicodeUTF8));
@@ -613,7 +630,9 @@ public:
         tBoxConfigSuper->setItemText(tBoxConfigSuper->indexOf(page_7), QApplication::translate("Configurer", "Gestion des Vues", 0, QApplication::UnicodeUTF8));
         tBoxConfigSuper->setItemText(tBoxConfigSuper->indexOf(page_8), QApplication::translate("Configurer", "Gestions des Lieux", 0, QApplication::UnicodeUTF8));
         tBoxConfigSuper->setItemText(tBoxConfigSuper->indexOf(page_9), QApplication::translate("Configurer", "Gestion des Zones", 0, QApplication::UnicodeUTF8));
+        tBoxConfigSuper->setItemText(tBoxConfigSuper->indexOf(page_13), QApplication::translate("Configurer", "Gestion des Timers", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_5), QApplication::translate("Configurer", "Configurer SuPer", 0, QApplication::UnicodeUTF8));
+        btAffichage->setText(QApplication::translate("Configurer", "Actualiser l'interface", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

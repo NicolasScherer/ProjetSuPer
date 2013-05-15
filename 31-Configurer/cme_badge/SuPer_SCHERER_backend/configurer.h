@@ -35,6 +35,16 @@ private slots:
 
     void on_cBoxLierMod_activated(int index);
 
+    void on_btOkLierMod_clicked();
+
+    void on_cBoxBadgeSupp_activated(int index);
+
+    void on_btOkDelier_clicked();
+
+    void on_btBadgeExistant_2_clicked();
+
+    void on_btAffichage_clicked();
+
 private:
     Ui::Configurer *ui;
 

@@ -106,6 +106,41 @@ bool Bdd::setLier(int numPersonne, QString numBadge, QString dateService, QStrin
     return true;
 
 }
+////////
+//apporter des modification à l'affectation
+bool Bdd::addModLier(int numPersonne, QString numBadge, QString dateService, QString datePile){
+    //requete
+
+    requete = "UPDATE badge ";
+    requete += "SET num_badge = :numBadge, dateMiseEnService = :dateService, dateChangePile = :datePile ";
+    requete += "WHERE num_pers = :numPersonne";
+    query->prepare(requete);
+    query->bindValue(":numBadge", numBadge);
+    query->bindValue(":dateService", dateService);
+    query->bindValue(":datePile", datePile);
+    query->bindValue(":numPersonne", numPersonne);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif affectation " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+
+}
+////////
+//désaffecter badge à une personne
+bool Bdd::setDelier(int numPersonne){
+    //requete
+    requete = "DELETE FROM badge ";
+    requete += "WHERE num_pers = :numPersonne";
+    query->prepare(requete);
+    query->bindValue(":numPersonne", numPersonne);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL desaffectation " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+
+}
 
 ////////
 //obtenir la liste de l'historique des événements
@@ -210,7 +245,7 @@ bool Bdd::getBadgeNonActif(QList<T_Badge> *listeBadge){
 
     //réponse requête
     while(query->next()){
-        int num_badge = query->value(0).toInt();
+        QString num_badge = query->value(0).toString();
         QString dateMiseEnService = query->value(1).toString();
         QString dateChangePile = query->value(2).toString();
         QString nom = query->value(3).toString();

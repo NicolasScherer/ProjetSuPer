@@ -29,7 +29,7 @@ typedef struct s_Pers {
 
 //badge
 typedef struct s_Badge {
-    int numBadge;
+    QString numBadge;
     QString dateMiseEnService;
     QString dateChangePile;
     QString nom;
@@ -57,7 +57,9 @@ public:
     bool getPersonneLier(QList<T_Personne>*);   //obtenir liste personne à lier
     int getNumPersonne(QString);       //obtenir numéro de la personne
     bool setLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //affectation
-    bool getBadgeNonActif(QList<T_Badge> *);   //obtenir badge non actifs
+    bool getBadgeNonActif(QList<T_Badge> *);   //obtenir badge non actifs   
+    bool addModLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //modifier affectation
+    bool setDelier(int numPersonne);        //desaffectation
 
 private:
     //pointeurs sur structure
