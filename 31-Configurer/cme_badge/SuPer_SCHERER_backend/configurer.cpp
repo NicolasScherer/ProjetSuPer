@@ -76,7 +76,7 @@ void Configurer::on_btAffichage_clicked()
         }
     }
     QMessageBox::information(0, tr("Actualiser Affichage"),
-                 tr("Affichage Actualise avec succes.\n"),
+                 tr("Interface Actualise avec succes.\n"),
                           QMessageBox::Ok);
 }
 
@@ -384,4 +384,45 @@ void Configurer::on_btOkDelier_clicked()
                               QMessageBox::Ok);
         this->on_btAnnulerLierMod_clicked();
     }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ONGLET Configurer super / GESTION DES VUES
+//Boutons annulés
+
+void Configurer::on_btAnnulerVueAdd_clicked()
+{
+    //remise à zéro
+    ui->lEditNumVueAdd->clear();
+    ui->txtVueExiste->clear();
+    ui->txtVueLegendeAdd->clear();
+    ui->txtVueImageAdd->clear();
+}
+
+void Configurer::on_btAnnulerVueMod_clicked()
+{
+    ui->cBoxVue->setCurrentIndex(0);
+    ui->txtVueLegendeMod->clear();
+    ui->txtVueImageMod->clear();
+}
+
+void Configurer::on_btannulerVueSupp_clicked()
+{
+    ui->cBoxVue2->setCurrentIndex(0);
+    ui->txtVueLegendeSupp->clear();
+    ui->txtVueImageSupp->clear();
+}
+/////////
+//obtenir vue existante
+void Configurer::on_btVueExistante_clicked()
+{
+    //initialisation
+    ui->txtVueExiste->clear();
+
+    QString vueExistant;
+
+    bool retour = pBdd->getVueExistant(&vueExistant);
+    if (retour == false)
+        ui->txtVueExiste->textCursor().insertText("Aucun badge.");
+
+    ui->txtVueExiste->textCursor().insertText(vueExistant);
 }

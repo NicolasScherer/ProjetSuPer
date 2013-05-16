@@ -45,6 +45,14 @@ private slots:
 
     void on_btAffichage_clicked();
 
+    void on_btAnnulerVueAdd_clicked();
+
+    void on_btAnnulerVueMod_clicked();
+
+    void on_btannulerVueSupp_clicked();
+
+    void on_btVueExistante_clicked();
+
 private:
     Ui::Configurer *ui;
 
