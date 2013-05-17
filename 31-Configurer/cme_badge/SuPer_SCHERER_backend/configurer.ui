@@ -2471,7 +2471,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="page_7">
        <property name="geometry">
@@ -3094,7 +3094,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>140</y>
+           <y>200</y>
            <width>61</width>
            <height>16</height>
           </rect>
@@ -3114,7 +3114,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>160</y>
+           <y>220</y>
            <width>271</width>
            <height>44</height>
           </rect>
@@ -3130,7 +3130,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>220</y>
+           <y>290</y>
            <width>61</width>
            <height>16</height>
           </rect>
@@ -3150,7 +3150,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>240</y>
+           <y>310</y>
            <width>271</width>
            <height>44</height>
           </rect>
@@ -3212,6 +3212,42 @@
           <pixmap>../ressources/supprimer.png</pixmap>
          </property>
         </widget>
+        <widget class="QLineEdit" name="lEditNumVueSupp">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_152">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>121</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Numéro de Vue</string>
+         </property>
+        </widget>
        </widget>
       </widget>
       <widget class="QWidget" name="page_8">
@@ -3219,8 +3255,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>890</width>
+         <height>416</height>
         </rect>
        </property>
        <attribute name="label">
@@ -3359,7 +3395,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>170</y>
+           <y>180</y>
            <width>61</width>
            <height>16</height>
           </rect>
@@ -3379,13 +3415,13 @@
          <property name="geometry">
           <rect>
            <x>9</x>
-           <y>190</y>
+           <y>200</y>
            <width>271</width>
            <height>44</height>
           </rect>
          </property>
         </widget>
-        <widget class="QPushButton" name="btAnnulerLierMod_5">
+        <widget class="QPushButton" name="btAnnulerLieuAdd">
          <property name="geometry">
           <rect>
            <x>80</x>
@@ -3402,7 +3438,7 @@
            <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
          </property>
         </widget>
-        <widget class="QPushButton" name="btOkLierMod_5">
+        <widget class="QPushButton" name="btOkLieuAdd">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -3452,7 +3488,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>50</y>
+           <y>40</y>
            <width>261</width>
            <height>16</height>
           </rect>
@@ -3461,12 +3497,12 @@
           <string>Choissir un lieu dans la liste déroulante</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cBoxLieu">
+        <widget class="QComboBox" name="cBoxLieuMod">
          <property name="geometry">
           <rect>
-           <x>170</x>
-           <y>70</y>
-           <width>91</width>
+           <x>80</x>
+           <y>60</y>
+           <width>201</width>
            <height>22</height>
           </rect>
          </property>
@@ -3475,7 +3511,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>70</y>
+           <y>60</y>
            <width>71</width>
            <height>16</height>
           </rect>
@@ -3488,7 +3524,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>170</y>
+           <y>180</y>
            <width>61</width>
            <height>16</height>
           </rect>
@@ -3508,7 +3544,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>190</y>
+           <y>200</y>
            <width>271</width>
            <height>44</height>
           </rect>
@@ -3518,7 +3554,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>110</y>
+           <y>90</y>
            <width>261</width>
            <height>16</height>
           </rect>
@@ -3537,7 +3573,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>130</y>
+           <y>110</y>
            <width>271</width>
            <height>16</height>
           </rect>
@@ -3546,7 +3582,7 @@
           <string>dans les champs ci-dessous, puis Confirmer</string>
          </property>
         </widget>
-        <widget class="QPushButton" name="btAnnulerLierMod_6">
+        <widget class="QPushButton" name="btAnnulerLieuMod">
          <property name="geometry">
           <rect>
            <x>80</x>
@@ -3563,7 +3599,7 @@
            <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
          </property>
         </widget>
-        <widget class="QPushButton" name="btOkLierMod_6">
+        <widget class="QPushButton" name="btOkLieuMod">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -3583,7 +3619,7 @@
         <widget class="QLabel" name="label_83">
          <property name="geometry">
           <rect>
-           <x>230</x>
+           <x>240</x>
            <y>2</y>
            <width>51</width>
            <height>51</height>
@@ -3594,6 +3630,36 @@
          </property>
          <property name="pixmap">
           <pixmap>../ressources/modifier.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditLieuNumMod">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_153">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>121</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Numéro de Lieu</string>
          </property>
         </widget>
        </widget>
@@ -3635,12 +3701,12 @@
           <string>ci-contre :</string>
          </property>
         </widget>
-        <widget class="QComboBox" name="cBoxLieu2">
+        <widget class="QComboBox" name="cBoxLieuSupp">
          <property name="geometry">
           <rect>
-           <x>180</x>
+           <x>80</x>
            <y>70</y>
-           <width>91</width>
+           <width>201</width>
            <height>22</height>
           </rect>
          </property>
@@ -3649,7 +3715,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>170</y>
+           <y>180</y>
            <width>61</width>
            <height>16</height>
           </rect>
@@ -3669,7 +3735,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>190</y>
+           <y>200</y>
            <width>271</width>
            <height>44</height>
           </rect>
@@ -3681,7 +3747,7 @@
           <set>Qt::TextSelectableByMouse</set>
          </property>
         </widget>
-        <widget class="QPushButton" name="btAnnulerLierMod_7">
+        <widget class="QPushButton" name="btAnnulerLieuSupp">
          <property name="geometry">
           <rect>
            <x>80</x>
@@ -3698,7 +3764,7 @@
            <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
          </property>
         </widget>
-        <widget class="QPushButton" name="btOkLierMod_7">
+        <widget class="QPushButton" name="btOkLieuSupp">
          <property name="geometry">
           <rect>
            <x>180</x>
@@ -3731,25 +3797,55 @@
           <pixmap>../ressources/supprimer.png</pixmap>
          </property>
         </widget>
+        <widget class="QLineEdit" name="lEditLieuNumSupp">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>150</y>
+           <width>271</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_154">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>130</y>
+           <width>121</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Numéro de Lieu</string>
+         </property>
+        </widget>
        </widget>
        <widget class="QLabel" name="label_71">
         <property name="geometry">
          <rect>
-          <x>80</x>
-          <y>30</y>
-          <width>651</width>
+          <x>20</x>
+          <y>10</y>
+          <width>351</width>
           <height>20</height>
          </rect>
         </property>
         <property name="text">
-         <string>Un lieu correspond à un endroit où il y a un lecteur. On peut considérer qu'un lieu correspond à un lecteur.</string>
+         <string>Un lieu correspond à l'endroit exact où il y a un lecteur.</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_72">
         <property name="geometry">
          <rect>
-          <x>290</x>
-          <y>60</y>
+          <x>20</x>
+          <y>30</y>
           <width>321</width>
           <height>16</height>
          </rect>
@@ -3764,12 +3860,12 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>890</width>
+         <height>416</height>
         </rect>
        </property>
        <attribute name="label">
-        <string>Gestion des Zones</string>
+        <string>Gestion des Zones et Positions</string>
        </attribute>
        <widget class="QGroupBox" name="gbAjouterZone">
         <property name="enabled">
@@ -4468,8 +4564,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>100</width>
-         <height>30</height>
+         <width>890</width>
+         <height>416</height>
         </rect>
        </property>
        <attribute name="label">

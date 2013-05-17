@@ -46,6 +46,20 @@ typedef struct s_Vue {
     QString image;
 } T_Vue;
 
+//lieu
+typedef struct s_Lieu {
+    QString numLieu;
+    QString legende;
+} T_Lieu;
+
+//zone
+typedef struct s_Zone {
+    QString numZone;
+    QString numLieu;
+    QString sensMonter;
+    QString legende;
+} T_Zone;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -55,11 +69,12 @@ public:
     explicit Bdd(QObject *parent = 0);
     ~Bdd();
 
-    //gestion log
+    //+++ gestion log +++
     bool getLog(QList<T_Log> *);  //obtenir historique des événements
     bool removeLog();   //suppression historique
 
-    //gestion badge //lier/délier
+    //+++ gestion badge +++
+    //lier/délier
     bool getBadgeExistant(QString *);    //obtenir liste badge existant
     bool getPersonneLier(QList<T_Personne>*);   //obtenir liste personne à lier
     int getNumPersonne(QString);       //obtenir numéro de la personne
@@ -68,10 +83,18 @@ public:
     bool addModLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //modifier affectation
     bool setDelier(int numPersonne);        //desaffectation
 
-    //gestion configurer SuPer
-    //gestion des vues
+    //+++ gestion configurer SuPer +++
+    //--- gestion des vues ---
     bool getVueExistant(QList<T_Vue> *);   //obtenir liste vue existante
     bool setVue(QString numVue, QString legende, QString image); //ajouter vue
+    bool addModVue(QString legendeActuelle, QString numVue, QString legende, QString image); //modifier vue
+    bool setSuppVue(QString numVue);    //supprimer vue
+
+    //--- gestion des lieux ---
+    bool getLieuExistant(QList<T_Lieu> *);  //obtenir liste lieu existant
+    bool setLieu(QString numLieu, QString legende); //ajouter lieu
+    bool addModLieu(QString legendeActuelle, QString numLieu, QString legende); //modifier lieu
+    bool setSuppLieu(QString numLieu);      //supprimer lieu
 
 private:
     //pointeurs sur structure
@@ -79,6 +102,8 @@ private:
     T_Personne * pPersonne;
     T_Badge * pBadge;
     T_Vue * pVue;
+    T_Lieu * pLieu;
+    T_Zone * pZone;
 
 
     QSqlQuery * query;

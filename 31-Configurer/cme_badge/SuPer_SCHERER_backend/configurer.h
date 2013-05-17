@@ -59,6 +59,28 @@ private slots:
 
     void on_btOkVueMod_clicked();
 
+    void on_cBoxVueSupp_activated(int index);
+
+    void on_btOKVueSupp_clicked();
+
+    void on_btAnnulerLieuAdd_clicked();
+
+    void on_btAnnulerLieuMod_clicked();
+
+    void on_btAnnulerLieuSupp_clicked();
+
+    void on_btLieuExistant_clicked();
+
+    void on_btOkLieuAdd_clicked();
+
+    void on_cBoxLieuMod_activated(int index);
+
+    void on_cBoxLieuSupp_activated(int index);
+
+    void on_btOkLieuMod_clicked();
+
+    void on_btOkLieuSupp_clicked();
+
 private:
     Ui::Configurer *ui;
 
@@ -69,6 +91,8 @@ private:
     QList<T_Personne> listePersonne;
     QList<T_Badge> listeBadge;
     QList<T_Vue> listeVue;
+    QList<T_Lieu> listeLieu;
+    QList<T_Zone> listeZone;
 };
 
 #endif // CONFIGURER_H

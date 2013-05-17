@@ -103,6 +103,31 @@ void Configurer::on_btAffichage_clicked()
         }
     }
 
+    ///////////////////////////////////////////////////////////////////
+    //onglet gestion des lieux (config SuPer)
+    //nettoyer QList
+    listeLieu.clear();
+
+    //init lieu existant
+    //nettoyer comboBox
+    ui->cBoxLieuMod->clear();
+    ui->cBoxLieuSupp->clear();
+
+    //récupération des infos
+    pBdd->getLieuExistant(&listeLieu);
+
+    if(!listeLieu.empty()){
+        for(int i = 0; i < listeLieu.count(); i++){
+          //  QString numLieu = listeVue.at(i).numLieu;
+            QString legende = listeLieu.at(i).legende;
+
+            //ajout du combo
+            ui->cBoxLieuMod->addItem(legende);
+            ui->cBoxLieuSupp->addItem(legende);
+        }
+    }
+
+    //++--++--++//
 
     QMessageBox::information(0, tr("Actualiser Affichage"),
                  tr("Interface Actualise avec succes.\n"),
@@ -430,6 +455,7 @@ void Configurer::on_btAnnulerVueAdd_clicked()
 void Configurer::on_btAnnulerVueMod_clicked()
 {
     ui->cBoxVueMod->setCurrentIndex(0);
+    ui->lEditNumVueMod->clear();
     ui->txtVueLegendeMod->clear();
     ui->txtVueImageMod->clear();
 }
@@ -437,10 +463,11 @@ void Configurer::on_btAnnulerVueMod_clicked()
 void Configurer::on_btannulerVueSupp_clicked()
 {
     ui->cBoxVueSupp->setCurrentIndex(0);
+    ui->lEditNumVueSupp->clear();
     ui->txtVueLegendeSupp->clear();
     ui->txtVueImageSupp->clear();
 }
-/////////
+//++++++++++
 //obtenir vue existante
 void Configurer::on_btVueExistante_clicked()
 {
@@ -467,7 +494,7 @@ void Configurer::on_btVueExistante_clicked()
         ui->txtVueExiste->textCursor().insertText("Aucune Vue.");
     }
 }
-////////
+//++++++++++
 //ajouter vue
 void Configurer::on_btOkVueAdd_clicked()
 {
@@ -492,7 +519,7 @@ void Configurer::on_btOkVueAdd_clicked()
         this->on_btAnnulerVueAdd_clicked();
     }
 }
-///////
+//++++++++++
 //SLOT combobox vue mod
 void Configurer::on_cBoxVueMod_activated(int index)
 {
@@ -509,17 +536,18 @@ void Configurer::on_cBoxVueMod_activated(int index)
     ui->txtVueImageMod->textCursor().insertText(image);
 
 }
-////////
+//++++++++++
 //SLOT bouton ok modifier vue
 void Configurer::on_btOkVueMod_clicked()
 {
     //récupération des informations dans les champs
+    QString legendeActuelle = ui->cBoxVueMod->currentText();
     QString numVue = ui->lEditNumVueMod->text();
     QString legende = ui->txtVueLegendeMod->toPlainText();
     QString image = ui->txtVueImageMod->toPlainText();
 
     //requête
-    bool modVue = pBdd->addModVue(numVue, legende, image);
+    bool modVue = pBdd->addModVue(legendeActuelle, numVue, legende, image);
 
     if(!modVue){
         //erreur
@@ -533,5 +561,198 @@ void Configurer::on_btOkVueMod_clicked()
                               QMessageBox::Ok);
         this->on_btAnnulerVueMod_clicked();
 
+    }
+}
+//++++++++++
+//SLOT combobox supp vue
+void Configurer::on_cBoxVueSupp_activated(int index)
+{
+    QString numVue = listeVue.at(index).numVue;
+    QString legende = listeVue.at(index).legende;
+    QString image = listeVue.at(index).image;
+
+    //ajout champs
+    ui->lEditNumVueSupp->clear();
+    ui->lEditNumVueSupp->insert(numVue);
+    ui->txtVueLegendeSupp->clear();
+    ui->txtVueLegendeSupp->textCursor().insertText(legende);
+    ui->txtVueImageSupp->clear();
+    ui->txtVueImageSupp->textCursor().insertText(image);
+}
+//++++++++++
+//SLOT bouton ok supprimer vue
+void Configurer::on_btOKVueSupp_clicked()
+{
+    //récupération des informations dans les champs
+    QString numVue = ui->lEditNumVueSupp->text();
+
+    //requête
+    bool supp = pBdd->setSuppVue(numVue);
+
+    if(!supp){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de supprimer cette vue.\nVerifier les champs.\nErreur 006."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Supprimer une vue"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btannulerVueSupp_clicked();
+    }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//onglet GESTION DES LIEUX
+//Boutons annulés
+
+void Configurer::on_btAnnulerLieuAdd_clicked()
+{
+    ui->lEditLieuNumAdd->clear();
+    ui->txtLieuExiste->clear();
+    ui->txtLieuLegendeAdd->clear();
+}
+
+void Configurer::on_btAnnulerLieuMod_clicked()
+{
+    ui->cBoxLieuMod->setCurrentIndex(0);;
+    ui->lEditLieuNumMod->clear();
+    ui->txtLieuLegendeMod->clear();
+}
+
+void Configurer::on_btAnnulerLieuSupp_clicked()
+{
+   ui->cBoxLieuSupp->setCurrentIndex(0);
+   ui->lEditLieuNumSupp->clear();
+   ui->txtLieuLegendeSupp->clear();
+}
+//++++++++++
+//obtenir lieu existant
+void Configurer::on_btLieuExistant_clicked()
+{
+    //nettoyer vue
+    listeLieu.clear();
+
+    //initialisation
+    ui->txtLieuExiste->clear();
+
+    //récupération des infos
+    pBdd->getLieuExistant(&listeLieu);
+
+    if(!listeLieu.empty()){
+        for(int i = 0; i < listeLieu.count(); i++){
+            QString numLieu = listeLieu.at(i).numLieu;
+          //  QString legende = listeVue.at(i).legende;
+
+            //création chaine et affichage
+            QString lieuExistant = numLieu + " ; ";
+            ui->txtLieuExiste->textCursor().insertText(lieuExistant);
+        }
+    }else{
+        ui->txtLieuExiste->textCursor().insertText("Aucun Lieu.");
+    }
+}
+
+//++++++++++
+//ajouter lieu
+void Configurer::on_btOkLieuAdd_clicked()
+{
+    //récupération des informations dans les champs
+    QString numLieu = ui->lEditLieuNumAdd->text();
+    QString legende = ui->txtLieuLegendeAdd->toPlainText();
+
+    //requête
+    bool addLieu = pBdd->setLieu(numLieu, legende);
+
+    if(!addLieu){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible d'ajouter ce Lieu.\nVerifier les champs.\nErreur 007."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Ajouter un Lieu"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerLieuAdd_clicked();
+    }
+}
+
+//++++++++++
+//SLOT combobox lieu mod
+void Configurer::on_cBoxLieuMod_activated(int index)
+{
+    QString numLieu = listeLieu.at(index).numLieu;
+    QString legende = listeLieu.at(index).legende;
+
+    //ajout champs
+    ui->lEditLieuNumMod->clear();
+    ui->lEditLieuNumMod->insert(numLieu);
+    ui->txtLieuLegendeMod->clear();
+    ui->txtLieuLegendeMod->textCursor().insertText(legende);
+}
+
+//++++++++++
+//SLOT combobox lieu supp
+void Configurer::on_cBoxLieuSupp_activated(int index)
+{
+    QString numLieu = listeLieu.at(index).numLieu;
+    QString legende = listeLieu.at(index).legende;
+
+    //ajout champs
+    ui->lEditLieuNumSupp->clear();
+    ui->lEditLieuNumSupp->insert(numLieu);
+    ui->txtLieuLegendeSupp->clear();
+    ui->txtLieuLegendeSupp->textCursor().insertText(legende);
+}
+
+//++++++++++
+//SLOT bouton ok modifier lieu
+void Configurer::on_btOkLieuMod_clicked()
+{
+    //récupération des informations dans les champs
+    QString legendeActuelle = ui->cBoxLieuMod->currentText();
+    QString numLieu = ui->lEditLieuNumMod->text();
+    QString legende = ui->txtLieuLegendeMod->toPlainText();
+
+    //requête
+    bool modLieu = pBdd->addModLieu(legendeActuelle, numLieu, legende);
+
+    if(!modLieu){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de modifier ce Lieu.\nVerifier les champs.\nErreur 008."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Modifier un Lieu"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerLieuMod_clicked();
+
+    }
+}
+
+//++++++++++
+//SLOT bouton ok supprimer lieu
+void Configurer::on_btOkLieuSupp_clicked()
+{
+    //récupération des informations dans les champs
+    QString numLieu = ui->lEditLieuNumSupp->text();
+
+    //requête
+    bool supp = pBdd->setSuppLieu(numLieu);
+
+    if(!supp){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de supprimer ce Lieu.\nVerifier les champs.\nErreur 009."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Supprimer un Lieu"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerLieuSupp_clicked();
     }
 }

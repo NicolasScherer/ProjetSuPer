@@ -318,3 +318,111 @@ bool Bdd::getVueExistant(QList<T_Vue> *listeVue){
     delete this->pVue;
     return true;
 }
+//////
+//modifier vue
+bool Bdd::addModVue(QString legendeActuelle, QString numVue, QString legende, QString image){
+    //requete
+    requete = "UPDATE vue ";
+    requete += "SET num_vue = :numVue, legende = :legende, image = :image ";
+    requete += "WHERE legende = :legendeActuelle";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":legende", legende);
+    query->bindValue(":image", image);
+    query->bindValue(":legendeActuelle", legendeActuelle);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif vue " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+//////
+//supprimer vue
+bool Bdd::setSuppVue(QString numVue){
+    //requete
+    requete = "DELETE FROM vue ";
+    requete += "WHERE num_vue = :numVue";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL supp vue " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//obtenir liste des lieux existants
+bool Bdd::getLieuExistant(QList<T_Lieu> *listeLieu){
+    //requête
+    requete = "SELECT num_lieu, legende ";
+    requete += "FROM lieu";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL liste lieu " << database.lastError() << endl;
+        return false;
+    }
+
+    //allocation pointeur
+    this->pLieu = new T_Lieu;
+
+    //réponse requête
+    while(query->next()){
+        QString num_lieu = query->value(0).toString();
+        QString legende = query->value(1).toString();
+
+        //ajout liste
+        this->pLieu->numLieu = num_lieu;
+        this->pLieu->legende = legende;
+
+        listeLieu->append(*pLieu);
+    }
+
+    delete this->pLieu;
+    return true;
+}
+//////////
+//ajouter lieu
+bool Bdd::setLieu(QString numLieu, QString legende){
+    //requete
+    requete = "INSERT INTO lieu (num_lieu, legende) ";
+    requete += "VALUES (:numLieu, :legende)";
+    query->prepare(requete);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":legende", legende);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL ajouter lieu " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+//////////
+//modifier lieu
+bool Bdd::addModLieu(QString legendeActuelle, QString numLieu, QString legende){
+    //requete
+    requete = "UPDATE lieu ";
+    requete += "SET num_lieu = :numLieu, legende = :legende ";
+    requete += "WHERE legende = :legendeActuelle";
+    query->prepare(requete);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":legende", legende);
+    query->bindValue(":legendeActuelle", legendeActuelle);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif lieu " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+////////
+//supprimer lieu
+bool Bdd::setSuppLieu(QString numLieu){
+    //requete
+    requete = "DELETE FROM lieu ";
+    requete += "WHERE num_lieu = :numLieu";
+    query->prepare(requete);
+    query->bindValue(":numLieu", numLieu);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL supp lieu " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}

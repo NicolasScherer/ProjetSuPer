@@ -143,7 +143,7 @@ alter table badge add constraint fk_badge_num_pers foreign key (num_pers)
 -- Interdiction de supprimer un lieu auquel un lecteur est lié
 -- Un lieu modifié est aussi modifié dans lecteur
 alter table lecteur add constraint fk_lecteur_num_lieu foreign key (num_lieu)
-      references lieu (num_lieu) on delete restrict on update cascade;
+      references lieu (num_lieu) on update cascade;
 
 -- La suppression d'une vue supprime toutes les lignes concernant cette vue
 alter table representationLieuSurVue add constraint fk_representationLieuSurVue_num_vue foreign key (num_vue)
