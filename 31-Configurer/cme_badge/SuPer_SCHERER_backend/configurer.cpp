@@ -18,7 +18,7 @@ Configurer::~Configurer()
     delete pBdd;
     delete ui;
 }
-////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 //bouton actualisation affichage
 void Configurer::on_btAffichage_clicked()
 {
@@ -32,6 +32,7 @@ void Configurer::on_btAffichage_clicked()
     listePersonne.clear();
     listeBadge.clear();
 
+    ///////////////////////////////////////////////////////////////////////////////////
     //onglet affecter/désaffecter
     //init personne à lier
 
@@ -75,6 +76,34 @@ void Configurer::on_btAffichage_clicked()
 
         }
     }
+
+    ///////////////////////////////////////////////////////////////////
+    //onglet gestion des vues (config SuPer)
+
+    //nettoyer QList
+    listeVue.clear();
+
+    //init vue existante
+    //nettoyer comboBox
+    ui->cBoxVueMod->clear();
+    ui->cBoxVueSupp->clear();
+
+    //récupération des infos
+    pBdd->getVueExistant(&listeVue);
+
+    if(!listeVue.empty()){
+        for(int i = 0; i < listeVue.count(); i++){
+          //  QString numVue = listeVue.at(i).numVue;
+            QString legende = listeVue.at(i).legende;
+          //  QString image = listeVue.at(i).image;
+
+            //ajout du combo
+            ui->cBoxVueMod->addItem(legende);
+            ui->cBoxVueSupp->addItem(legende);
+        }
+    }
+
+
     QMessageBox::information(0, tr("Actualiser Affichage"),
                  tr("Interface Actualise avec succes.\n"),
                           QMessageBox::Ok);
@@ -400,14 +429,14 @@ void Configurer::on_btAnnulerVueAdd_clicked()
 
 void Configurer::on_btAnnulerVueMod_clicked()
 {
-    ui->cBoxVue->setCurrentIndex(0);
+    ui->cBoxVueMod->setCurrentIndex(0);
     ui->txtVueLegendeMod->clear();
     ui->txtVueImageMod->clear();
 }
 
 void Configurer::on_btannulerVueSupp_clicked()
 {
-    ui->cBoxVue2->setCurrentIndex(0);
+    ui->cBoxVueSupp->setCurrentIndex(0);
     ui->txtVueLegendeSupp->clear();
     ui->txtVueImageSupp->clear();
 }
@@ -415,14 +444,94 @@ void Configurer::on_btannulerVueSupp_clicked()
 //obtenir vue existante
 void Configurer::on_btVueExistante_clicked()
 {
+    //nettoyer vue
+    listeVue.clear();
+
     //initialisation
     ui->txtVueExiste->clear();
 
-    QString vueExistant;
+    //récupération des infos
+    pBdd->getVueExistant(&listeVue);
 
-    bool retour = pBdd->getVueExistant(&vueExistant);
-    if (retour == false)
-        ui->txtVueExiste->textCursor().insertText("Aucun badge.");
+    if(!listeVue.empty()){
+        for(int i = 0; i < listeVue.count(); i++){
+            QString numVue = listeVue.at(i).numVue;
+          //  QString legende = listeVue.at(i).legende;
+          //  QString image = listeVue.at(i).image;
 
-    ui->txtVueExiste->textCursor().insertText(vueExistant);
+            //création chaine et affichage
+            QString vueExistant = numVue + " ; ";
+            ui->txtVueExiste->textCursor().insertText(vueExistant);
+        }
+    }else{
+        ui->txtVueExiste->textCursor().insertText("Aucune Vue.");
+    }
+}
+////////
+//ajouter vue
+void Configurer::on_btOkVueAdd_clicked()
+{
+    //récupération des informations dans les champs
+    QString numVue = ui->lEditNumVueAdd->text();
+    QString legende = ui->txtVueLegendeAdd->toPlainText();
+    QString image = ui->txtVueImageAdd->toPlainText();
+
+    //requête
+    bool addVue = pBdd->setVue(numVue, legende, image);
+
+    if(!addVue){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible d'ajouter cette vue.\nVerifier les champs.\nErreur 004."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Ajouter une Vue"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerVueAdd_clicked();
+    }
+}
+///////
+//SLOT combobox vue mod
+void Configurer::on_cBoxVueMod_activated(int index)
+{
+    QString numVue = listeVue.at(index).numVue;
+    QString legende = listeVue.at(index).legende;
+    QString image = listeVue.at(index).image;
+
+    //ajout champs
+    ui->lEditNumVueMod->clear();
+    ui->lEditNumVueMod->insert(numVue);
+    ui->txtVueLegendeMod->clear();
+    ui->txtVueLegendeMod->textCursor().insertText(legende);
+    ui->txtVueImageMod->clear();
+    ui->txtVueImageMod->textCursor().insertText(image);
+
+}
+////////
+//SLOT bouton ok modifier vue
+void Configurer::on_btOkVueMod_clicked()
+{
+    //récupération des informations dans les champs
+    QString numVue = ui->lEditNumVueMod->text();
+    QString legende = ui->txtVueLegendeMod->toPlainText();
+    QString image = ui->txtVueImageMod->toPlainText();
+
+    //requête
+    bool modVue = pBdd->addModVue(numVue, legende, image);
+
+    if(!modVue){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de modifier cette vue.\nVerifier les champs.\nErreur 005."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Modifier une Vue"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerVueMod_clicked();
+
+    }
 }

@@ -269,5 +269,52 @@ bool Bdd::getBadgeNonActif(QList<T_Badge> *listeBadge){
     delete this->pBadge;
     return true;
 }
+////////
+//ajouter une vue
+bool Bdd::setVue(QString numVue, QString legende, QString image){
+    //requete
+    requete = "INSERT INTO vue (num_vue, legende, image) ";
+    requete += "VALUES (:numVue, :legende, :image)";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":legende", legende);
+    query->bindValue(":image", image);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL ajouter vue " << database.lastError() << endl;
+        return false;
+    }
+    return true;
 
+}
+/////
+//obtenir vue existante (QList)
+bool Bdd::getVueExistant(QList<T_Vue> *listeVue){
+    //requête
+    requete = "SELECT num_vue, legende, image ";
+    requete += "FROM vue";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL liste vue " << database.lastError() << endl;
+        return false;
+    }
 
+    //allocation pointeur
+    this->pVue = new T_Vue;
+
+    //réponse requête
+    while(query->next()){
+        QString num_vue = query->value(0).toString();
+        QString legende = query->value(1).toString();
+        QString image = query->value(2).toString();
+
+        //ajout liste
+        this->pVue->numVue = num_vue;
+        this->pVue->legende = legende;
+        this->pVue->image = image;
+
+        listeVue->append(*pVue);
+    }
+
+    delete this->pVue;
+    return true;
+}

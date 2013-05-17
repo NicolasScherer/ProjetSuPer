@@ -53,6 +53,12 @@ private slots:
 
     void on_btVueExistante_clicked();
 
+    void on_btOkVueAdd_clicked();
+
+    void on_cBoxVueMod_activated(int index);
+
+    void on_btOkVueMod_clicked();
+
 private:
     Ui::Configurer *ui;
 
@@ -62,6 +68,7 @@ private:
     //déclaration QList
     QList<T_Personne> listePersonne;
     QList<T_Badge> listeBadge;
+    QList<T_Vue> listeVue;
 };
 
 #endif // CONFIGURER_H

@@ -39,6 +39,13 @@ typedef struct s_Badge {
     QString dateFin;
 } T_Badge;
 
+//vue
+typedef struct s_Vue {
+    QString numVue;
+    QString legende;
+    QString image;
+} T_Vue;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -61,11 +68,17 @@ public:
     bool addModLier(int numPersonne, QString numBadge, QString dateService, QString datePile); //modifier affectation
     bool setDelier(int numPersonne);        //desaffectation
 
+    //gestion configurer SuPer
+    //gestion des vues
+    bool getVueExistant(QList<T_Vue> *);   //obtenir liste vue existante
+    bool setVue(QString numVue, QString legende, QString image); //ajouter vue
+
 private:
     //pointeurs sur structure
     T_Log * pLog;
     T_Personne * pPersonne;
     T_Badge * pBadge;
+    T_Vue * pVue;
 
 
     QSqlQuery * query;
