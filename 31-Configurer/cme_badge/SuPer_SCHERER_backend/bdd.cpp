@@ -528,3 +528,65 @@ bool Bdd::setSuppZone(QString numZone){
     }
     return true;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////
+//obtenir legende lieu
+QString Bdd::getLegendeLieu(QString numLieu){
+    //requête
+    requete = "SELECT legende ";
+    requete += "FROM lieu ";
+    requete += "WHERE num_lieu = :numLieu";
+    query->prepare(requete);
+    query->bindValue(":numLieu", numLieu);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL get legende lieu " << database.lastError() << endl;
+        return "erreur";
+    }
+    query->next();
+    QString legende = query->value(0).toString();
+    return legende;
+}
+//obtenir représentation
+bool Bdd::getRepresentation(QList<T_Representation> *listeRepresentation, QString numVue, QString numZone){
+    //requête
+    requete = "SELECT A1.x, A1.y, A1.xA, A1.yA, A1.xB, A1.yB ";
+    requete += "FROM representationLieuSurVue A1 ";
+    requete += "WHERE num_vue=:numVue AND num_zone=:numZone";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":numZone", numZone);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL liste representation " << database.lastError() << endl;
+        return false;
+    }
+
+    //allocation pointeur
+    this->pRepresentation = new T_Representation;
+
+    //bdd vide
+    if(query->size() == 0)
+        return false;
+
+    //réponse requête
+    while(query->next()){
+        QString x = query->value(0).toString();
+        QString y = query->value(1).toString();
+        QString xA = query->value(2).toString();
+        QString yA = query->value(3).toString();
+        QString xB = query->value(4).toString();
+        QString yB = query->value(5).toString();
+
+        //ajout liste
+        this->pRepresentation->x = x;
+        this->pRepresentation->y = y;
+        this->pRepresentation->xA = xA;
+        this->pRepresentation->yA = yA;
+        this->pRepresentation->xB = xB;
+        this->pRepresentation->yB = yB;
+
+        listeRepresentation->append(*pRepresentation);
+    }
+
+    delete this->pRepresentation;
+    return true;
+}

@@ -99,6 +99,14 @@ private slots:
 
     void on_btOkZoneSupp_clicked();
 
+    void on_cBoxPositionNumVue_activated(int index);
+
+    void on_cBoxPositionNumZone_activated(int index);
+
+    void on_btAnnulerPosition_clicked();
+
+    void on_btOkPosition_clicked();
+
 private:
     Ui::Configurer *ui;
 
@@ -111,6 +119,7 @@ private:
     QList<T_Vue> listeVue;
     QList<T_Lieu> listeLieu;
     QList<T_Zone> listeZone;
+    QList<T_Representation> listeRepresentation;
 };
 
 #endif // CONFIGURER_H

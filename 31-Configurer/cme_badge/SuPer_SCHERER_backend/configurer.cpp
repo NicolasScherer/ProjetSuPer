@@ -87,19 +87,21 @@ void Configurer::on_btAffichage_clicked()
     //nettoyer comboBox
     ui->cBoxVueMod->clear();
     ui->cBoxVueSupp->clear();
+    ui->cBoxPositionNumVue->clear();
 
     //récupération des infos
     pBdd->getVueExistant(&listeVue);
 
     if(!listeVue.empty()){
         for(int i = 0; i < listeVue.count(); i++){
-          //  QString numVue = listeVue.at(i).numVue;
+            QString numVue = listeVue.at(i).numVue;
             QString legende = listeVue.at(i).legende;
           //  QString image = listeVue.at(i).image;
 
             //ajout du combo
             ui->cBoxVueMod->addItem(legende);
             ui->cBoxVueSupp->addItem(legende);
+            ui->cBoxPositionNumVue->addItem(numVue);
         }
     }
 
@@ -140,6 +142,7 @@ void Configurer::on_btAffichage_clicked()
     //nettoyer comboBox
     ui->cBoxZoneMod->clear();
     ui->cBoxZoneSupp->clear();
+    ui->cBoxPositionNumZone->clear();
 
     //récupération des infos
     pBdd->getZoneExistant(&listeZone);
@@ -151,6 +154,7 @@ void Configurer::on_btAffichage_clicked()
             //ajout du combo
             ui->cBoxZoneMod->addItem(numZone);
             ui->cBoxZoneSupp->addItem(numZone);
+            ui->cBoxPositionNumZone->addItem(numZone);
         }
     }
 
@@ -957,4 +961,120 @@ void Configurer::on_btOkZoneSupp_clicked()
                               QMessageBox::Ok);
         this->on_btAnnulerZoneSupp_clicked();
     }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ONGLET GESTION POSITIONS
+
+//combobox numéro de vue
+void Configurer::on_cBoxPositionNumVue_activated(int index)
+{
+    QString legende = listeVue.at(index).legende;
+
+    //ajout champs
+    ui->txtPositionInfoVue->clear();
+    ui->txtPositionInfoVue->textCursor().insertText(legende);
+}
+//combobox numéro de zone
+void Configurer::on_cBoxPositionNumZone_activated(int index)
+{
+    QString legende = listeZone.at(index).legende;
+    QString numLieu = listeZone.at(index).numLieu;
+
+    //ajout champs
+    ui->txtPositionInfoZone->clear();
+    ui->txtPositionInfoZone->textCursor().insertText(legende);
+    ui->lEditPositionNumLieu->clear();
+    ui->lEditPositionNumLieu->insert(numLieu);
+
+    //obtenir legende Lieu
+    QString legendeLieu = pBdd->getLegendeLieu(numLieu);
+    //ajout champs
+    ui->txtPositionInfoLieu->clear();
+    if(legendeLieu == "" || legendeLieu == "erreur"){
+        ui->txtPositionInfoLieu->textCursor().insertText("Aucune légende");
+    }else{
+        ui->txtPositionInfoLieu->textCursor().insertText(legendeLieu);
+    }
+
+    //recherche si position existe déjà
+    //récupération info nécessaire dans les champs
+    QString numVue = ui->cBoxPositionNumVue->currentText();
+    QString numZone = ui->cBoxPositionNumZone->currentText();
+
+    //nettoyage QList
+    listeRepresentation.clear();
+
+    bool representation = pBdd->getRepresentation(&listeRepresentation, numVue, numZone);
+    if(!representation){
+        //pas de position enregistré
+        QMessageBox::information(0, tr("Ajouter Positions"),
+                     tr("Il n'existe pas encore de position.\nVeuiller remplir les champs.\n"),
+                              QMessageBox::Ok);
+    }else{
+        //position déjà enregistré
+        QMessageBox::information(0, tr("Modifier Positions"),
+                     tr("Il existe deja des positions.\nVeuiller remplir les champs pour faire des modifications.\n"),
+                              QMessageBox::Ok);
+        if(!listeRepresentation.empty()){
+            for(int i=0; i < listeRepresentation.count(); i++){
+                QString x = listeRepresentation.at(i).x;
+                QString y = listeRepresentation.at(i).y;
+                QString xA = listeRepresentation.at(i).xA;
+                QString yA = listeRepresentation.at(i).yA;
+                QString xB = listeRepresentation.at(i).xB;
+                QString yB = listeRepresentation.at(i).yB;
+
+                //affichage
+                ui->lEditPositionLieuX->clear();
+                ui->lEditPositionLieuX->insert(x);
+                ui->lEditPositionLieuY->clear();
+                ui->lEditPositionLieuY->insert(y);
+                ui->lEditPositionZoneXA->clear();
+                ui->lEditPositionZoneXA->insert(xA);
+                ui->lEditPositionZoneYA->clear();
+                ui->lEditPositionZoneYA->insert(yA);
+                ui->lEditPositionZoneXB->clear();
+                ui->lEditPositionZoneXB->insert(xB);
+                ui->lEditPositionZoneYB->clear();
+                ui->lEditPositionZoneYB->insert(yB);
+
+            }
+        }else{
+            //affichage par défaut (0)
+            ui->lEditPositionLieuX->clear();
+            ui->lEditPositionLieuX->insert(0);
+            ui->lEditPositionLieuY->clear();
+            ui->lEditPositionLieuY->insert(0);
+            ui->lEditPositionZoneXA->clear();
+            ui->lEditPositionZoneXA->insert(0);
+            ui->lEditPositionZoneYA->clear();
+            ui->lEditPositionZoneYA->insert(0);
+            ui->lEditPositionZoneXB->clear();
+            ui->lEditPositionZoneXB->insert(0);
+            ui->lEditPositionZoneYB->clear();
+            ui->lEditPositionZoneYB->insert(0);
+        }
+
+    }//fin representation
+}
+//bouton annulé ajouter/modifier position
+void Configurer::on_btAnnulerPosition_clicked()
+{
+    ui->cBoxPositionNumVue->setCurrentIndex(0);
+    ui->txtPositionInfoVue->clear();
+    ui->cBoxPositionNumZone->setCurrentIndex(0);
+    ui->txtPositionInfoZone->clear();
+    ui->lEditPositionZoneXA->clear();
+    ui->lEditPositionZoneYA->clear();
+    ui->lEditPositionZoneXB->clear();
+    ui->lEditPositionZoneYB->clear();
+    ui->lEditPositionNumLieu->clear();
+    ui->txtPositionInfoLieu->clear();
+    ui->lEditPositionLieuX->clear();
+    ui->lEditPositionLieuY->clear();
+}
+//SLOT bouton ok ajouter/modifier position
+void Configurer::on_btOkPosition_clicked()
+{
+
 }

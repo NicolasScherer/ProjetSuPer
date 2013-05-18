@@ -60,6 +60,19 @@ typedef struct s_Zone {
     QString legende;
 } T_Zone;
 
+//représentation
+typedef struct s_Representation {
+    QString numVue;
+    QString numLieu;
+    QString numZone;
+    QString x;
+    QString y;
+    QString xA;
+    QString yA;
+    QString xB;
+    QString yB;
+} T_Representation;
+
 /////////////////////////////////////////////
 /*** CLASSE pour gérer la Base de Données***/
 class Bdd : public QObject
@@ -103,6 +116,10 @@ public:
     bool addModZone(QString numZone, QString numLieuActuel, QString numLieu, QString sensMonter, QString legende); //modifier zone
     bool setSuppZone(QString numZone);  //supprimer zone
 
+    //--- gestion des positions ---
+    QString getLegendeLieu(QString numLieu);    //obtenir legende lieu
+    bool getRepresentation(QList<T_Representation> *, QString numVue, QString numZone);  //obtenir représentation si elle existe
+
 private:
     //pointeurs sur structure
     T_Log * pLog;
@@ -111,6 +128,7 @@ private:
     T_Vue * pVue;
     T_Lieu * pLieu;
     T_Zone * pZone;
+    T_Representation * pRepresentation;
 
 
     QSqlQuery * query;
