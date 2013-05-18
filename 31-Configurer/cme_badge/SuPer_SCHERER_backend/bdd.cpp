@@ -426,3 +426,91 @@ bool Bdd::setSuppLieu(QString numLieu){
     }
     return true;
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//obtenir zone existante
+bool Bdd::getZoneExistant(QList<T_Zone> * listeZone){
+    //requête
+    requete = "SELECT num_zone, num_lieu, sensMonter, legende ";
+    requete += "FROM zone";
+    query->prepare(requete);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL liste zone " << database.lastError() << endl;
+        return false;
+    }
+
+    //allocation pointeur
+    this->pZone = new T_Zone;
+
+    //réponse requête
+    while(query->next()){
+        QString num_zone = query->value(0).toString();
+        QString num_lieu = query->value(1).toString();
+        QString sensMonter = query->value(2).toString();
+        QString legende = query->value(3).toString();
+
+        //ajout liste
+        this->pZone->numZone = num_zone;
+        this->pZone->numLieu = num_lieu;
+        this->pZone->sensMonter = sensMonter;
+        this->pZone->legende = legende;
+
+        listeZone->append(*pZone);
+    }
+
+    delete this->pZone;
+    return true;
+}
+////////
+//ajouter zone
+bool Bdd::setZone(QString numZone, int numLieu, QString sensMonter, QString legende){
+    //requete
+    requete = "INSERT INTO zone (num_zone, num_lieu, sensMonter, legende) ";
+    requete += "VALUES (:numZone, :numLieu, :sensMonter, :legende)";
+    query->prepare(requete);
+    query->bindValue(":numZone", numZone);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":sensMonter", sensMonter);
+    query->bindValue(":legende", legende);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL ajouter zone " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+///////
+//obtenir numéro du lieu
+int Bdd::getNumLieu(QString legende){
+    //requete
+    requete = "SELECT num_lieu ";
+    requete += "FROM lieu ";
+    requete += "WHERE legende=:legende";
+    query->prepare(requete);
+    query->bindValue(":legende", legende);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL obtenir num lieu " << database.lastError() << endl;
+        return -1;
+    }
+    //réponse requete
+    query->next();
+    int numLieu = query->value(0).toInt();
+    return numLieu;
+}
+////////
+//modifier zone
+bool Bdd::addModZone(QString numZone, QString numLieuActuel, QString numLieu, QString sensMonter, QString legende){
+    //requete
+    requete = "UPDATE zone ";
+    requete += "SET num_lieu = :numLieu, sensMonter = :sensMonter, legende = :legende ";
+    requete += "WHERE num_lieu = :numLieuActuel AND num_zone = :numZone";
+    query->prepare(requete);
+    query->bindValue(":numZone", numZone);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":sensMonter", sensMonter);
+    query->bindValue(":legende", legende);
+    query->bindValue(":numLieuActuel", numLieuActuel);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif zone " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}

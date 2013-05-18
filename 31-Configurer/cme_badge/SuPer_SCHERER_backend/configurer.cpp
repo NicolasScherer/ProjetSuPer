@@ -112,20 +112,48 @@ void Configurer::on_btAffichage_clicked()
     //nettoyer comboBox
     ui->cBoxLieuMod->clear();
     ui->cBoxLieuSupp->clear();
+    ui->cBoxLieuLier->clear();
+    ui->cBoxZoneLieuMod->clear();
 
     //récupération des infos
     pBdd->getLieuExistant(&listeLieu);
 
     if(!listeLieu.empty()){
         for(int i = 0; i < listeLieu.count(); i++){
-          //  QString numLieu = listeVue.at(i).numLieu;
+            QString numLieu = listeLieu.at(i).numLieu;
             QString legende = listeLieu.at(i).legende;
 
             //ajout du combo
             ui->cBoxLieuMod->addItem(legende);
             ui->cBoxLieuSupp->addItem(legende);
+            ui->cBoxLieuLier->addItem(legende); //onglet ajouter zone
+            ui->cBoxZoneLieuMod->addItem(numLieu);  //onglet modifier zone
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////
+    //onglet gestion des zones (config SuPer)
+    //nettoyer QList
+    listeZone.clear();
+
+    //init lieu existant
+    //nettoyer comboBox
+    ui->cBoxZoneMod->clear();
+    ui->cBoxZoneSupp->clear();
+
+    //récupération des infos
+    pBdd->getZoneExistant(&listeZone);
+
+    if(!listeZone.empty()){
+        for(int i = 0; i < listeZone.count(); i++){
+            QString numZone = listeZone.at(i).numZone;
+
+            //ajout du combo
+            ui->cBoxZoneMod->addItem(numZone);
+            ui->cBoxZoneSupp->addItem(numZone);
+        }
+    }
+
 
     //++--++--++//
 
@@ -746,7 +774,7 @@ void Configurer::on_btOkLieuSupp_clicked()
     if(!supp){
         //erreur
         QMessageBox::warning(0, tr("Attention : requete impossible"),
-                             tr("Impossible de supprimer ce Lieu.\nVerifier les champs.\nErreur 009."),
+                             tr("Impossible de supprimer ce Lieu.\nCe Lieu est probablement lie avec une zone.\nErreur 009."),
                               QMessageBox::Ok);
     }else{
         //ok
@@ -754,5 +782,142 @@ void Configurer::on_btOkLieuSupp_clicked()
                      tr("Operation reussie.\n"),
                               QMessageBox::Ok);
         this->on_btAnnulerLieuSupp_clicked();
+    }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//ONGLET GESTION des ZONES (config Super)
+//boutons annulés
+
+void Configurer::on_btAnnulerZoneAdd_clicked()
+{
+    ui->lEditNumZoneAdd->clear();
+    ui->txtZoneExiste->clear();
+    ui->cBoxLieuLier->setCurrentIndex(0);
+    ui->lEditZoneSensMonterAdd->clear();
+    ui->txtZoneLegendeAdd->clear();
+}
+
+void Configurer::on_btAnnulerZoneMod_clicked()
+{
+    ui->cBoxZoneMod->setCurrentIndex(0);
+    ui->lEditNumLieuActuel->clear();
+    ui->cBoxZoneLieuMod->setCurrentIndex(0);
+    ui->lEditZoneSensMonterMod->clear();
+    ui->txtZoneLegendeMod->clear();
+}
+
+void Configurer::on_btAnnulerZoneSupp_clicked()
+{
+    ui->cBoxZoneSupp->setCurrentIndex(0);
+    ui->txtZoneLieuSupp->clear();
+    ui->lEditZoneSensMonterSupp->clear();
+    ui->txtZoneLegendeSupp->clear();
+}
+
+//obtenir zones existantes
+void Configurer::on_btVueExistante_2_clicked()
+{
+    //nettoyer vue
+    listeZone.clear();
+
+    //initialisation
+    ui->txtZoneExiste->clear();
+
+    //récupération des infos
+    pBdd->getZoneExistant(&listeZone);
+
+    if(!listeZone.empty()){
+        for(int i = 0; i < listeZone.count(); i++){
+            QString numZone = listeZone.at(i).numZone;
+
+            //création chaine et affichage
+            QString zoneExistant = numZone + " ; ";
+            ui->txtZoneExiste->textCursor().insertText(zoneExistant);
+        }
+    }else{
+        ui->txtZoneExiste->textCursor().insertText("Aucune Zone.");
+    }
+}
+//ajouter zone
+void Configurer::on_btOkZoneAdd_clicked()
+{
+    //récupération des informations dans les champs
+    QString numZone = ui->lEditNumZoneAdd->text();
+    QString legendeLieu = ui->cBoxLieuLier->currentText();
+    QString sensMonter = ui->lEditZoneSensMonterAdd->text();
+    QString legende = ui->txtZoneLegendeAdd->toPlainText();
+
+    if(sensMonter == ""){
+        //évite les enregistrements involontaires
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible d'ajouter cette Zone.\nVerifier les champs.\nErreur 013."),
+                              QMessageBox::Ok);
+    }
+    else{
+        //obtenir le numéro de la personne
+        int numLieu = pBdd->getNumLieu(legendeLieu);
+
+        if(numLieu == -1){  //Problème
+            QMessageBox::warning(0, tr("Attention : erreur"),
+                         tr("Impossible de trouver ce Lieu.\nVerifier les champs.\nErreur 010."),
+                                  QMessageBox::Ok);
+        }
+        //requête
+        bool addZone = pBdd->setZone(numZone, numLieu, sensMonter, legende);
+
+        if(!addZone){
+            //erreur
+            QMessageBox::warning(0, tr("Attention : requete impossible"),
+                                 tr("Impossible d'ajouter cette Zone.\nVerifier les champs.\nErreur 011."),
+                                  QMessageBox::Ok);
+        }else{
+            //ok
+            QMessageBox::information(0, tr("Ajouter une Zone"),
+                         tr("Operation reussie.\n"),
+                                  QMessageBox::Ok);
+            this->on_btAnnulerZoneAdd_clicked();
+        }
+    }
+}
+//SLOT combobox zone mod
+void Configurer::on_cBoxZoneMod_activated(int index)
+{
+    QString numLieuActuel = listeZone.at(index).numLieu;
+    QString sensMonter = listeZone.at(index).sensMonter;
+    QString legende = listeZone.at(index).legende;
+
+    //ajout champs
+    ui->lEditNumLieuActuel->clear();
+    ui->lEditNumLieuActuel->insert(numLieuActuel);
+    ui->lEditZoneSensMonterMod->clear();
+    ui->lEditZoneSensMonterMod->insert(sensMonter);
+    ui->txtZoneLegendeMod->clear();
+    ui->txtZoneLegendeMod->textCursor().insertText(legende);
+}
+//SLOT bouton ok zone mod
+void Configurer::on_btOkZoneMod_clicked()
+{
+    //récupération des informations dans les champs
+    QString numZone = ui->cBoxZoneMod->currentText();
+    QString numLieuActuel = ui->lEditNumLieuActuel->text();
+    QString numLieu = ui->cBoxZoneLieuMod->currentText();
+    QString sensMonter = ui->lEditZoneSensMonterMod->text();
+    QString legende = ui->txtZoneLegendeMod->toPlainText();
+
+    //requête
+    bool modZone = pBdd->addModZone(numZone, numLieuActuel, numLieu, sensMonter, legende);
+
+    if(!modZone){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de modifier cette Zone.\nVerifier les champs.\nErreur 012."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Modifier une Zone"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerZoneMod_clicked();
+
     }
 }

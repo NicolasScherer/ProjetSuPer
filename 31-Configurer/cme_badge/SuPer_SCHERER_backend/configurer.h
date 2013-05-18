@@ -81,6 +81,20 @@ private slots:
 
     void on_btOkLieuSupp_clicked();
 
+    void on_btAnnulerZoneAdd_clicked();
+
+    void on_btAnnulerZoneMod_clicked();
+
+    void on_btAnnulerZoneSupp_clicked();
+
+    void on_btVueExistante_2_clicked();
+
+    void on_btOkZoneAdd_clicked();
+
+    void on_cBoxZoneMod_activated(int index);
+
+    void on_btOkZoneMod_clicked();
+
 private:
     Ui::Configurer *ui;
 

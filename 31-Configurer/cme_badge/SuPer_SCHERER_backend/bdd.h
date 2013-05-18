@@ -96,6 +96,13 @@ public:
     bool addModLieu(QString legendeActuelle, QString numLieu, QString legende); //modifier lieu
     bool setSuppLieu(QString numLieu);      //supprimer lieu
 
+    //--- gestion des zones ---
+    bool getZoneExistant(QList<T_Zone> *);  //obtenir liste zone existante
+    bool setZone(QString numZone, int numLieu, QString sensMonter, QString legende);    //ajouter zone
+    int getNumLieu(QString);    //obtenir numéro du lieu
+    bool addModZone(QString numZone, QString numLieuActuel, QString numLieu, QString sensMonter, QString legende); //modifier zone
+    bool setSuppZone(QString numZone);  //supprimer zone
+
 private:
     //pointeurs sur structure
     T_Log * pLog;
