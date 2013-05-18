@@ -648,8 +648,8 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>890</width>
-         <height>442</height>
+         <width>100</width>
+         <height>30</height>
         </rect>
        </property>
        <attribute name="label">
@@ -2471,7 +2471,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="page_7">
        <property name="geometry">
@@ -4004,7 +4004,7 @@
           <rect>
            <x>10</x>
            <y>220</y>
-           <width>111</width>
+           <width>191</width>
            <height>16</height>
           </rect>
          </property>
@@ -4016,7 +4016,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Sens de Montée</string>
+          <string>Sens de montée (1, 2 ou 3)</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_89">
@@ -4024,7 +4024,7 @@
           <rect>
            <x>10</x>
            <y>280</y>
-           <width>61</width>
+           <width>191</width>
            <height>16</height>
           </rect>
          </property>
@@ -4126,10 +4126,29 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>240</y>
+           <y>250</y>
            <width>271</width>
            <height>22</height>
           </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_157">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>235</y>
+           <width>261</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>7</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Regarder la documentation pour plus d'informations.</string>
          </property>
         </widget>
        </widget>
@@ -4155,7 +4174,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>Choissir une zone dans la liste déroulante</string>
+          <string>Choissir une Zone dans la liste déroulante</string>
          </property>
         </widget>
         <widget class="QComboBox" name="cBoxZoneMod">
@@ -4186,7 +4205,7 @@
           <rect>
            <x>10</x>
            <y>230</y>
-           <width>121</width>
+           <width>191</width>
            <height>16</height>
           </rect>
          </property>
@@ -4198,7 +4217,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Sens de Montée</string>
+          <string>Sens de Montée (1, 2 ou 3)</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_96">
@@ -4347,7 +4366,7 @@
          <property name="geometry">
           <rect>
            <x>10</x>
-           <y>250</y>
+           <y>255</y>
            <width>271</width>
            <height>22</height>
           </rect>
@@ -4358,7 +4377,7 @@
           <rect>
            <x>10</x>
            <y>140</y>
-           <width>111</width>
+           <width>161</width>
            <height>16</height>
           </rect>
          </property>
@@ -4370,7 +4389,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Lieu Actuel</string>
+          <string>Numéro de Lieu Actuel</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="lEditNumLieuActuel">
@@ -4387,6 +4406,25 @@
          </property>
          <property name="readOnly">
           <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_158">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>243</y>
+           <width>261</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <pointsize>7</pointsize>
+           <italic>true</italic>
+          </font>
+         </property>
+         <property name="text">
+          <string>Regarder la documentation pour plus d'informations.</string>
          </property>
         </widget>
        </widget>
@@ -4412,7 +4450,7 @@
           </rect>
          </property>
          <property name="text">
-          <string>Choissir une zone dans la liste déroulante</string>
+          <string>Choissir une Zone dans la liste déroulante</string>
          </property>
         </widget>
         <widget class="QLabel" name="label_103">
@@ -4580,7 +4618,7 @@
           </font>
          </property>
          <property name="text">
-          <string>Lieu</string>
+          <string>Numéro de Lieu</string>
          </property>
         </widget>
         <widget class="QLineEdit" name="lEditZoneSensMonterSupp">
@@ -4602,17 +4640,913 @@
        </widget>
       </widget>
       <widget class="QWidget" name="page_14">
-       <attribute name="label">
-        <string>Position Lieux/Zones en fonction des Vues</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="page_13">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
          <width>890</width>
          <height>390</height>
+        </rect>
+       </property>
+       <attribute name="label">
+        <string>Positions Lieux/Zones en fonction des Vues</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>0</y>
+          <width>435</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Ajouter ou Modifier Positions</string>
+        </property>
+        <widget class="QLabel" name="label_160">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>220</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>false</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Numéro de Lieu lié à cette zone</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionNumLieu">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>215</y>
+           <width>113</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_164">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Choisir le numéro de Vue ci-contre</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cBoxPositionNumVue">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>25</y>
+           <width>170</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_165">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant cette vue :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionInfoVue">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>50</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_159">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Choisir le numéro de Zone ci-contre</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cBoxPositionNumZone">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>85</y>
+           <width>170</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_161">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>115</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant cette zone :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionInfoZone">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>110</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_166">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>285</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Indiquer la position de ce Lieu</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionLieuX">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>285</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionLieuY">
+         <property name="geometry">
+          <rect>
+           <x>340</x>
+           <y>285</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_162">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>240</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant ce lieu :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionInfoLieu">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>240</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_163">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>145</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Indiquer la position de cette Zone</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionZoneXA">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>145</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionZoneYA">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>145</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_167">
+         <property name="geometry">
+          <rect>
+           <x>300</x>
+           <y>290</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>x</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_168">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>290</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>y</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionZoneXB">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>175</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionZoneYB">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>175</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_169">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>150</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>xA</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_170">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>180</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>xB</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_171">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>150</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>yA</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_172">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>180</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>yB</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btAnnulerPosition">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>350</y>
+           <width>100</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Annuler</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btOkPosition">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>350</y>
+           <width>100</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Confirmer</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_187">
+         <property name="geometry">
+          <rect>
+           <x>60</x>
+           <y>310</y>
+           <width>51</width>
+           <height>61</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../ressources/new.png</pixmap>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_188">
+         <property name="geometry">
+          <rect>
+           <x>120</x>
+           <y>320</y>
+           <width>51</width>
+           <height>51</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../ressources/modifier.png</pixmap>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>440</x>
+          <y>0</y>
+          <width>435</width>
+          <height>391</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Supprimer Positions</string>
+        </property>
+        <widget class="QLabel" name="label_173">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>220</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>false</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Numéro de Lieu lié à cette zone</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppNumLieu">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>215</y>
+           <width>113</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="cursor">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_174">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>30</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Choisir le numéro de Vue ci-contre</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cBoxPositionSuppNumVue">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>25</y>
+           <width>170</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_175">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>50</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant cette vue :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionSuppInfoVue">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>50</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_176">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>90</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Choisir le numéro de Zone ci-contre</string>
+         </property>
+        </widget>
+        <widget class="QComboBox" name="cBoxPositionSuppNumZone">
+         <property name="geometry">
+          <rect>
+           <x>260</x>
+           <y>85</y>
+           <width>170</width>
+           <height>23</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_177">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>115</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant cette zone :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionSuppInfoZone">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>110</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_178">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>285</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Indiquer la position de ce Lieu</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppLieuX">
+         <property name="geometry">
+          <rect>
+           <x>250</x>
+           <y>285</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppLieuY">
+         <property name="geometry">
+          <rect>
+           <x>340</x>
+           <y>285</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_179">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>240</y>
+           <width>231</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Informations concernant ce lieu :</string>
+         </property>
+        </widget>
+        <widget class="QTextEdit" name="txtPositionSuppInfoLieu">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>240</y>
+           <width>191</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="cursor" stdset="0">
+          <cursorShape>ForbiddenCursor</cursorShape>
+         </property>
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_180">
+         <property name="geometry">
+          <rect>
+           <x>10</x>
+           <y>145</y>
+           <width>251</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+           <underline>true</underline>
+          </font>
+         </property>
+         <property name="text">
+          <string>Indiquer la position de cette Zone</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppZoneXA">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>145</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppZoneYA">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>145</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_181">
+         <property name="geometry">
+          <rect>
+           <x>300</x>
+           <y>290</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>x</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_182">
+         <property name="geometry">
+          <rect>
+           <x>390</x>
+           <y>290</y>
+           <width>16</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>y</string>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppZoneXB">
+         <property name="geometry">
+          <rect>
+           <x>240</x>
+           <y>175</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLineEdit" name="lEditPositionSuppZoneYB">
+         <property name="geometry">
+          <rect>
+           <x>330</x>
+           <y>175</y>
+           <width>50</width>
+           <height>22</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_183">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>150</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>xA</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_184">
+         <property name="geometry">
+          <rect>
+           <x>290</x>
+           <y>180</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>xB</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_185">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>150</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>yA</string>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_186">
+         <property name="geometry">
+          <rect>
+           <x>380</x>
+           <y>180</y>
+           <width>21</width>
+           <height>16</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>yB</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btAnnulerPositionSupp">
+         <property name="geometry">
+          <rect>
+           <x>220</x>
+           <y>350</y>
+           <width>100</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Annuler</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="btOkPositionSupp">
+         <property name="geometry">
+          <rect>
+           <x>320</x>
+           <y>350</y>
+           <width>100</width>
+           <height>30</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Confirmer</string>
+         </property>
+         <property name="icon">
+          <iconset>
+           <normaloff>../ressources/bt_ok.png</normaloff>../ressources/bt_ok.png</iconset>
+         </property>
+        </widget>
+        <widget class="QLabel" name="label_189">
+         <property name="geometry">
+          <rect>
+           <x>80</x>
+           <y>310</y>
+           <width>51</width>
+           <height>61</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>../ressources/supprimer.png</pixmap>
+         </property>
+        </widget>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="page_13">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>100</width>
+         <height>30</height>
         </rect>
        </property>
        <attribute name="label">

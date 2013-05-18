@@ -514,3 +514,17 @@ bool Bdd::addModZone(QString numZone, QString numLieuActuel, QString numLieu, QS
     }
     return true;
 }
+///////
+//supprimer zone
+bool Bdd::setSuppZone(QString numZone){
+    //requete
+    requete = "DELETE FROM zone ";
+    requete += "WHERE num_zone = :numZone";
+    query->prepare(requete);
+    query->bindValue(":numZone", numZone);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL supp zone " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}

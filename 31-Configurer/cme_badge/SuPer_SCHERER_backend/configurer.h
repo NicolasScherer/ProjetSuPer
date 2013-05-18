@@ -95,6 +95,10 @@ private slots:
 
     void on_btOkZoneMod_clicked();
 
+    void on_cBoxZoneSupp_activated(int index);
+
+    void on_btOkZoneSupp_clicked();
+
 private:
     Ui::Configurer *ui;
 

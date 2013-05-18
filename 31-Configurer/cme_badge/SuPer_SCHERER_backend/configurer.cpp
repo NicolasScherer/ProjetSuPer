@@ -921,3 +921,40 @@ void Configurer::on_btOkZoneMod_clicked()
 
     }
 }
+//SLOT combobox zone supp
+void Configurer::on_cBoxZoneSupp_activated(int index)
+{
+    QString numLieu = listeZone.at(index).numLieu;
+    QString sensMonter = listeZone.at(index).sensMonter;
+    QString legende = listeZone.at(index).legende;
+
+    //ajout champs
+    ui->txtZoneLieuSupp->clear();
+    ui->txtZoneLieuSupp->textCursor().insertText(numLieu);
+    ui->lEditZoneSensMonterSupp->clear();
+    ui->lEditZoneSensMonterSupp->insert(sensMonter);
+    ui->txtZoneLegendeSupp->clear();
+    ui->txtZoneLegendeSupp->textCursor().insertText(legende);
+}
+//SLOT bouton ok zone supp
+void Configurer::on_btOkZoneSupp_clicked()
+{
+    //récupération des informations dans les champs
+    QString numZone = ui->cBoxZoneSupp->currentText();
+
+    //requête
+    bool supp = pBdd->setSuppZone(numZone);
+
+    if(!supp){
+        //erreur
+        QMessageBox::warning(0, tr("Attention : requete impossible"),
+                             tr("Impossible de supprimer cette Zone.\nVerifier les champs.\nErreur 014."),
+                              QMessageBox::Ok);
+    }else{
+        //ok
+        QMessageBox::information(0, tr("Supprimer une Zone"),
+                     tr("Operation reussie.\n"),
+                              QMessageBox::Ok);
+        this->on_btAnnulerZoneSupp_clicked();
+    }
+}
