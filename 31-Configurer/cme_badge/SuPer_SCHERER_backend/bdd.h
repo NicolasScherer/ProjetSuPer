@@ -119,6 +119,14 @@ public:
     //--- gestion des positions ---
     QString getLegendeLieu(QString numLieu);    //obtenir legende lieu
     bool getRepresentation(QList<T_Representation> *, QString numVue, QString numZone);  //obtenir représentation si elle existe
+    bool setPosition(QString, QString, QString, QString, QString, QString, QString, QString, QString);   //ajouter positions
+    bool addModPosition(QString, QString, QString, QString, QString, QString, QString, QString, QString); //modifier positions
+    bool getZoneLierVue(QList<T_Representation> *, QString numVue);     //obtenir les zones liées avec cette vue
+    bool setSuppPosition(QString numVue, QString numZone);  //supprimer position
+
+    //--- gestion des timers ---
+    void getTempo(int *, int *);    //obtenir tempo
+    bool setTempo(QString tempoMouv, QString tempoRecep);   //modifier tempo
 
 private:
     //pointeurs sur structure

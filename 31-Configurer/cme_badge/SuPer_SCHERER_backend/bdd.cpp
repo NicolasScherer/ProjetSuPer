@@ -590,3 +590,122 @@ bool Bdd::getRepresentation(QList<T_Representation> *listeRepresentation, QStrin
     delete this->pRepresentation;
     return true;
 }
+//ajouter positions
+bool Bdd::setPosition(QString numVue, QString numZone, QString numLieu, QString xA, QString yA, QString xB, QString yB, QString x, QString y){
+    //requête
+    requete = "INSERT INTO representationLieuSurVue (num_vue, num_lieu, num_zone, x, y, xA, yA, xB, yB) ";
+    requete += "VALUES (:numVue, :numLieu, :numZone, :x, :y, :xA, :yA, :xB, :yB)";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":numZone", numZone);
+    query->bindValue(":x", x);
+    query->bindValue(":y", y);
+    query->bindValue(":xA", xA);
+    query->bindValue(":yA", yA);
+    query->bindValue(":xB", xB);
+    query->bindValue(":yB", yB);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL ajouter positions " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+//modifier positions
+bool Bdd::addModPosition(QString numVue, QString numZone, QString numLieu, QString xA, QString yA, QString xB, QString yB, QString x, QString y){
+    //requete
+    requete = "UPDATE representationLieuSurVue ";
+    requete += "SET x=:x, y=:y, xA=:xA, yA=:yA, xB=:xB, yB=:yB ";
+    requete += "WHERE num_vue=:numVue AND num_lieu=:numLieu AND num_zone=:numZone";
+    query->prepare(requete);
+    query->bindValue(":x", x);
+    query->bindValue(":y", y);
+    query->bindValue(":xA", xA);
+    query->bindValue(":yA", yA);
+    query->bindValue(":xB", xB);
+    query->bindValue(":yB", yB);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":numLieu", numLieu);
+    query->bindValue(":numZone", numZone);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif positions " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+//recherche zones liées à une vue
+bool Bdd::getZoneLierVue(QList<T_Representation> *listeRepresentation, QString numVue){
+    //requête
+    requete = "SELECT num_zone ";
+    requete += "FROM representationLieuSurVue ";
+    requete += "WHERE num_vue=:numVue ";
+    requete += "ORDER BY num_zone ASC";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL liste zone lier vue " << database.lastError() << endl;
+        return false;
+    }
+
+    //allocation pointeur
+    this->pRepresentation = new T_Representation;
+
+    //réponse requête
+    while(query->next()){
+        QString num_zone = query->value(0).toString();
+
+        //ajout liste
+        this->pRepresentation->numZone = num_zone;
+        listeRepresentation->append(*pRepresentation);
+    }
+
+    delete this->pRepresentation;
+    return true;
+}
+//supprimer position
+bool Bdd::setSuppPosition(QString numVue, QString numZone){
+    //requete
+    requete = "DELETE FROM representationLieuSurVue ";
+    requete += "WHERE num_vue = :numVue AND num_zone=:numZone";
+    query->prepare(requete);
+    query->bindValue(":numVue", numVue);
+    query->bindValue(":numZone", numZone);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL supp position " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//obtenir tempo
+void Bdd::getTempo(int *tempoM, int *tempoR){
+    //requête
+    requete = "SELECT tempoM, tempoR ";
+    requete += "FROM super ";
+    requete += "LIMIT 1";
+    query->prepare(requete);
+    if(!query->exec()){
+         qDebug() << "Erreur requete SQL obtenir tempo " << database.lastError() << endl;
+    }
+
+    //réponse requête
+    query->next();
+    *tempoM = query->value(0).toInt();
+    *tempoR = query->value(1).toInt();
+
+}
+//modifier tempo
+bool Bdd::setTempo(QString tempoMouv, QString tempoRecep){
+    //requête
+    requete = "UPDATE super ";
+    requete += "SET tempoM=:tempoMouv, tempoR=:tempoRecep ";
+    requete += "WHERE config=1";
+    query->prepare(requete);
+    query->bindValue("tempoMouv", tempoMouv);
+    query->bindValue("tempoRecep", tempoRecep);
+    if(!query->exec()){
+        qDebug() << "Erreur requete SQL modif tempo " << database.lastError() << endl;
+        return false;
+    }
+    return true;
+}
