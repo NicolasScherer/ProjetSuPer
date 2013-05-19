@@ -9,7 +9,7 @@ Configurer::Configurer(QWidget *parent) :
     ui->tabWidget->setCurrentIndex(0);
     ui->tBoxLier->setCurrentIndex(0);
     pBdd = new Bdd;
-
+    this->actuAffichage();      //actualise l'affichage
     this->etatPosition = -1;    //valeur par défaut
 }
 
@@ -181,7 +181,7 @@ bool Configurer::actuAffichage(){
 //bouton actualisation affichage
 void Configurer::on_btAffichage_clicked()
 {
-    bool affichageOk = this-actuAffichage();
+    bool affichageOk = this->actuAffichage();
 
     if(affichageOk == true){
         QMessageBox::information(0, tr("Actualiser Affichage"),
@@ -192,9 +192,6 @@ void Configurer::on_btAffichage_clicked()
                      tr("Erreur : Interface non Actualisee.\n"),
                               QMessageBox::Ok);
     }
-
-
-
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -378,6 +375,7 @@ void Configurer::on_btOkLier_clicked()
 
             }
         }
+        this->actuAffichage();
     }
 }
 //////////
@@ -439,6 +437,7 @@ void Configurer::on_btOkLierMod_clicked()
                      tr("Operation reussie.\n"),
                               QMessageBox::Ok);
         this->on_btAnnulerLierMod_clicked();
+        this->actuAffichage();
     }
 }
 //////////
@@ -500,6 +499,7 @@ void Configurer::on_btOkDelier_clicked()
                      tr("Operation reussie.\n"),
                               QMessageBox::Ok);
         this->on_btAnnulerLierMod_clicked();
+        this->actuAffichage();
     }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -580,6 +580,7 @@ void Configurer::on_btOkVueAdd_clicked()
                      tr("Operation reussie.\n"),
                               QMessageBox::Ok);
         this->on_btAnnulerVueAdd_clicked();
+        this->actuAffichage();
     }
 }
 //++++++++++
@@ -630,7 +631,7 @@ void Configurer::on_btOkVueMod_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerVueMod_clicked();
-
+            this->actuAffichage();
         }
     }
 }
@@ -678,6 +679,7 @@ void Configurer::on_btOKVueSupp_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btannulerVueSupp_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -761,6 +763,7 @@ void Configurer::on_btOkLieuAdd_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerLieuAdd_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -823,6 +826,7 @@ void Configurer::on_btOkLieuMod_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerLieuMod_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -855,6 +859,7 @@ void Configurer::on_btOkLieuSupp_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerLieuSupp_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -950,6 +955,7 @@ void Configurer::on_btOkZoneAdd_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerZoneAdd_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -999,6 +1005,7 @@ void Configurer::on_btOkZoneMod_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerZoneMod_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -1045,6 +1052,7 @@ void Configurer::on_btOkZoneSupp_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerZoneSupp_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -1193,6 +1201,7 @@ void Configurer::on_btOkPosition_clicked()
                                   QMessageBox::Ok);
             this->on_btAnnulerPosition_clicked();
             this->etatPosition = -1;
+            this->actuAffichage();
         }
     //modifier position
     } else if (this->etatPosition == 0){
@@ -1211,6 +1220,7 @@ void Configurer::on_btOkPosition_clicked()
                                   QMessageBox::Ok);
             this->on_btAnnulerPosition_clicked();
             this->etatPosition = -1;
+            this->actuAffichage();
         }
     }else{
         //ok
@@ -1346,6 +1356,7 @@ void Configurer::on_btOkPositionSupp_clicked()
                          tr("Operation reussie.\n"),
                                   QMessageBox::Ok);
             this->on_btAnnulerPositionSupp_clicked();
+            this->actuAffichage();
         }
     }
 }
@@ -1381,6 +1392,7 @@ void Configurer::on_btOkTimer_clicked()
                 QMessageBox::information(0, tr("Modifier durees Timers"),
                              tr("Operation reussie.\n"),
                                       QMessageBox::Ok);
+                this->actuAffichage();
             }//si requete bien passée
         }//si champs vide
    }//si modif ok
