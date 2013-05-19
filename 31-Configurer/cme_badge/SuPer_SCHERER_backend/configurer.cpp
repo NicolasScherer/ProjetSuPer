@@ -8,6 +8,7 @@ Configurer::Configurer(QWidget *parent) :
     ui->setupUi(this);
     ui->tabWidget->setCurrentIndex(0);
     ui->tBoxLier->setCurrentIndex(0);
+    ui->tBoxConfigSuper->setCurrentIndex(0);
     pBdd = new Bdd;
     this->actuAffichage();      //actualise l'affichage
     this->etatPosition = -1;    //valeur par défaut

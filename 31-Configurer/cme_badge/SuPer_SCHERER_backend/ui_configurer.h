@@ -619,7 +619,7 @@ public:
         txtInfoPersonne->raise();
         page_2 = new QWidget();
         page_2->setObjectName(QString::fromUtf8("page_2"));
-        page_2->setGeometry(QRect(0, 0, 890, 442));
+        page_2->setGeometry(QRect(0, 0, 100, 30));
         label_19 = new QLabel(page_2);
         label_19->setObjectName(QString::fromUtf8("label_19"));
         label_19->setGeometry(QRect(20, 30, 341, 16));
@@ -865,7 +865,7 @@ public:
         tBoxConfigLecteur_2->addItem(page_10, QString::fromUtf8("Ajouter une nouvelle Personne"));
         page_11 = new QWidget();
         page_11->setObjectName(QString::fromUtf8("page_11"));
-        page_11->setGeometry(QRect(0, 0, 890, 442));
+        page_11->setGeometry(QRect(0, 0, 100, 30));
         label_124 = new QLabel(page_11);
         label_124->setObjectName(QString::fromUtf8("label_124"));
         label_124->setGeometry(QRect(840, 0, 51, 51));
@@ -1074,7 +1074,7 @@ public:
         tBoxConfigSuper->setGeometry(QRect(10, 10, 900, 530));
         page_7 = new QWidget();
         page_7->setObjectName(QString::fromUtf8("page_7"));
-        page_7->setGeometry(QRect(0, 0, 890, 390));
+        page_7->setGeometry(QRect(0, 0, 100, 30));
         gbAjouterVue = new QGroupBox(page_7);
         gbAjouterVue->setObjectName(QString::fromUtf8("gbAjouterVue"));
         gbAjouterVue->setGeometry(QRect(10, 0, 290, 381));
@@ -1283,7 +1283,7 @@ public:
         tBoxConfigSuper->addItem(page_7, QString::fromUtf8("Gestion des Vues"));
         page_8 = new QWidget();
         page_8->setObjectName(QString::fromUtf8("page_8"));
-        page_8->setGeometry(QRect(0, 0, 890, 390));
+        page_8->setGeometry(QRect(0, 0, 100, 30));
         gbAjouterLieu = new QGroupBox(page_8);
         gbAjouterLieu->setObjectName(QString::fromUtf8("gbAjouterLieu"));
         gbAjouterLieu->setGeometry(QRect(10, 50, 290, 311));
@@ -1428,7 +1428,7 @@ public:
         tBoxConfigSuper->addItem(page_8, QString::fromUtf8("Gestion des Lieux"));
         page_9 = new QWidget();
         page_9->setObjectName(QString::fromUtf8("page_9"));
-        page_9->setGeometry(QRect(0, 0, 890, 390));
+        page_9->setGeometry(QRect(0, 0, 100, 30));
         gbAjouterZone = new QGroupBox(page_9);
         gbAjouterZone->setObjectName(QString::fromUtf8("gbAjouterZone"));
         gbAjouterZone->setEnabled(true);
@@ -1620,7 +1620,7 @@ public:
         tBoxConfigSuper->addItem(page_9, QString::fromUtf8("Gestion des Zones"));
         page_14 = new QWidget();
         page_14->setObjectName(QString::fromUtf8("page_14"));
-        page_14->setGeometry(QRect(0, 0, 890, 390));
+        page_14->setGeometry(QRect(0, 0, 100, 30));
         groupBox = new QGroupBox(page_14);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(10, 0, 435, 391));
@@ -1899,8 +1899,8 @@ public:
 
         retranslateUi(Configurer);
 
-        tabWidget->setCurrentIndex(0);
-        tBoxLier->setCurrentIndex(2);
+        tabWidget->setCurrentIndex(1);
+        tBoxLier->setCurrentIndex(0);
         tBoxConfigLecteur_2->setCurrentIndex(0);
         tBoxConfigLecteur->setCurrentIndex(0);
         tBoxConfigSuper->setCurrentIndex(4);
