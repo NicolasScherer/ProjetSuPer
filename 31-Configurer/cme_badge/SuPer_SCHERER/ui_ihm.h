@@ -19,7 +19,6 @@
 #include <QtGui/QLabel>
 #include <QtGui/QMainWindow>
 #include <QtGui/QMenuBar>
-#include <QtGui/QPushButton>
 #include <QtGui/QStatusBar>
 #include <QtGui/QTabWidget>
 #include <QtGui/QTextEdit>
@@ -40,9 +39,6 @@ public:
     QLabel *label_4;
     QLabel *label_5;
     QLabel *label_6;
-    QPushButton *btConfigurer;
-    QPushButton *btQuitter;
-    QPushButton *btHelp;
     QGroupBox *groupBox;
     QTextEdit *txtAlarme;
     QLabel *label2;
@@ -96,24 +92,6 @@ public:
         label_6->setObjectName(QString::fromUtf8("label_6"));
         label_6->setGeometry(QRect(90, 190, 511, 20));
         tabWidget->addTab(tab_2, QString());
-        btConfigurer = new QPushButton(centralWidget);
-        btConfigurer->setObjectName(QString::fromUtf8("btConfigurer"));
-        btConfigurer->setGeometry(QRect(570, 10, 100, 30));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8("../ressources/ButtonConfigure.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btConfigurer->setIcon(icon);
-        btQuitter = new QPushButton(centralWidget);
-        btQuitter->setObjectName(QString::fromUtf8("btQuitter"));
-        btQuitter->setGeometry(QRect(710, 10, 100, 30));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8("../ressources/ButtonClose.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btQuitter->setIcon(icon1);
-        btHelp = new QPushButton(centralWidget);
-        btHelp->setObjectName(QString::fromUtf8("btHelp"));
-        btHelp->setGeometry(QRect(430, 10, 100, 30));
-        QIcon icon2;
-        icon2.addFile(QString::fromUtf8("../ressources/ButtonHelp.png"), QSize(), QIcon::Normal, QIcon::Off);
-        btHelp->setIcon(icon2);
         groupBox = new QGroupBox(centralWidget);
         groupBox->setObjectName(QString::fromUtf8("groupBox"));
         groupBox->setGeometry(QRect(20, 660, 801, 111));
@@ -136,7 +114,7 @@ public:
         label2_2->setGeometry(QRect(10, 20, 61, 20));
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
-        label->setGeometry(QRect(60, 10, 211, 21));
+        label->setGeometry(QRect(60, 10, 191, 21));
         label->setTextFormat(Qt::AutoText);
         label->setAlignment(Qt::AlignCenter);
         lbActivite = new QLabel(centralWidget);
@@ -166,7 +144,7 @@ public:
 
     void retranslateUi(QMainWindow *Ihm)
     {
-        Ihm->setWindowTitle(QApplication::translate("Ihm", "Ihm", 0, QApplication::UnicodeUTF8));
+        Ihm->setWindowTitle(QApplication::translate("Ihm", "Supervision", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("Ihm", "Tab 1", 0, QApplication::UnicodeUTF8));
         label_2->setText(QApplication::translate("Ihm", "Erreur possible : La base de donn\303\251es est inaccessible.", 0, QApplication::UnicodeUTF8));
         label_3->setText(QApplication::translate("Ihm", "Erreur : le logiciel n'a pu se mettre \303\240 jour en fonction de la Base de donn\303\251es.", 0, QApplication::UnicodeUTF8));
@@ -174,13 +152,10 @@ public:
         label_5->setText(QApplication::translate("Ihm", "Il est vivement conseill\303\251 de regarder attentivement l'aide fournie avec le logiciel.", 0, QApplication::UnicodeUTF8));
         label_6->setText(QApplication::translate("Ihm", "Si le probl\303\250me persiste, contacter la section BTS IRIS qui a d\303\251velopp\303\251 SuPer.", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("Ihm", "Erreur", 0, QApplication::UnicodeUTF8));
-        btConfigurer->setText(QApplication::translate("Ihm", "Configurer", 0, QApplication::UnicodeUTF8));
-        btQuitter->setText(QApplication::translate("Ihm", "Quitter", 0, QApplication::UnicodeUTF8));
-        btHelp->setText(QApplication::translate("Ihm", "Aides", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Ihm", "Alarmes", 0, QApplication::UnicodeUTF8));
         label2->setText(QApplication::translate("Ihm", "r\303\251centes", 0, QApplication::UnicodeUTF8));
         label2_2->setText(QApplication::translate("Ihm", "anciennes", 0, QApplication::UnicodeUTF8));
-        label->setText(QApplication::translate("Ihm", "SuPer : Supervision de Personnes", 0, QApplication::UnicodeUTF8));
+        label->setText(QApplication::translate("Ihm", "SuPer : Logiciel de Supervision", 0, QApplication::UnicodeUTF8));
         lbActivite->setText(QString());
     } // retranslateUi
 

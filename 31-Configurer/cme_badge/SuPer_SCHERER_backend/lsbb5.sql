@@ -192,3 +192,6 @@ INSERT INTO zone (num_zone, num_lieu,sensMonter, legende) VALUE
   (2, 2, 1, "reception uniquement lecteur 2"),
   (23, 2, 3, "reception lecteur 2 et lecteur 3"),
   (3, 3, 1, "reception uniquement lecteur 3");
+
+INSERT INTO super (config, tempoM, tempoR) VALUE
+  (1, 5000, 2500);
