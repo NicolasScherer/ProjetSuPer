@@ -71,9 +71,6 @@ public slots:
     void timerRec();
 
 private slots:
-    //bouton sur l'ihm pour quitter
-    void on_btQuitter_clicked();
-
     //homme en danger (alarme)
     void hommeEnDanger(QString &);
     //perte de réception

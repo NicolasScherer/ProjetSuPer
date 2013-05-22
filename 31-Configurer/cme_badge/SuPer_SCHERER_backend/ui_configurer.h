@@ -410,6 +410,7 @@ public:
     QLabel *label_110;
     QPushButton *btOkTimer;
     QPushButton *btAffichage;
+    QLabel *label_190;
     QMenuBar *menubar;
     QStatusBar *statusbar;
 
@@ -706,7 +707,7 @@ public:
         tBoxLier->addItem(page_2, QString::fromUtf8("Apporter une modification concernant une Affectation"));
         page_3 = new QWidget();
         page_3->setObjectName(QString::fromUtf8("page_3"));
-        page_3->setGeometry(QRect(0, 0, 890, 442));
+        page_3->setGeometry(QRect(0, 0, 100, 30));
         label_29 = new QLabel(page_3);
         label_29->setObjectName(QString::fromUtf8("label_29"));
         label_29->setGeometry(QRect(10, 0, 341, 16));
@@ -1074,7 +1075,7 @@ public:
         tBoxConfigSuper->setGeometry(QRect(10, 10, 900, 530));
         page_7 = new QWidget();
         page_7->setObjectName(QString::fromUtf8("page_7"));
-        page_7->setGeometry(QRect(0, 0, 100, 30));
+        page_7->setGeometry(QRect(0, 0, 890, 390));
         gbAjouterVue = new QGroupBox(page_7);
         gbAjouterVue->setObjectName(QString::fromUtf8("gbAjouterVue"));
         gbAjouterVue->setGeometry(QRect(10, 0, 290, 381));
@@ -1856,7 +1857,7 @@ public:
         tBoxConfigSuper->addItem(page_14, QString::fromUtf8("Coordonn\303\251es Lieux/Zones en fonction des Vues"));
         page_13 = new QWidget();
         page_13->setObjectName(QString::fromUtf8("page_13"));
-        page_13->setGeometry(QRect(0, 0, 890, 390));
+        page_13->setGeometry(QRect(0, 0, 100, 30));
         label_90 = new QLabel(page_13);
         label_90->setObjectName(QString::fromUtf8("label_90"));
         label_90->setGeometry(QRect(30, 20, 241, 16));
@@ -1887,7 +1888,12 @@ public:
         tabWidget->addTab(tab_5, QString());
         btAffichage = new QPushButton(centralwidget);
         btAffichage->setObjectName(QString::fromUtf8("btAffichage"));
-        btAffichage->setGeometry(QRect(764, 10, 141, 23));
+        btAffichage->setGeometry(QRect(770, 0, 141, 31));
+        label_190 = new QLabel(centralwidget);
+        label_190->setObjectName(QString::fromUtf8("label_190"));
+        label_190->setGeometry(QRect(20, 10, 211, 21));
+        label_190->setTextFormat(Qt::AutoText);
+        label_190->setAlignment(Qt::AlignCenter);
         Configurer->setCentralWidget(centralwidget);
         menubar = new QMenuBar(Configurer);
         menubar->setObjectName(QString::fromUtf8("menubar"));
@@ -1899,11 +1905,11 @@ public:
 
         retranslateUi(Configurer);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
         tBoxLier->setCurrentIndex(0);
         tBoxConfigLecteur_2->setCurrentIndex(0);
         tBoxConfigLecteur->setCurrentIndex(0);
-        tBoxConfigSuper->setCurrentIndex(4);
+        tBoxConfigSuper->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(Configurer);
@@ -1911,7 +1917,7 @@ public:
 
     void retranslateUi(QMainWindow *Configurer)
     {
-        Configurer->setWindowTitle(QApplication::translate("Configurer", "MainWindow", 0, QApplication::UnicodeUTF8));
+        Configurer->setWindowTitle(QApplication::translate("Configurer", "Configuration", 0, QApplication::UnicodeUTF8));
         btAffLog->setText(QApplication::translate("Configurer", "Obtenir l'Historique", 0, QApplication::UnicodeUTF8));
         btSuppLog->setText(QApplication::translate("Configurer", "Vider l'Historique", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("Configurer", "Cette action entraine", 0, QApplication::UnicodeUTF8));
@@ -2188,6 +2194,7 @@ public:
         tBoxConfigSuper->setItemText(tBoxConfigSuper->indexOf(page_13), QApplication::translate("Configurer", "Gestion des Timers", 0, QApplication::UnicodeUTF8));
         tabWidget->setTabText(tabWidget->indexOf(tab_5), QApplication::translate("Configurer", "Configurer SuPer", 0, QApplication::UnicodeUTF8));
         btAffichage->setText(QApplication::translate("Configurer", "Actualiser l'interface", 0, QApplication::UnicodeUTF8));
+        label_190->setText(QApplication::translate("Configurer", "SuPer : Logiciel de Configuration", 0, QApplication::UnicodeUTF8));
     } // retranslateUi
 
 };

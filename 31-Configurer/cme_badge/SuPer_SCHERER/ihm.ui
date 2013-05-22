@@ -17,7 +17,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>Ihm</string>
+   <string>Supervision</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QTabWidget" name="tabWidget">
@@ -130,57 +130,6 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="btConfigurer">
-    <property name="geometry">
-     <rect>
-      <x>570</x>
-      <y>10</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Configurer</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../ressources/ButtonConfigure.png</normaloff>../ressources/ButtonConfigure.png</iconset>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btQuitter">
-    <property name="geometry">
-     <rect>
-      <x>710</x>
-      <y>10</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Quitter</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../ressources/ButtonClose.png</normaloff>../ressources/ButtonClose.png</iconset>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="btHelp">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>10</y>
-      <width>100</width>
-      <height>30</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Aides</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>../ressources/ButtonHelp.png</normaloff>../ressources/ButtonHelp.png</iconset>
-    </property>
-   </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
      <rect>
@@ -262,12 +211,12 @@
      <rect>
       <x>60</x>
       <y>10</y>
-      <width>211</width>
+      <width>191</width>
       <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>SuPer : Supervision de Personnes</string>
+     <string>SuPer : Logiciel de Supervision</string>
     </property>
     <property name="textFormat">
      <enum>Qt::AutoText</enum>

@@ -73,16 +73,13 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
-    traitementTrame("F60016A703");  //à enlever à l'intégration
- //   traitementTrame("050016B102");  //à enlever à l'intégration
+   // traitementTrame("F60016A703");  //à enlever à l'intégration
+   // traitementTrame("050026B102");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception
     //DO1 n° de badge
     //6A7 mouvement
     //01 n° lecteur
-
-    //fenêtre sans bordure
-    setWindowFlags(Qt::FramelessWindowHint);
 
 }
 ////////////
@@ -670,7 +667,7 @@ void Ihm::suppLecteur(int numLecteur, int num_vue){
     QWidget *onglet;
     onglet = pDynamique->onglet[num_vue];
     //test valeur
-    qDebug() << "valeur pointeur onglet" << onglet << endl;
+    //qDebug() << "valeur pointeur onglet" << onglet << endl;
 
     //se placer sur le bon label du lecteur
     QLabel *labelL;
@@ -727,7 +724,7 @@ void Ihm::ajoutLecteur(int numLecteur, int num_vue, int x, int y){
     QWidget *onglet;
     onglet = pDynamique->onglet[num_vue];
     //test valeur
-    qDebug() << "valeur pointeur onglet" << onglet << endl;
+   // qDebug() << "valeur pointeur onglet" << onglet << endl;
 
     //nouveau label dynamique pour mettre l'image correspondant
     QLabel *labelL = new QLabel(onglet);
@@ -757,15 +754,8 @@ void Ihm::ajoutOnglet(int num_vue, QString legende, QString image)
 
     //sauvegarde du pointeur onglet
     pDynamique->onglet[num_vue] = pContenuOnglet;
-    qDebug() << "valeur dans la classe" << pDynamique->onglet[num_vue] << endl;
+  //  qDebug() << "valeur dans la classe" << pDynamique->onglet[num_vue] << endl;
 
-}
-
-/////////////////////////////
-/*** SLOT bouton Quitter ***/
-void Ihm::on_btQuitter_clicked()
-{
-    this->~Ihm();
 }
 
 
