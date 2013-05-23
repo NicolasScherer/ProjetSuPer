@@ -30,7 +30,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">
@@ -254,7 +254,6 @@
      <zorder>label_36</zorder>
      <zorder>line</zorder>
      <zorder>line_2</zorder>
-     <zorder>label_190</zorder>
     </widget>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -2357,6 +2356,22 @@
         </property>
         <property name="text">
          <string>Attention il faut avoir créer des lieux auparavant !</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_191">
+        <property name="geometry">
+         <rect>
+          <x>840</x>
+          <y>0</y>
+          <width>51</width>
+          <height>51</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap>../ressources/new.png</pixmap>
         </property>
        </widget>
       </widget>

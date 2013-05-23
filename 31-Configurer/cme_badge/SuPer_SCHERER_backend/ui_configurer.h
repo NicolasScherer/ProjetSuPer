@@ -191,6 +191,7 @@ public:
     QLabel *label_155;
     QComboBox *comboBox_3;
     QLabel *label_148;
+    QLabel *label_191;
     QWidget *page_5;
     QLabel *label_142;
     QComboBox *cBoxPersMod_2;
@@ -1041,6 +1042,10 @@ public:
         label_148->setObjectName(QString::fromUtf8("label_148"));
         label_148->setGeometry(QRect(270, 125, 411, 16));
         label_148->setFont(font1);
+        label_191 = new QLabel(page_4);
+        label_191->setObjectName(QString::fromUtf8("label_191"));
+        label_191->setGeometry(QRect(840, 0, 51, 51));
+        label_191->setPixmap(QPixmap(QString::fromUtf8("../ressources/new.png")));
         tBoxConfigLecteur->addItem(page_4, QString::fromUtf8("Ajouter un nouveau Lecteur"));
         page_5 = new QWidget();
         page_5->setObjectName(QString::fromUtf8("page_5"));
@@ -1905,7 +1910,7 @@ public:
 
         retranslateUi(Configurer);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
         tBoxLier->setCurrentIndex(0);
         tBoxConfigLecteur_2->setCurrentIndex(0);
         tBoxConfigLecteur->setCurrentIndex(0);
@@ -2028,6 +2033,7 @@ public:
         btPersExistant_2->setText(QApplication::translate("Configurer", "Lecteur existant", 0, QApplication::UnicodeUTF8));
         label_155->setText(QApplication::translate("Configurer", "Cliquer sur le bouton ci-dessous pour obtenir une liste des num\303\251ros de personnes d\303\251j\303\240 existants :", 0, QApplication::UnicodeUTF8));
         label_148->setText(QApplication::translate("Configurer", "Attention il faut avoir cr\303\251er des lieux auparavant !", 0, QApplication::UnicodeUTF8));
+        label_191->setText(QString());
         tBoxConfigLecteur->setItemText(tBoxConfigLecteur->indexOf(page_4), QApplication::translate("Configurer", "Ajouter un nouveau Lecteur", 0, QApplication::UnicodeUTF8));
         label_142->setText(QApplication::translate("Configurer", "Choissir un lecteur dans la liste d\303\251roulante ci-contre :", 0, QApplication::UnicodeUTF8));
         btOkPersMod_2->setText(QApplication::translate("Configurer", "Confirmer", 0, QApplication::UnicodeUTF8));

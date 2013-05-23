@@ -73,7 +73,7 @@ Ihm::Ihm(QWidget *parent) :
    // lecteurInactif(pLecteur);   // à enlever à l'intégration
    // lecteurInconnu();           // à enlever à l'intégration
 
-   // traitementTrame("F60016A703");  //à enlever à l'intégration
+    traitementTrame("F60016A703");  //à enlever à l'intégration
    // traitementTrame("050026B102");  //à enlever à l'intégration
     //trame type : AD D01 6A7 01
     //AD niveau de reception

@@ -1376,9 +1376,9 @@ void Configurer::on_btOkTimer_clicked()
         QString tempoMouv = ui->lEditTimerMouv->text();
         QString tempoRecep = ui->lEditTimerRecep->text();
 
-        if(tempoMouv == "" || tempoRecep == ""){
+        if(tempoMouv == "" || tempoRecep == "" || tempoMouv == "0" || tempoRecep == "0"){
             QMessageBox::warning(0, tr("Attention : champs vides"),
-                         tr("Vous ne pouvez pas laisser des champs vides\n"),
+                         tr("Vous ne pouvez pas laisser des champs vides.\nErreur 028."),
                                   QMessageBox::Ok);
         }else{
             //requête
